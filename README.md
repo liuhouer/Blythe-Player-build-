@@ -5,7 +5,7 @@ a personal MP3 player ，build by bruce （series），if you want to try ，fir
 
 
 The first version, more simple interface and function
-Downloadhttp://pan.baidu.com/share/link?shareid=85286&uk=38601640643860164064 >
+Download        http://pan.baidu.com/share/link?shareid=85286&uk=3860164064
 
 The second version, preliminary wrote the lyrics show synchronization function and peel function, (will *. SKN files on the application with directory can switch the skin)
 Download address: http://pan.baidu.com/share/link?shareid=85287&uk=3860164064 
