@@ -5,42 +5,42 @@ a personal MP3 player ，build by bruce （series），if you want to try ，fir
 
 
 The first version, more simple interface and function
-Download address: < http://pan.baidu.com/share/link? Shareid = 85286 and UK = 3860164064 >
+Downloadhttp://pan.baidu.com/share/link?shareid=85286&uk=38601640643860164064 >
 
 The second version, preliminary wrote the lyrics show synchronization function and peel function, (will *. SKN files on the application with directory can switch the skin)
-Download address: http://pan.baidu.com/share/link? Shareid = 85287 and UK = 3860164064
+Download address: http://pan.baidu.com/share/link?shareid=85287&uk=3860164064 
 
 The third version, use a clock control to realize the magnetic form, continue to study...
-Download address: http://pan.baidu.com/share/link? Shareid = 85288 and UK = 3860164064
+Download address:http://pan.baidu.com/share/link?shareid=85288&uk=3860164064 
 
 The fourth version, call bass. DLL, completely overturned previous algorithm, interface beautiful many, can adjust equalizer, bug rarely, the function to increase...
 
-Download address: http://pan.baidu.com/share/link? Shareid = 85289 and UK = 3860164064
+Download address: http://pan.baidu.com/share/link?shareid=85288&uk=3860164064 
 
 
 The fifth version, magnetic form control change, win7 can perfect embodiment.
-Download address: http://pan.baidu.com/share/link? Shareid = 85290 and UK = 3860164064
+Download address: http://pan.baidu.com/share/link?shareid=85290&uk=3860164064 
 
 
 The sixth edition, realize the basic function of all, there is no screenshots,
-Download address: http://pan.baidu.com/share/link? Shareid = 85291 and UK = 3860164064
+Download address:http://pan.baidu.com/share/link?shareid=85291&uk=3860164064 
 
 The seventh version, automatic recording playlists and loading, there are a lot of new features in the skin to write control, wrote two skin, no record position replace then that's ink, generating two procedures, with their preferences, download to use it
-Bronze: http://pan.baidu.com/share/link? Shareid = 85293 and UK = 3860164064
-Winamp version: http://pan.baidu.com/share/link? Shareid = 85292 and UK = 3860164064
+Bronze: http://pan.baidu.com/share/link?shareid=85293&uk=3860164064  
+Winamp version:：http://pan.baidu.com/share/link?shareid=85292&uk=3860164064  
 
 
 
 
-:http://pan.baidu.com/share/link? 1.7 Shareid = 85302 and UK = 3860164064
+1.7：http://pan.baidu.com/share/link?shareid=85302&uk=3860164064 
 
-1.7.1:http://pan.baidu.com/share/link? Shareid = 85304 and UK = 3860164064
+1.7.1：http://pan.baidu.com/share/link?shareid=85304&uk=3860164064 
 
-1.7.2:http://pan.baidu.com/share/link? Shareid = 85305 and UK = 3860164064
+1.7.2：http://pan.baidu.com/share/link?shareid=85305&uk=3860164064 
 
 
 Finally, there are several skin file, download after decompression, 2-6 version can use, in their executive directory can switch the skin...
-Download skin: http://pan.baidu.com/share/link? Shareid = 85298 and UK = 3860164064
+Download skin:    http://pan.baidu.com/share/link?shareid=85298&uk=3860164064 
 
 No......
 
@@ -57,14 +57,19 @@ Kind of desktop lyrics style, with your be fond of
 . All versions are single file executable program, no call DLL, a lot of people foreigners development of thing, after the call, encumbrance!
 No...
 
-
 Download address:
-1.8: http://pan.baidu.com/share/link? Shareid = 85307 and UK = 3860164064
-1.8.1: http://pan.baidu.com/share/link? Shareid = 85308 and UK = 3860164064
-1.8.2: http://pan.baidu.com/share/link? Shareid = 85308 and UK = 3860164064
+
+1.8：   http://pan.baidu.com/share/link?shareid=85307&uk=3860164064 
+1.8.1：  http://pan.baidu.com/share/link?shareid=85308&uk=3860164064 
+1.8.2：   http://pan.baidu.com/share/link?shareid=85308&uk=3860164064 
+
 
 / / - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Had a holiday, nothing to do research and study, update some function - - - - - - - - - - - - - - - 2012/10/1 now
 To read the id3 tags, can define your own artist, album, s,,,, a key definition, characteristic summary.
 2. Join recognition operating system version, and then to control the form of magnetic effect.
 Join desktop lyrics maintain the front end function, I don't know his thousands of listening algorithm, oneself take it for granted
+
+Download address:
+
+1.8.3：  http://pan.baidu.com/share/link?shareid=85311&uk=3860164064 
