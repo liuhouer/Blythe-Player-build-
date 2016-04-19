@@ -1,1 +1,0 @@
-AnimateWindow(Form3.Handle,800,AW_HIDE or AW_BLEND);
