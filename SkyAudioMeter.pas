@@ -4,8 +4,8 @@
 *   功能： 即时显示音频波形及频谱，提供一点娱乐效果                          *
 *   版本： V1.01                                                             *
 *   作者： 顾中军                                                            *
-*   日期:  2006.3.25 ~ 2006.3.31 完成波形显示部分                            *
-*          2006.4.1 ~ 2006.4.3   加上简单频谱显示功能                        *
+*   日期:   完成波形显示部分                                                 *
+*           加上简单频谱显示功能                                             *
 *   用法：                                                                   *
 *          很简单，设置好各参数，设置Active为True即可看到效果                *
 *   说明：                                                                   *
@@ -326,7 +326,7 @@ end;
 
 procedure TSkyAudioMeter.SetDataStep(Value: Integer);
 begin                    //标准: DATA STEP = 2 , 改为奇数，
-                         //则可简单合成两个声道波形为一个波形！  2006.3.27
+                         //则可简单合成两个声道波形为一个波形！
   if (FDataStep <> Value) and (Value >= 1) and (Value <= 64) then
     FDataStep := Value;
 end;
@@ -500,7 +500,7 @@ var
                            + FFreqTarget[i].Imag * FFreqTarget[i].Imag)
                           / DEF_BUFFER_SIZE));
           y := Min(y, 8192);
-          y := Height - y * Height div 8192;
+          y := Height - y * Height div 200;
           Rectangle(x, y, x + FreqWidth, Height -1);
           Inc(x, FreqSpace + FreqWidth);
         end else begin

@@ -25,8 +25,6 @@ type
   private
      Water: TWaterEffect;  Bmp: TBitmap;
 
- //   procedure WMWINDOWPOSCHANGING(Var Msg: TWMWINDOWPOSCHANGING);message WM_WINDOWPOSCHANGING;
-    ///////////////磁性窗体
 
     { Private declarations }
   public
@@ -41,43 +39,6 @@ implementation
 uses Unit3, Unit1;
 
 {$R *.dfm}
-//------------------------实现磁性窗体--------------------------------------
-{procedure TForm4.WMWINDOWPOSCHANGING(var Msg: TWMWINDOWPOSCHANGING);
-var
-WorkDound: TRect;
-remove : Word;
-begin
-remove :=80; //可随意设置，是磁性的范围大小。
-WorkDound.Left:=form1.left;
-WorkDound.Top:=form1.Top;
-WorkDound.Right:=form1.left+form1.Width;
-WorkDound.Bottom:=form1.Top+form1.Height;
-with Msg.WindowPos^ do
-begin
-    if (x+cx<WorkDound.Left+remove) then    //左方具有磁性
-      if (x+cx>WorkDound.Left-remove)or((x+cx>WorkDound.Left) and (x+cx<WorkDound.Left+remove)) then
-        begin
-          x:=WorkDound.Left-cx;
-        end;
-    if (x>WorkDound.Right-remove) then   //右方具有磁性
-      if (x<WorkDound.Right+remove)or((x<WorkDound.Right) and (x>WorkDound.Right-remove)) then
-        begin
-          x:=WorkDound.Right;
-        end;
-    if (y+cy<WorkDound.Top+remove) then    //上方具有磁性
-      if (y+cy>WorkDound.Top-remove)or((y+cy>WorkDound.Top) and (y+cy<WorkDound.Top+remove)) then
-        begin
-          y:= WorkDound.Top-cy;
-        end;
-    if (y>WorkDound.Bottom-remove) then   //下方具有磁性
-      if (y<WorkDound.Bottom+remove)or((y<WorkDound.Bottom) and (y>WorkDound.Bottom-remove)) then
-        begin
-          y:= WorkDound.Bottom;
-        end;
-end;
-inherited;
-end;   }
-//---------------------------------实现磁性窗体-------------------------------------------------
 
 procedure TForm4.tmr1Timer(Sender: TObject);
 begin
@@ -107,8 +68,7 @@ end;
 
 procedure TForm4.FormCreate(Sender: TObject);
 begin
-//self.ScreenSnap:=True;
-//self.SnapBuffer:=30;//窗体吸附效果
+
    Bmp := TBitmap.Create;
   Bmp.Assign(img1.Picture.Graphic);
   img1.Picture.Graphic := nil;
@@ -134,7 +94,7 @@ end;
 procedure TForm4.FormShow(Sender: TObject);
 begin
  form4.Left:=Form1.Left+form1.Width;
-  Form4.Top:=Form1.Top+form3.Height ;
+  Form4.Top:=Form1.Top;
 AnimateWindow(Form4.Handle,800,AW_BLEND);
 end;
 

@@ -1,367 +1,354 @@
-unit main;
+unit Main;
+
+{$I DELPHIAREA.INC}
+
+{$IFDEF COMPILER6_UP}
+  {$WARN UNIT_PLATFORM OFF}
+{$ENDIF}
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, CommonTypes,
-  VsControls, VsSkin, VsButtons, VsProgressBar, VsLed, VsLabel, AudioObject,
-  VsSlider, ExtCtrls, VsComposer, VsImageClip, VsCheckBox, VsImageText,
-  VsImage, DrawUtils, Menus, WinSkinData, OBMagnet, OBXPBarMenu, RzTray;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ComCtrls, StdCtrls, ExtCtrls, FindFile;
 
 type
-  TFormPlayer = class(TForm)
-    mainSkin: TVsSkin;
-    VsButton1: TVsButton;
-    VsButton2: TVsButton;
-    BtnPrev: TVsButton;
-    BtnPlay: TVsButton;
-    BtnPause: TVsButton;
-    BtnStop: TVsButton;
-    BtnNext: TVsButton;
-    BtnOpen: TVsButton;
-    VsComposer: TVsComposer;
-    RptCheck: TVsCheckBox;
-    ShfCheck: TVsCheckBox;
-    VolTrack: TVsSlider;
-    BalTrack: TVsSlider;
-    OpenDialog: TOpenDialog;
-    TimerDisplay: TTimer;
-    TimerRender: TTimer;
-    TimePosText: TVsImageText;
-    PosTrackBar: TVsSlider;
-    TitleText: TVsImageText;
-    StateText: TVsImageText;
-    VsCheckBox1: TVsCheckBox;
-    EQCheck: TVsCheckBox;
-    PLCheck: TVsCheckBox;
-    PopupMenu: TPopupMenu;
-    Config: TMenuItem;
-    WavePaint: TImage;
-    FreqText: TVsImageText;
-    BpsText: TVsImageText;
-    PLIndexText: TVsImageText;
-    StartupTimer: TTimer;
-    Playlist: TMenuItem;
-    Equalyzer: TMenuItem;
-    AudioPlayer: TMenuItem;
-    Play: TMenuItem;
-    Pause: TMenuItem;
-    Stop: TMenuItem;
-    N1: TMenuItem;
-    Next: TMenuItem;
-    Previous1: TMenuItem;
-    N2: TMenuItem;
-    N3: TMenuItem;
-    Exit1: TMenuItem;
-    Open: TMenuItem;
-    TimerMove: TTimer;
-    SkinData1: TSkinData;
-    OBFormMagnet1: TOBFormMagnet;
-    RzTrayIcon1: TRzTrayIcon;
-    procedure VsButton1Click(Sender: TObject);
-    procedure VsButton2Click(Sender: TObject);
-    procedure RptCheckClick(Sender: TObject);
-    procedure ShfCheckClick(Sender: TObject);
+  TMainForm = class(TForm)
+    FindButton: TButton;
+    StopButton: TButton;
+    FindFile: TFindFile;
+    Animate: TAnimate;
+    FoundFiles: TListView;
+    StatusBar: TStatusBar;
+    Threaded: TCheckBox;
+    PageControl: TPageControl;
+    TabSheet1: TTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Filename: TEdit;
+    Location: TEdit;
+    Subfolders: TCheckBox;
+    BrowseButton: TButton;
+    TabSheet2: TTabSheet;
+    Attributes: TGroupBox;
+    TabSheet3: TTabSheet;
+    BeforeDate: TDateTimePicker;
+    DateRangeChoice: TRadioGroup;
+    AfterDate: TDateTimePicker;
+    Label3: TLabel;
+    Phrase: TEdit;
+    BeforeTime: TDateTimePicker;
+    AfterTime: TDateTimePicker;
+    FileSize: TGroupBox;
+    SizeMaxEdit: TEdit;
+    Label8: TLabel;
+    SizeMinEdit: TEdit;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    BD: TCheckBox;
+    BT: TCheckBox;
+    AD: TCheckBox;
+    AT: TCheckBox;
+    IgnoreCase: TCheckBox;
+    WholeWord: TCheckBox;
+    SizeMin: TUpDown;
+    SizeMax: TUpDown;
+    System: TCheckBox;
+    Hidden: TCheckBox;
+    Readonly: TCheckBox;
+    Archive: TCheckBox;
+    Directory: TCheckBox;
+    Compressed: TCheckBox;
+    Encrypted: TCheckBox;
+    Offline: TCheckBox;
+    SparseFile: TCheckBox;
+    ReparsePoint: TCheckBox;
+    Temporary: TCheckBox;
+    procedure FindButtonClick(Sender: TObject);
+    procedure StopButtonClick(Sender: TObject);
+    procedure FindFileFolderChange(Sender: TObject; const Folder: String;
+      var IgnoreFolder: TFolderIgnore);
+    procedure FindFileFileMatch(Sender: TObject; const Folder: String;
+      const FileInfo: TSearchRec);
+    procedure BrowseButtonClick(Sender: TObject);
+    procedure FoundFilesColumnClick(Sender: TObject; Column: TListColumn);
+    procedure FoundFilesCompare(Sender: TObject; Item1, Item2: TListItem;
+      Data: Integer; var Compare: Integer);
+    procedure FindFileSearchFinish(Sender: TObject);
+    procedure FoundFilesDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure BtnOpenClick(Sender: TObject);
-    procedure BtnPlayClick(Sender: TObject);
-    procedure BtnStopClick(Sender: TObject);
-    procedure BtnPauseClick(Sender: TObject);
-    procedure BtnNextClick(Sender: TObject);
-    procedure BtnPrevClick(Sender: TObject);
-    procedure VolTrackChange(Sender: TObject);
-    procedure BalTrackChange(Sender: TObject);
-    procedure TimerDisplayTimer(Sender: TObject);
-    procedure TimerRenderTimer(Sender: TObject);
-    procedure PosTrackBarMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure PLCheckClick(Sender: TObject);
-    procedure ConfigClick(Sender: TObject);
-    procedure EQCheckClick(Sender: TObject);
-    procedure StartupTimerTimer(Sender: TObject);
-    procedure Exit1Click(Sender: TObject);
-    procedure PlaylistClick(Sender: TObject);
-    procedure EqualyzerClick(Sender: TObject);
-    procedure TimePosTextClick(Sender: TObject);
-    procedure mainSkinMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure mainSkinMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure TimerMoveTimer(Sender: TObject);
-    procedure TimePosTextContextPopup(Sender: TObject; MousePos: TPoint;
-      var Handled: Boolean);
+    procedure BDClick(Sender: TObject);
+    procedure BTClick(Sender: TObject);
+    procedure ADClick(Sender: TObject);
+    procedure ATClick(Sender: TObject);
+    procedure FindFileSearchBegin(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FindFileSearchAbort(Sender: TObject);
   private
-   ScrollText, LastText : String;
-   EQOffX, EQOffY : Integer;
-   PLOffX, PLOffY : Integer;
-  public
-    { Public declarations }
+    Folders: Integer;
+    StartTime: DWord;
+    SortedColumn: Integer;
+    Descending: Boolean;
   end;
 
 var
-  FormPlayer: TFormPlayer;
+  MainForm: TMainForm;
 
 implementation
 
-uses playlist, config, equalyzer;
-
 {$R *.DFM}
 
-procedure TFormPlayer.VsButton1Click(Sender: TObject);
-begin
-  Application.Minimize;
-end;
+uses
+  FileCtrl, ShellAPI;
 
-procedure TFormPlayer.VsButton2Click(Sender: TObject);
+function GetAttributeStatus(CB: TCheckBox): TFileAttributeStatus;
 begin
-  Application.Terminate;
-end;
-
-procedure TFormPlayer.RptCheckClick(Sender: TObject);
-begin
-  AudioObjectPlayer.Shf := RptCheck.Checked;
-end;
-
-procedure TFormPlayer.ShfCheckClick(Sender: TObject);
-begin
-  AudioObjectPlayer.Rpt := ShfCheck.Checked;
-end;
-
-procedure TFormPlayer.FormCreate(Sender: TObject);
-begin
- AudioObjectPlayer := TAudioObject.Create(Application.Handle);
- DrawInit;
-end;
-
-procedure TFormPlayer.BtnOpenClick(Sender: TObject);
-begin
-OpenDialog.Title := '打开音频';
-OpenDialog.Filter := AudioObjectPlayer.GetDialogFilter + '|所有格式 (*.*)|*.*';
- if not OpenDialog.Execute then exit;
- if FormConfig.PLClearCheck.Checked then AudioObjectPlayer.Clear;
- AudioObjectPlayer.OpenFiles(OpenDialog.Files);
- Selected := AudioObjectPlayer.ItemIndex;
- AudioObjectPlayer.SetLegth(Selected, AudioObjectPlayer.GetSongLen);
- ListTotal := AudioObjectPlayer.GetTotLegth;
- DrawPlayList (100 - FormPlaylist.ListSlider.Position);
-end;
-
-procedure TFormPlayer.BtnPlayClick(Sender: TObject);
-begin
- if AudioObjectPlayer.EngineState = ENGINE_PAUSE then
-   AudioObjectPlayer.UnPause
+  case CB.State of
+    cbUnchecked: Result := fsUnset;
+    cbChecked: Result := fsSet;
   else
-   AudioObjectPlayer.Play(AudioObjectPlayer.GetCurSong);
-  AudioObjectPlayer.SetLegth(Selected, AudioObjectPlayer.GetSongLen);   
+    Result := fsIgnore;
+  end;
 end;
 
-procedure TFormPlayer.BtnStopClick(Sender: TObject);
+procedure TMainForm.FindButtonClick(Sender: TObject);
 begin
- AudioObjectPlayer.Stop;
-end;
-
-procedure TFormPlayer.BtnPauseClick(Sender: TObject);
-begin
- AudioObjectPlayer.Pause;
-end;
-
-procedure TFormPlayer.BtnNextClick(Sender: TObject);
-begin
- AudioObjectPlayer.NextSong;
- Selected := AudioObjectPlayer.ItemIndex;
- AudioObjectPlayer.SetLegth(Selected, AudioObjectPlayer.GetSongLen);
- DrawPlayList (100 - FormPlaylist.ListSlider.Position);
-end;
-
-procedure TFormPlayer.BtnPrevClick(Sender: TObject);
-begin
- AudioObjectPlayer.PrevSong;
- Selected := AudioObjectPlayer.ItemIndex;
- DrawPlayList (100 - FormPlaylist.ListSlider.Position);
- AudioObjectPlayer.SetLegth(Selected, AudioObjectPlayer.GetSongLen); 
-end;
-
-procedure TFormPlayer.VolTrackChange(Sender: TObject);
-begin
- AudioObjectPlayer.SetMainVolume(VolTrack.Position);
-end;
-
-procedure TFormPlayer.BalTrackChange(Sender: TObject);
-begin
- AudioObjectPlayer.SetPanning(BalTrack.Position);
-end;
-
-procedure TFormPlayer.TimerDisplayTimer(Sender: TObject);
- var fLen, fPos : Integer; Tmp : String;
-begin
- fPos := AudioObjectPlayer.GetSongPos div 1000;
- fLen := AudioObjectPlayer.GetSongLen div 1000;
-
- PosTrackBar.Position := Trunc((fPos / fLen) * 100);
- if FormConfig.InvTimeCheckBox.Checked then
-   TimePosText.Text := ShortTime (fLen - fPos)
- else
-   TimePosText.Text := ShortTime (fPos);
-
- Tmp := (AudioObjectPlayer.GetSongTitle(AudioObjectPlayer.GetCurSong));
- if (Tmp) <> '' then
+  // Sets FileFile properties
+  FindFile.Threaded := Threaded.Checked;
+  // - Name & Location
+  with FindFile.Criteria.Files do
   begin
-    Tmp := (Tmp) + ' (' + ShortTime (AudioObjectPlayer.GetSongLen div 1000) + ') *** ';
-    if LastText <> Tmp then
-      begin
-       ScrollText := Tmp;
-       LastText := Tmp;
-      end
-     else ScrollText := Copy(ScrollText, 2, Length(ScrollText)) + ScrollText[1];
-  end
-   else
+    FileName := Self.Filename.Text;
+    Location := Self.Location.Text;
+    Subfolders := Self.Subfolders.Checked;
+  end;
+  // - Containing Text
+  with FindFile.Criteria.Content do
+  begin
+    Phrase := Self.Phrase.Text;
+    IgnoreCase := Self.IgnoreCase.Checked;
+    WholeWord := Self.WholeWord.Checked;
+  end;
+  // - Attributes
+  with FindFile.Criteria.AttributeEx do
+  begin
+    Archive := GetAttributeStatus(Self.Archive);
+    Readonly := GetAttributeStatus(Self.Readonly);
+    Hidden := GetAttributeStatus(Self.Hidden);
+    System := GetAttributeStatus(Self.System);
+    Directory := GetAttributeStatus(Self.Directory);
+    Compressed := GetAttributeStatus(Self.Compressed);
+    Encrypted := GetAttributeStatus(Self.Encrypted);
+    Offline := GetAttributeStatus(Self.Offline);
+    ReparsePoint := GetAttributeStatus(Self.ReparsePoint);
+    SparseFile := GetAttributeStatus(Self.SparseFile);
+    Temporary := GetAttributeStatus(Self.Temporary);
+  end;
+  // - Size ranges
+  with FindFile.Criteria.Size do
+  begin
+    Min := SizeMin.Position * 1024; // KB -> byte
+    Max := SizeMax.Position * 1024; // KB -> byte
+  end;
+  // - TimeStamp ranges
+  with FindFile.Criteria.TimeStamp do
+  begin
+    AccessedBefore := 0;
+    AccessedAfter := 0;
+    ModifiedBefore := 0;
+    ModifiedAfter := 0;
+    CreatedBefore := 0;
+    CreatedAfter := 0;
+    case DateRangeChoice.ItemIndex of
+      0: begin // Created on
+           if BD.Checked then
+             CreatedBefore := BeforeDate.Date;
+           if BT.Checked then
+             CreatedBefore := CreatedBefore + BeforeTime.Time;
+           if AD.Checked then
+             CreatedAfter := AfterDate.Date;
+           if AT.Checked then
+             CreatedAfter := CreatedAfter + AfterTime.Time;
+         end;
+      1: begin // Modified on
+           if BD.Checked then
+             ModifiedBefore := BeforeDate.Date;
+           if BT.Checked then
+             ModifiedBefore := ModifiedBefore + BeforeTime.Time;
+           if AD.Checked then
+             ModifiedAfter := AfterDate.Date;
+           if AT.Checked then
+             ModifiedAfter := ModifiedAfter + AfterTime.Time;
+         end;
+      2: begin // Last Accessed on
+           if BD.Checked then
+             AccessedBefore := BeforeDate.Date;
+           if BT.Checked then
+             AccessedBefore := AccessedBefore + BeforeTime.Time;
+           if AD.Checked then
+             AccessedAfter := AfterDate.Date;
+           if AT.Checked then
+             AccessedAfter := AccessedAfter + AfterTime.Time;
+         end;
+    end;
+  end;
+  // Begins search
+  FindFile.Execute;
+end;
+
+procedure TMainForm.StopButtonClick(Sender: TObject);
+begin
+  FindFile.Abort;
+end;
+
+procedure TMainForm.FindFileSearchAbort(Sender: TObject);
+begin
+  StatusBar.SimpleText := 'Cancelling search, please wait...';
+  Update;
+end;
+
+procedure TMainForm.FindFileSearchBegin(Sender: TObject);
+begin
+  SortedColumn := -1;
+  FoundFiles.SortType := stNone;
+  FoundFiles.Items.BeginUpdate;
+  FoundFiles.Items.Clear;
+  FoundFiles.Items.EndUpdate;
+  FindButton.Enabled := False;
+  StopButton.Enabled := True;
+  Threaded.Enabled := False;
+  Animate.Active := True;
+  Folders := 0;
+  StartTime := GetTickCount;
+end;
+
+procedure TMainForm.FindFileSearchFinish(Sender: TObject);
+begin
+  StatusBar.SimpleText := Format('%d folder(s) searched and %d file(s) found - %.3f second(s)',
+    [Folders, FoundFiles.Items.Count, (GetTickCount - StartTime) / 1000]);
+  if FindFile.Aborted then
+    StatusBar.SimpleText := 'Search cancelled - ' + StatusBar.SimpleText;
+  Animate.Active := False;
+  Threaded.Enabled := True;
+  StopButton.Enabled := False;
+  FindButton.Enabled := True;
+end;
+
+procedure TMainForm.FindFileFolderChange(Sender: TObject; const Folder: String;
+  var IgnoreFolder: TFolderIgnore);
+begin
+  Inc(Folders);
+  StatusBar.SimpleText := Folder;
+  if not FindFile.Threaded then
+    Application.ProcessMessages;
+end;
+
+procedure TMainForm.FindFileFileMatch(Sender: TObject; const Folder: String;
+  const FileInfo: TSearchRec);
+begin
+  with FoundFiles.Items.Add do
+  begin
+    Caption := FileInfo.Name;
+    SubItems.Add(Folder);
+    if (FileInfo.Attr and faDirectory) <> 0 then
+      SubItems.Add('Folder')
+    else
+      SubItems.Add(IntToStr((FileInfo.Size + 1023) div 1024) + 'KB');
+    SubItems.Add(DateTimeToStr(FileDateToDateTime(FileInfo.Time)));
+  end;
+  if not FindFile.Threaded then
+    Application.ProcessMessages;
+end;
+
+procedure TMainForm.BrowseButtonClick(Sender: TObject);
+var
+  Folder: String;
+begin
+  if Pos(';', Location.Text) = 0 then
+    Folder := Location.Text
+  else
+    Folder := '';
+  {$IFDEF COMPILER4_UP}
+  if SelectDirectory('Select folder to search:', '', Folder) then
+    Location.Text := Folder;
+  {$ELSE}
+  if SelectDirectory(Folder, [], 0) then
+    Location.Text := Folder;
+  {$ENDIF}
+end;
+
+procedure TMainForm.FoundFilesColumnClick(Sender: TObject; Column: TListColumn);
+begin
+  if not FindFile.Busy then
+  begin
+    TListView(Sender).SortType := stNone;
+    if Column.Index <> SortedColumn then
     begin
-      LastText := '小步静听';
-      ScrollText := '小步静听';
-     end;
-
-  if Length(TMP) > 26 then TitleText.Text := ScrollText else TitleText.Text := LastText;
-
-
- {Playlkyst and Player Infos}
-  Application.Title := LastText + ' - 小步静听';
-  FormPlaylist.InfoText.Text := 'Totals ' + IntToStr(Selected + 1) + '/' + IntToStr(AudioObjectPlayer.Count) + '   ' +
-                               ShortTime (ListTotal div 1000);
-  PLIndexText.Text := IntToStr(Selected + 1) + '/' + IntToStr(AudioObjectPlayer.Count);
-  FreqText.Text    := IntToStr(AudioObjectPlayer.OutFrequency div 1000) + 'khz';
-  BpsText.Text     := IntToStr(AudioObjectPlayer.GetBitrate) + 'kBs';
-   case AudioObjectPlayer.EngineState of
-    ENGINE_PLAY  : StateText.Text := 'P';
-    ENGINE_PAUSE : StateText.Text := 'U';
-    ENGINE_STOP  : StateText.Text := 'S';
-    ENGINE_SONG_END :
-     begin
-       if AudioObjectPlayer.Rpt or AudioObjectPlayer.Shf then
-              BtnNext.OnClick(Nil);
-     end;
-   end;
+      SortedColumn := Column.Index;
+      Descending := False;
+    end
+    else
+      Descending := not Descending;
+    TListView(Sender).SortType := stText;
+  end
+  else
+    MessageDlg('Cannot sort the files when the search is in progress.', mtWarning, [mbOK], 0);
 end;
 
-procedure TFormPlayer.TimerRenderTimer(Sender: TObject);
- var LCH, RCH : Integer;
+procedure TMainForm.FoundFilesCompare(Sender: TObject; Item1,
+  Item2: TListItem; Data: Integer; var Compare: Integer);
 begin
- if not TimerMove.Enabled then
-  begin
-   EQOffX := FormPlayer.Left - FormEq.Left;
-   EQOffY := FormPlayer.Top - FormEq.Top;
-   PLOffX := FormPlayer.Left - FormPlaylist.Left;
-   PLOffY := FormPlayer.Top - FormPlaylist.Top;
-  end;
-  
- if FormConfig.NoneDrawCheck.Checked then Exit;
- if FormConfig.WaveDrawCheck.Checked then DrawWave(WavePaint.Canvas.Handle);
- if FormConfig.FFTDrawCheck.Checked then DrawFFT;
+  if SortedColumn = 0 then
+    Compare := CompareText(Item1.Caption, Item2.Caption)
+  else if SortedColumn > 0 then
+    Compare := CompareText(Item1.SubItems[SortedColumn-1],
+                           Item2.SubItems[SortedColumn-1]);
+  if Descending then Compare := -Compare;
 end;
 
-procedure TFormPlayer.PosTrackBarMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
- var fLen : LongInt;
+procedure TMainForm.FoundFilesDblClick(Sender: TObject);
 begin
- if Button <> mbLeft then Exit;
-   fLen := AudioObjectPlayer.GetSongLen;
-   AudioObjectPlayer.SetSongPos(Trunc(fLen * X / PosTrackBar.Width));
+  if FoundFiles.Selected <> nil then
+    with FoundFiles.Selected do
+      ShellExecute(0, 'Open', PChar(Caption), nil, PChar(SubItems[0]), SW_NORMAL);
 end;
 
-procedure TFormPlayer.PLCheckClick(Sender: TObject);
+procedure TMainForm.FormCreate(Sender: TObject);
 begin
- if PLCheck.Checked then FormPlaylist.Show
-     else FormPlaylist.Close;
+  BeforeDate.Date := Date;
+  BeforeDate.Time := 0;
+  AfterDate.Date := Date;
+  AfterDate.Time := 0;
+  BeforeTime.Time := Time;
+  BeforeTime.Date := 0;
+  AfterTime.Time := Time;
+  AfterTime.Date := 0;
 end;
 
-procedure TFormPlayer.ConfigClick(Sender: TObject);
+procedure TMainForm.BDClick(Sender: TObject);
 begin
- FormConfig.SHow;
- formconfig.Left:=formplayer.left+formplayer.Width;
- formconfig.Top:=formplayer.Top-25
+  BeforeDate.Enabled := BD.Checked;
 end;
 
-procedure TFormPlayer.EQCheckClick(Sender: TObject);
+procedure TMainForm.BTClick(Sender: TObject);
 begin
- if EQCheck.Checked then FormEQ.Show
-     else FormEQ.Close;
+  BeforeTime.Enabled := BT.Checked;
 end;
 
-procedure TFormPlayer.StartupTimerTimer(Sender: TObject);
+procedure TMainForm.ADClick(Sender: TObject);
 begin
-   StartupTimer.Enabled := False;
-
-   {Set Initial Parameters}
-    ScrollText := '小步静听';
-    LastText := ScrollText;
-    AudioObjectPlayer.SetMainVolume(12);
-    AudioObjectPlayer.SetOutBufferLen(2000);
-    
-   {Forms Positions and refresh}
-    FormPlayer.Height := mainSkin.Height;
-    FormPlayer.Width := mainSkin.Width;
-    FormPlayer.Top := (Screen.Height - FormPlayer.Height - FormEQ.Height - FormPlaylist.Height ) div 2;
-    FormPlayer.Left := (Screen.Width - FormPlayer.Width ) div 2;
-    FormPlaylist.Top  := FormPlayer.Top + FormPlayer.Height;
-    FormPlaylist.Left := FormPlayer.Left;
-    FormEQ.Top  := FormPlayer.Top - FormEQ.Height;
-    FormEQ.Left := FormPlayer.Left;
-    EQCheck.Checked := True;
-    PLCheck.Checked := True;
-    FormEQ.Show;
-    FormPlaylist.Show;
+  AfterDate.Enabled := AD.Checked;
 end;
 
-procedure TFormPlayer.Exit1Click(Sender: TObject);
+procedure TMainForm.ATClick(Sender: TObject);
 begin
- Close;
+  AfterTime.Enabled := AT.Checked;
 end;
 
-procedure TFormPlayer.PlaylistClick(Sender: TObject);
+procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  PLCheck.Checked := not PLCheck.Checked;
-  PLCheckClick(Nil);
-end;
-
-procedure TFormPlayer.EqualyzerClick(Sender: TObject);
-begin
-  EQCheck.Checked := not EQCheck.Checked;
-  EQCheckClick(Nil);
-end;
-
-procedure TFormPlayer.TimePosTextClick(Sender: TObject);
-begin
-  FormConfig.InvTimeCheckBox.Checked := not FormConfig.InvTimeCheckBox.Checked;
-end;
-
-procedure TFormPlayer.mainSkinMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
- if Button <> mbLeft then Exit;
-  TimerMove.Enabled := True;
-end;
-
-procedure TFormPlayer.mainSkinMouseUp(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  TimerMove.Enabled := False;
-end;
-
-procedure TFormPlayer.TimerMoveTimer(Sender: TObject);
-begin
- if FormConfig.MoveCheck.Checked then
-  begin
-    FormEq.Left := FormPlayer.Left - EQOffX;
-    FormEq.Top := FormPlayer.Top - EQOffY;
-    FormPlaylist.Left := FormPlayer.Left - PLOffX;
-    FormPlaylist.Top := FormPlayer.Top - PLOffY;
-  end;
-end;
-
-procedure TFormPlayer.TimePosTextContextPopup(Sender: TObject;
-  MousePos: TPoint; var Handled: Boolean);
-begin
- TimePosTextClick(Nil);
+  if FindFile.Busy then FindFile.Abort;
 end;
 
 end.
-

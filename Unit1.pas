@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, MPlayer, Registry, Mmsystem, FileCtrl,
   Menus, ShellAPI, AppEvnts, Buttons, ImgList, SkyAudioMeter, WinSkinData,
-  OBMagnet, OBGammaPanel, OBStarfield, OBXPBarMenu;
+  OBStarfield, RzBorder, RzBmpBtn, RzButton, OBMagnet;
 const WM_NID = WM_User + 1000;
 
 type
@@ -65,7 +65,6 @@ type
     N34: TMenuItem;
     N35: TMenuItem;
     N36: TMenuItem;
-    il1: TImageList;
     btn1: TBitBtn;
     GroupBox1: TGroupBox;
     Panel1: TPanel;
@@ -148,9 +147,14 @@ type
     N75: TMenuItem;
     N76: TMenuItem;
     N77: TMenuItem;
-    OBFormMagnet1: TOBFormMagnet;
+    N78: TMenuItem;
+    N79: TMenuItem;
+    N80: TMenuItem;
+    Panel2: TPanel;
     OBStarfield1: TOBStarfield;
-    OBXPBarMenu1: TOBXPBarMenu;
+    N81: TMenuItem;
+    OBFormMagnet1: TOBFormMagnet;
+    yhcpu: TTimer;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button8Click(Sender: TObject);
@@ -263,6 +267,11 @@ type
     procedure N75Click(Sender: TObject);
     procedure N76Click(Sender: TObject);
     procedure N77Click(Sender: TObject);
+    procedure N79Click(Sender: TObject);
+    procedure N80Click(Sender: TObject);
+    procedure N81Click(Sender: TObject);
+    procedure yhcpuTimer(Sender: TObject);
+    procedure stateTimer(Sender: TObject);
       private
     procedure DropFiles(var Msg: TMessage); message WM_DropFILES;
     procedure SysCommand(var SysMsg: TMessage); message WM_SYSCOMMAND;
@@ -281,7 +290,7 @@ var
   xlist: TListItem;
 implementation
 
-uses  Unit3, Unit4;
+uses  Unit3, Unit4, Unit2, Unit5;
 
 {$R *.dfm}
 
@@ -290,8 +299,6 @@ begin
   case SysMsg.WParam of
     SC_CLOSE: // 当关闭时
       begin
-        form4.Close;  //同时关闭说明界面
-        form3.Hide;  //同时隐藏歌词界面
         SetWindowPos(Application.Handle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_HIDEWINDOW);
         Hide; // 在任务栏隐藏程序
       // 在托盘区显示图标
@@ -323,7 +330,6 @@ begin
   case msg.LParam of
     WM_LBUTTONUP: // 在托盘区点击左键后
       begin
-       
         Form1.Visible := not Form1.Visible; // 显示主窗体与否
 
         Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 显示主窗体后删除托盘区的图标
@@ -360,6 +366,7 @@ begin
     begin
       Trackbar1.Max := mediaplayer1.Length div 1000; //首先取得文件的长度，并设置为滑块的最大值！
       TrackBar1.Position := MediaPlayer1.Position div 1000; //让播放器随播放进度滑动
+      miniplay.vsskin1.Hint:=form1.stat1.Panels[0].Text + chr(13)+'  ~小步静听,享受音乐盛宴~  ';
     end;
 
 end;
@@ -407,8 +414,7 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-//self.ScreenSnap:=True;
-//self.SnapBuffer:=30;//窗体吸附效果
+
 
 label3.Cursor:=crHandPoint;
 listname.Caption:='暂无文件播放..';
@@ -421,6 +427,7 @@ listname.Caption:='暂无文件播放..';
 
   DragAcceptFiles(Handle, True);
   PositionChange := False; //设置初始值；
+  
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -491,6 +498,7 @@ begin
         label1.Caption:='状态:暂停 ';
         label2.Caption:=ZeroFill(2, IntToStr(TrackBar1.Position div 60))
         + ':' + ZeroFill(2, IntToStr(TrackBar1.Position mod 60));
+        
         skyaudiometer1.active:=false;
         btn1.Enabled := True;
         btn2.Enabled := False;
@@ -500,6 +508,9 @@ end;
 
 procedure TForm1.btn3Click(Sender: TObject);
 begin
+case mediaplayer1.Mode of
+    mpplaying:
+      begin
 label1.Caption:='状态:停止 ';
         label2.Caption:='00:00';
   skyaudiometer1.active:=false;
@@ -511,14 +522,16 @@ label1.Caption:='状态:停止 ';
   trackbar1.Enabled := false;
   stat1.Panels[0].Text := '停止播放';
   listname.Caption:='暂无文件播放..';
+
+
   if Win32Platform = VER_PLATFORM_WIN32_NT then
   begin
     SetProcessWorkingSetSize(GetCurrentProcess, $FFFFFFFF, $FFFFFFFF);
     Application.ProcessMessages;
   end;
-
+  end;
 end;
-
+ end;
 procedure TForm1.btn4Click(Sender: TObject);
 var
   i: Integer;
@@ -626,29 +639,7 @@ begin
   end;
 end;
 
-{procedure TForm1.ListBox1MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-var                      //鼠标右键选择列表项
-point:tpoint;
-mouseitem:integer;
-  begin
-  point.X:=x;
-  point.Y:=y;
-  mouseitem:=Lv1.Items.ItemAtPos(point,true);//获取鼠标位置所在的列表内容
- if mouseitem=-1 then //如果鼠标所在位置没有内容
- begin
- N1.Enabled:=False;  //则播放菜单不可用
- N2.Enabled:=False;  //删除菜单不可使用
- N3.Enabled:=False;
- end
-    else
-    begin
-    N1.Enabled:=True;
-    N2.Enabled:=True;
-    N3.Enabled:=True;
-   ListBox1.ItemIndex:=mouseitem; //否则的话恢复为播放和删除菜单可用，并选中列表项
-   end;
-     end;}
+
 
 procedure TForm1.N2Click(Sender: TObject);
 begin
@@ -678,6 +669,8 @@ end;
 
 procedure TForm1.N4Click(Sender: TObject);
 begin
+  miniplay.hide;
+  form1.AlphaBlendValue:=255;
   Form1.Visible := true; // 显示窗体
   SetWindowPos(Application.Handle, HWND_TOP, 0, 0, 0, 0, SWP_SHOWWINDOW);
   Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
@@ -698,6 +691,7 @@ begin
   with mediaplayer1 do
     if mode in [mpplaying] then
     begin
+
       TrackBar1.Max := MediaPlayer1.Length div 1000;
       stat1.Panels[2].Text :='时长:'+ ZeroFill(2, IntToStr(TrackBar1.max div 60))
         + ':' + ZeroFill(2, IntToStr(TrackBar1.max mod 60)) + '   ';
@@ -847,6 +841,8 @@ begin
       xlist.Caption := Flnm;
       xlist.SubItems.add(ExtractFilePath(OpenDialog1.FileName));
       btn1.Enabled := true;
+      lv1.Items[0].Selected:=true;
+
     end;
   end;
 end;
@@ -935,7 +931,10 @@ begin
     if MediaPlayer1.Mode in [mppaused] then
     begin
       MediaPlayer1.Resume;//恢复播放状态--记忆播放位置
+      label1.Caption:='状态:播放 ';
       skyaudiometer1.Active:=true;
+   
+      
       btn1.Enabled := False;
       btn2.Enabled := True;
     end
@@ -975,6 +974,7 @@ end;
 
 procedure TForm1.N23Click(Sender: TObject);
 begin
+Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
   Application.Terminate;
 end;
 
@@ -1074,7 +1074,7 @@ begin
   
     if MediaPlayer1.Mode in[mpplaying] then Form3.loadlrc(MediaPlayer1.FileName);
       end;
-  if chk1.Checked = False then Form3.Close;
+  if chk1.Checked = False then Form3.close;
 end;
 
 procedure TForm1.N28Click(Sender: TObject);
@@ -1186,18 +1186,6 @@ begin
  btn5Click(sender);
 end;
 
-{procedure TForm1.N37Click(Sender: TObject);
-begin
-lv1.Selected.EditCaption;//重命名
-
-end;
-
-procedure TForm1.lv1KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
- if   Key   =   VK_F2   then   
-            Lv1.Selected.EditCaption;
-end; }
 
 procedure TForm1.tmr1Timer(Sender: TObject);
 begin
@@ -1400,7 +1388,7 @@ begin
 N70.Checked:=not n70.Checked;
 if n70.Checked then
 
-form1.Height:=206
+form1.Height:=200
 
 else
 
@@ -1602,51 +1590,62 @@ n77.checked:=true;
 skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'蓝色海洋.skn');
 end;
 
-end.
-//--------------------------使窗体自动吸附屏幕边缘------------------------------
-
-            { 各位。。原来DELPHI7就可以，在OnCreate里加两句代码就行了：
-         self.ScreenSnap:=True;
-         self.SnapBuffer:=30;
-呵呵，不用整那么麻烦的代码。 }
-
-//--------------------------使窗体自动吸附屏幕边缘-------------------------------
-
-
-//==============================任意位置拖动窗体的办法=======================
-{const      //没有标题栏  照样拖动窗体的办法
-    sc_dragmove   =   $f012;
+procedure TForm1.N79Click(Sender: TObject);
 begin
-if   form1.Top   <=0   then   form1.Top   :=2;
-    releasecapture;
-    twincontrol(application.mainform).perform(wm_syscommand,sc_dragmove,   0); }
-//===========================================================================
+if chk1.Checked then   begin
+form3.hide;
+minilrc.Show;
+end
+else
+begin
+chk1.Checked:=true;
+form3.Show;
+form3.hide;
+minilrc.show;
+end;
+end;
+
+procedure TForm1.N80Click(Sender: TObject);
+begin
+if MediaPlayer1.Mode in [mpplaying] then
+begin
+miniplay.vsplay.GraphicName:='mpause.bmp';
+
+end
+else
+begin
+miniplay.vsplay.GraphicName:='mplay.bmp';
+end;
 
 
-             //                  获取应用程序路径.....
-             //ExtractFilePath(ParamStr(0))-------带'\'；
-             //ExtractFilePath(ParamStr(0))-----不带'\'；
-     {       -----------------------------------------------------
-     AnsiString __fastcall ExtractFilePath;
-
-　　ExtractFilePath和相近函数：
-
-　　ExtractFileDrive ：返回完整文件名中的驱动器，如"C:"
-
-　　ExtractFilePath：返回完整文件名中的路径，最后带“/”，如"C:\test\"
-
-　　ExtractFileDir：返回完整文件名中的路径，最后不带“/” ,如"C:\test"
-
-　　ExtractFileName:返回完整文件名中的文件名称 (带扩展名)，如"mytest.doc"
-
-　　ExtractFileExt 返回完整文件名中的文件扩展名（带.），如".doc"
-
-　　extractfiledir //这个没有最后的 \
-
-　　extractfilepath //这个最后有 \
-}
-////==========================================================================
+form1.AlphaBlendValue:=0;
+miniplay.Show;
 
 
+end;
+
+procedure TForm1.N81Click(Sender: TObject);
+begin
+n13click(sender);
+end;
+
+procedure TForm1.yhcpuTimer(Sender: TObject);
+begin
 
 
+    SetProcessWorkingSetSize(GetCurrentProcess, $FFFFFFFF, $FFFFFFFF);
+    //释放物理内存
+    Application.ProcessMessages;
+
+
+end;
+
+procedure TForm1.stateTimer(Sender: TObject);
+begin
+if skyaudiometer1.Active then
+
+end;
+
+end.
+
+//-------大发现：在audiometer里的drawFFpaint  里除的倍数来调节频谱高度 ----------
