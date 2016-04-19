@@ -1,6 +1,6 @@
 object MainPlay: TMainPlay
-  Left = 400
-  Top = 123
+  Left = 322
+  Top = 162
   BorderStyle = bsNone
   Caption = 'MainPlay'
   ClientHeight = 351

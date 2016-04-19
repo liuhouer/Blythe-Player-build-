@@ -1150,13 +1150,6 @@ end;
 procedure TMainPlay.VsHotSpot1Click(Sender: TObject);
 begin
 application.Minimize;
-if minilrc.Showing then
-begin
-n79.Checked:=false;
-minilrc.Close;
-n79.Checked:=true;
-minilrc.Show;
-end;
 end;
 procedure TMainPlay.N80Click(Sender: TObject);
 begin
