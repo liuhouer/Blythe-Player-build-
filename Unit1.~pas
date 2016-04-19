@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, VsControls, VsSkin, VsImageClip, ComCtrls, SkyAudioMeter,Mmsystem,FileCtrl,
   VsComposer, WinSkinData, Menus,ShellAPI,AppEvnts, OBMagnet, ExtCtrls, MPlayer, StdCtrls,
-  VsHotSpot, VsImage, RzTray,  RzCommon, id3v1, VsSlider;
+  VsHotSpot, VsImage, RzTray,  RzCommon,Registry, VsCheckBox, VsSlider,id3v1,
+  RzBHints;
  const WM_NID = WM_User + 1000;
 type
   TMainPlay = class(TForm)
@@ -137,6 +138,7 @@ type
     cixing: TTimer;
     moverlrc: TTimer;
     Label4: TLabel;
+    IniFile1: TRzRegIniFile;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -1117,6 +1119,7 @@ n3.Checked:=false;
 n6.Checked:=false;
 n7.Checked :=false ;
 n8.Checked :=false;
+
 end;
 
 procedure TMainPlay.N3Click(Sender: TObject);
@@ -1469,6 +1472,10 @@ var
    strTrim:Widestring; //只需把字符串定义成 WideString 即可解决半个中文的问题了。--edit by bruce 2012/10/1 0:23
    strScroll:Widestring;
    begin
+//gs:=copy(s2,length(s2)-2,length(s2)) ;     //标签文字移动--时钟控件
+{if   length( gundong.Caption)>12 then begin
+gundong.Caption:=copy(gundong.Caption,6,length(gundong.Caption)) ; end;}
+
 //千千静听的步长也是250
  strScroll:= gundong.Caption;
  strTrim:= copy(strScroll,1,18); //获取第1个字符
@@ -1584,20 +1591,22 @@ begin
 chk1click(sender);
 end;
 
+
+
 procedure TMainPlay.jzlstTimer(Sender: TObject);
  var
   buf: Tstringlist;
-  i: Integer;
-  begin
+  i,j: Integer;
+  F:   Textfile;
+  dir: string;
+  Reg: TRegistry;//读注册表一些信息
+  filename:string;
+
+begin
 jzlst.Enabled:=false;
 //---------------------------自动加载列表---created by bruce 2012.4.4
  if FileExists(ExtractFilePath(ParamStr(0))+'bruce.log')=true then
  begin
-     {AssignFile(F,  ExtractFilePath(ParamStr(0))+'bruce.ini'); //判断是否为空文本
-        Reset(F);
-        if   filesize(F) > 0   then        //空文本推出---2012.4.6--by bruce
-
-        begin }
           buf := tstringlist.create;
           buf.loadfromfile(ExtractFilePath(ParamStr(0))+'bruce.log');
 
@@ -1611,9 +1620,33 @@ jzlst.Enabled:=false;
          //  playlist.lv1.Items[0].Selected;
          btn1.Enabled := True;
        // btn1click(sender);
-         end;
+  end;
+ {
+ //----------------------读取我的文档目录---------------------------------
 
-        end;
+    Reg := TRegistry.Create;
+  try
+    Reg.RootKey := HKEY_CURRENT_USER;
+    if Reg.OpenKey('Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders', False)
+    then  dir:= Reg.ReadString('Personal')
+  finally
+    Reg.CloseKey;
+    Reg.Free;
+  end;
+   dir := dir+'\bruce step\config';
+  // showmessage(dir);
+   if not DirectoryExists(dir) then 
+    CreateDir(dir); //返回 Boolean
+    ForceDirectories(dir); //返回 Boolean  如果缺少上层目录自动补齐
+   //---------------------创建配置文件 by bruce 2012/11/17------+------------------------
+     filename:=dir+'\bruce.cfg' ;
+     FileCreate(filename);
+     //创建文件，写入配置
+     
+
+   }
+
+end;
 
 
 
@@ -1688,6 +1721,7 @@ procedure TMainPlay.qq1Timer(Sender: TObject);
 var
   winPos: TPoint;
   t: integer;
+  a:integer;
   b: boolean;
   l: boolean;
 begin
@@ -1827,8 +1861,9 @@ end;
 procedure TMainPlay.N35Click(Sender: TObject);
  var
   buf: Tstringlist;
-  i:integer;
- begin
+  i,j: Integer;
+  F:   Textfile;
+begin
           if opendialog2.Execute then
           begin
 

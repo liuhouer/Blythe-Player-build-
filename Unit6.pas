@@ -81,8 +81,8 @@ procedure TSerLrc.ListView1DblClick(Sender: TObject);
 var
 ID:Integer;
 Art,Tit:string;
-
-
+lrcfile:string;
+i:integer;
 begin
 if ListView1.ItemIndex<>-1 then
  begin

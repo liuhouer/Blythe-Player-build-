@@ -16,6 +16,8 @@ uses
 
 {$R *.res}
 
+begin
+  Application.Initialize;
 
   var
 hAppMutex: THandle;

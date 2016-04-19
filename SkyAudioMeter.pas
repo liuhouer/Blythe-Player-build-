@@ -500,7 +500,7 @@ var
                            + FFreqTarget[i].Imag * FFreqTarget[i].Imag)
                           / DEF_BUFFER_SIZE));
           y := Min(y, 8192);
-          y := Height - y * Height div 8192;
+          y := Height - y * Height div 1024;
           Rectangle(x, y, x + FreqWidth, Height -1);
           Inc(x, FreqSpace + FreqWidth);
         end else begin

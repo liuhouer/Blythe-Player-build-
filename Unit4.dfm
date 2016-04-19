@@ -4416,7 +4416,7 @@ object Form4: TForm4
   object Label1: TLabel
     Left = 196
     Top = 8
-    Width = 88
+    Width = 84
     Height = 21
     Caption = #23567#27493#38745#21548
     Color = 13559755
@@ -4430,13 +4430,12 @@ object Form4: TForm4
   end
   object Label3: TLabel
     Left = 97
-    Top = 120
-    Width = 304
-    Height = 112
+    Top = 152
+    Width = 288
+    Height = 96
     Caption = 
-      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012-2016 '#13#13#29256#26412#65306'1.8.5     '#32534#35793#26085#26399#65306'2013.06.11'#13#13#37038#31665#65306'6' +
-      '54714226@qq.com'#13'               qhdsoftware@163.com'#13'             ' +
-      '        1007136434@qq.com'
+      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012-2016 '#13#13#29256#26412#65306'1.8.4     '#23436#25104#26085#26399#65306'2012.10.24'#13#13#37038#31665#65306'6' +
+      '54714226@qq.com'#13'               qhdsoftware@163.com'
     Color = clActiveCaption
     Font.Charset = GB2312_CHARSET
     Font.Color = clWindowText

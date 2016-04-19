@@ -1,9 +1,9 @@
 object MainPlay: TMainPlay
-  Left = 196
-  Top = 127
+  Left = 177
+  Top = 130
   BorderStyle = bsNone
-  Caption = 'bruce play'
-  ClientHeight = 354
+  Caption = #23567#24067#38745#21548
+  ClientHeight = 351
   ClientWidth = 777
   Color = clBtnFace
   TransparentColor = True
@@ -241,6 +241,7 @@ object MainPlay: TMainPlay
       ForeColor = 10808989
       DataScale = 32768
       Redial = True
+      FreqWidth = 6
       PopupMenu = AudioPop
       ShowHint = True
       OnClick = SkyAudioMeter1Click
@@ -275,7 +276,7 @@ object MainPlay: TMainPlay
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 335
+    Top = 332
     Width = 777
     Height = 19
     Panels = <
@@ -7281,5 +7282,9 @@ object MainPlay: TMainPlay
     OnTimer = moverlrcTimer
     Left = 744
     Top = 152
+  end
+  object IniFile1: TRzRegIniFile
+    Left = 384
+    Top = 48
   end
 end
