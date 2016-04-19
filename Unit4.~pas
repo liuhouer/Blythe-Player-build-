@@ -4,24 +4,23 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls,untWaterEffect, OBMagnet, jpeg;
+  Dialogs, ExtCtrls, StdCtrls,untWaterEffect,  jpeg;
 
 type
-  Tabout = class(TForm)
+  TForm4 = class(TForm)
     Img1: TImage;
     Image1: TImage;
     Label1: TLabel;
     Label3: TLabel;
-    Button1: TButton;
     tmr1: TTimer;
-    OBFormMagnet1: TOBFormMagnet;
     procedure tmr1Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Img1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
-    procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Img1Click(Sender: TObject);
+    procedure Label3Click(Sender: TObject);
   private
      Water: TWaterEffect;  Bmp: TBitmap;
 
@@ -32,7 +31,7 @@ type
   end;
 
 var
-  about: Tabout;
+  Form4: TForm4;
   x:integer;
 implementation
 
@@ -40,7 +39,7 @@ uses Unit3, Unit1;
 
 {$R *.dfm}
 
-procedure Tabout.tmr1Timer(Sender: TObject);
+procedure TForm4.tmr1Timer(Sender: TObject);
 begin
    if Random(8)= 1 then
     Water.Blob(-1,-1,Random(1)+1,Random(500)+50);
@@ -61,20 +60,20 @@ begin
     label3.Top:=label3.Top-1;
     if label3.Top<=-label3.Height then
     begin
-     label3.Top:=about.Height-40;
+     label3.Top:=form4.Height-40;
     end;
 end;
 
-procedure Tabout.FormDestroy(Sender: TObject);
+procedure TForm4.FormDestroy(Sender: TObject);
 begin
   Bmp.Free;
   Water.Free;
 end;
 
-procedure Tabout.FormCreate(Sender: TObject);
+procedure TForm4.FormCreate(Sender: TObject);
 begin
-self.ScreenSnap:=True;
-self.SnapBuffer:=30;//窗体吸附效果
+ // self.ScreenSnap:=True;
+ //self.SnapBuffer:=30;//窗体吸附效果
    Bmp := TBitmap.Create;
   Bmp.Assign(img1.Picture.Graphic);
   img1.Picture.Graphic := nil;
@@ -87,22 +86,25 @@ self.SnapBuffer:=30;//窗体吸附效果
   label3.Top:=form4.Height-label3.Height;
 end;
 
-procedure Tabout.Img1MouseMove(Sender: TObject; Shift: TShiftState; X,
+procedure TForm4.Img1MouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
 Water.Blob(x,y,5,10000);
 end;
 
-procedure Tabout.Button1Click(Sender: TObject);
+procedure TForm4.FormShow(Sender: TObject);
+begin
+ AnimateWindow(Form4.Handle,800,AW_BLEND);
+end;
+
+procedure TForm4.Img1Click(Sender: TObject);
 begin
 close;
 end;
 
-procedure Tabout.FormShow(Sender: TObject);
+procedure TForm4.Label3Click(Sender: TObject);
 begin
- form4.Left:=mainplay.Left+mainplay.Width;
-  Form4.Top:=mainplay.Top;
-AnimateWindow(Form4.Handle,800,AW_BLEND);
+close;
 end;
 
 end.

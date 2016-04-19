@@ -1,11 +1,11 @@
-object about: Tabout
-  Left = 724
-  Top = 310
-  BorderIcons = [biSystemMenu]
+object Form4: TForm4
+  Left = 711
+  Top = 286
+  BorderIcons = []
   BorderStyle = bsSingle
   Caption = #31616#26126#20171#32461
-  ClientHeight = 300
-  ClientWidth = 480
+  ClientHeight = 273
+  ClientWidth = 340
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -1502,10 +1502,11 @@ object about: Tabout
       BEC7E9CF1EE6A078D444BE5E155780A070062BC347EDB3E0A94069B4BD7DA6C6
       19C5B41F37B9FDF542DFB687820820695AF807FE9DE0FF00E3D56B1747BFE0C5
       F52AFF00CBF8A3E30A28A2BF343F5E3FFFD9}
+    OnClick = Img1Click
     OnMouseMove = Img1MouseMove
   end
   object Image1: TImage
-    Left = 152
+    Left = 97
     Top = 2
     Width = 33
     Height = 33
@@ -4414,58 +4415,42 @@ object about: Tabout
       0000ABFF00009AFF00009BFF80019CFF80039CFFC0079DFFF00F0470}
   end
   object Label1: TLabel
-    Left = 196
-    Top = 8
-    Width = 88
-    Height = 21
+    Left = 131
+    Top = 7
+    Width = 103
+    Height = 24
     Caption = #23567#27493#38745#21548
-    Color = 13559755
+    Color = clActiveCaption
     Font.Charset = GB2312_CHARSET
-    Font.Color = clFuchsia
-    Font.Height = -21
+    Font.Color = clWhite
+    Font.Height = -24
     Font.Name = #24188#22278
     Font.Style = [fsItalic]
     ParentColor = False
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 97
-    Top = 88
-    Width = 304
-    Height = 144
+    Left = 25
+    Top = 72
+    Width = 288
+    Height = 96
     Caption = 
-      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012- '#13#13#29256#26412#65306'1.9.0.1   '#32534#35793#26085#26399#65306'2014-07-09'#13#13#37038#31665#65306'65471' +
-      '4226@qq.com'#13'               qhdsoftware@163.com'#13'                 ' +
-      '    1007136434@qq.com'#13#13#21021#22987#29256#26412#65306'2012-01-01'
+      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012-2016 '#13#13#29256#26412#65306'1.8.6     '#23436#25104#26085#26399#65306'2012.11.08'#13#13#37038#31665#65306'6' +
+      '54714226@qq.com'#13'               qhdsoftware@163.com'
     Color = clActiveCaption
     Font.Charset = GB2312_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clWhite
     Font.Height = -16
     Font.Name = #24188#22278
     Font.Style = []
     ParentColor = False
     ParentFont = False
-  end
-  object Button1: TButton
-    Left = 184
-    Top = 264
-    Width = 73
-    Height = 25
-    Caption = #30830#23450
-    TabOrder = 0
-    OnClick = Button1Click
+    OnClick = Label3Click
   end
   object tmr1: TTimer
     Interval = 50
     OnTimer = tmr1Timer
     Left = 416
     Top = 208
-  end
-  object OBFormMagnet1: TOBFormMagnet
-    Active = True
-    FormGlue = False
-    MainFormMagnet = True
-    Left = 40
-    Top = 48
   end
 end

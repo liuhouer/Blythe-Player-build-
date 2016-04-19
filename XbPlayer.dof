@@ -113,12 +113,12 @@ RootDir=
 IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=1
-MinorVer=9
-Release=0
+MinorVer=8
+Release=6
 Build=1
-Debug=1
+Debug=0
 PreRelease=0
-Special=1
+Special=0
 Private=0
 DLL=0
 Locale=2052
@@ -126,12 +126,17 @@ CodePage=936
 [Version Info Keys]
 CompanyName=Bruce Joy Corporation
 FileDescription=小布静听
-FileVersion=1.9.0.1
-InternalName=bruce mp3 player
-LegalCopyright=Bruce
-LegalTrademarks=Bruce CopyRight
-OriginalFilename=小步静听
+FileVersion=1.8.6.1
+InternalName=
+LegalCopyright=brucesoft@张洋
+LegalTrademarks=
+OriginalFilename=
 ProductName=小布静听
-ProductVersion=1.8.5
+ProductVersion=1.8.6
 Comments=bruce joy works
-SpecialBuild=1.8.5
+[Excluded Packages]
+F:\编程\Delphi 7\控件\SkinPackv1\发布版SkinPack for Delphi7\AutoUpgraderProD7.bpl=AutoUpgrader Pro for Delphi 7
+c:\program files\borland\delphi7\Projects\Bpl\SkinPack.bpl=(untitled)
+[HistoryLists\hlUnitAliases]
+Count=1
+Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;

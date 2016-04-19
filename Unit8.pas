@@ -20,6 +20,7 @@ type
     gd: TTimer;
     N1: TMenuItem;
     N5: TMenuItem;
+    stayOnTop: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N3Click(Sender: TObject);
@@ -51,9 +52,7 @@ procedure Tminilrc.FormCreate(Sender: TObject);
 begin
 self.ScreenSnap:=True;
 self.SnapBuffer:=30;//窗体吸附效果
-SetWindowPos(minilrc.handle,   HWND_TOPMOST,   0,   0,
 
-0,   0,SWP_NOMOVE+SWP_NOSIZE);
 
 
 end;
@@ -62,9 +61,7 @@ procedure Tminilrc.FormShow(Sender: TObject);
 begin
 minilrc.top:=(screen.height-minilrc.height *2) ;
 minilrc.left:=(screen.width-minilrc.width ) div 2 ;
-SetWindowPos(minilrc.handle,   HWND_TOPMOST,   0,   0,
 
-0,   0,SWP_NOMOVE+SWP_NOSIZE);
 end;
 
 procedure Tminilrc.N3Click(Sender: TObject);
@@ -85,17 +82,16 @@ procedure Tminilrc.gdTimer(Sender: TObject);
  var
    strTrim:Widestring; //只需把字符串定义成 WideString 即可解决半个中文的问题了。--edit by bruce 2012/10/1 0:23
   // strScroll:Widestring = 'Beyond - 海阔天空.mp3 - 小布静听';
-  strScroll:Widestring;
 begin
 
 strScroll:=label1.Caption;
 if length(strScroll)>=36 then
 begin
 label1.Alignment:=vaLeftjustify;
-strTrim:= copy(strScroll,1,1); //获取第1-36个字符
+strTrim:= copy(strScroll,1,36); //获取第1-36个字符
 Delete(strScroll,1,1);         //将第1个字符删除
 
-strScroll:=strScroll+'...music...'+strTrim;                 //长度超出后才滚动（截取）
+strScroll:=strScroll+'------>'+strTrim;                 //长度超出后才滚动（截取）
 
 end else
 begin
@@ -127,12 +123,6 @@ end;
 procedure Tminilrc.N5Click(Sender: TObject);
 begin
 n5.Checked:=not   n5.Checked;
-if n5.Checked then
-begin
-SetWindowPos(minilrc.handle,   HWND_TOPMOST,   0,   0,
-
-0,   0,SWP_NOMOVE+SWP_NOSIZE);
-end;
 end;
 
 procedure Tminilrc.stayOnTopTimer(Sender: TObject);

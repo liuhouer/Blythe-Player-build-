@@ -1,6 +1,6 @@
 object minilrc: Tminilrc
-  Left = 426
-  Top = 400
+  Left = 461
+  Top = 286
   BorderStyle = bsNone
   Caption = 'MiniLrc'
   ClientHeight = 202
@@ -1828,5 +1828,11 @@ object minilrc: Tminilrc
     Interval = 250
     OnTimer = gdTimer
     Left = 680
+  end
+  object stayOnTop: TTimer
+    Interval = 5000
+    OnTimer = stayOnTopTimer
+    Left = 648
+    Top = 56
   end
 end

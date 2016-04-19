@@ -50,7 +50,6 @@ var
 begin
 ListView1.Clear;
 WXml:=TStringList.Create;
-try
 WXml.Text:=Utf8ToAnsi(idhttp1.Get(LrcListLink(Edit1.Text,Edit2.Text,RadioGroup1.ItemIndex)));
 
 WXml.Delete(0);
@@ -76,15 +75,14 @@ if ListView1.Items.Count=0 then
     Application.MessageBox('对不起,没有找到相关歌词！', 'Bruce 提示', MB_OK +
       MB_ICONINFORMATION);
   end;
-  except showmessage('网络错误');  end;
 end;
 
 procedure TSerLrc.ListView1DblClick(Sender: TObject);
 var
 ID:Integer;
 Art,Tit:string;
-
-
+lrcfile:string;
+i:integer;
 begin
 if ListView1.ItemIndex<>-1 then
  begin
@@ -96,11 +94,10 @@ if ListView1.ItemIndex<>-1 then
    memo1.Lines.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
    //自动把歌词存入歌曲所在目录，哈哈哈  我是不是爆发了？！！-----by 小布 2012.4.1
 
-   if(mainplay.chk1.Checked) then begin lrcshow.lst1.Clear;lrcshow.loadlrc(mainplay.MediaPlayer1.FileName);end else begin lrcshow.lst1.Clear;mainplay.chk1.Checked:=true;end;//以前是打开的，现在清空+重载 。
-   sleep(50);
+   mainplay.chk1.Checked:=false;//重新加载它..
    serlrc.Close;
-
-  
+   sleep(50);
+   mainplay.chk1.Checked:=true;
 
  end;
 end;
@@ -110,8 +107,8 @@ var k:integer;
 var s1,s2 :string;
   list : TStringlist;
 begin
-serlrc.Left:=mainplay.Left+mainplay.Width;
-serlrc.Top:=mainplay.Top+lrcshow.Height;
+serlrc.Left:=(screen.width-serlrc.width ) div 2 ;
+serlrc.Top:=(screen.height-serlrc.height *2) ;
 
   if mainplay.MediaPlayer1.Mode in [mpplaying]then  //分离歌曲名这个字符串为2部分 2012.4.2 by-- 小布
   begin

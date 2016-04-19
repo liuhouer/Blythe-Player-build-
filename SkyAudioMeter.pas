@@ -487,7 +487,7 @@ var
   begin
     pData := Data;
     for i := 0 to DEF_BUFFER_SIZE -1 do begin
-      FWaveSource[i].Real := DWord(pData^ - 32768);
+      FWaveSource[i].Real := DWord(pData^ - 16384);
       FWaveSource[i].Imag := 0;
       Inc(pData);
     end;
@@ -500,7 +500,7 @@ var
                            + FFreqTarget[i].Imag * FFreqTarget[i].Imag)
                           / DEF_BUFFER_SIZE));
           y := Min(y, 8192);
-          y := Height - y * Height div 8192;
+          y := Height - y * Height div 1024;
           Rectangle(x, y, x + FreqWidth, Height -1);
           Inc(x, FreqSpace + FreqWidth);
         end else begin

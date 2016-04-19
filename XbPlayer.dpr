@@ -1,4 +1,4 @@
-program play;
+program XbPlayer;
 
 uses
   Windows,
@@ -6,18 +6,14 @@ uses
   Unit1 in 'Unit1.pas' {MainPlay},
   Unit2 in 'Unit2.pas' {PlayList},
   Unit3 in 'Unit3.pas' {LrcShow},
-  Unit4 in 'Unit4.pas' {about},
-  Unit5 in 'Unit5.pas' {miniplay},
+  Unit4 in 'Unit4.pas' {Form4},
   Unit6 in 'Unit6.pas' {SerLrc},
   Unit7 in 'Unit7.pas' {EditLrc},
   Unit8 in 'Unit8.pas' {minilrc},
-  Unit9 in 'Unit9.pas' {Vision},
   Unit10 in 'Unit10.pas' {Form10};
 
 {$R *.res}
-
-
-  var
+var
 hAppMutex: THandle;
 begin
   Application.Initialize;
@@ -37,16 +33,13 @@ MessageBox(0,PChar('程序已经有一个实例在运行!'),PChar('OK'),MB_OK + MB_ICONINFOR
 exit;
  end;
 
- 
   Application.CreateForm(TMainPlay, MainPlay);
   Application.CreateForm(TPlayList, PlayList);
   Application.CreateForm(TLrcShow, LrcShow);
-  Application.CreateForm(Tabout, about);
-  Application.CreateForm(Tminiplay, miniplay);
+  Application.CreateForm(TForm4, Form4);
   Application.CreateForm(TSerLrc, SerLrc);
   Application.CreateForm(TEditLrc, EditLrc);
   Application.CreateForm(Tminilrc, minilrc);
-  Application.CreateForm(TVision, Vision);
   Application.CreateForm(TForm10, Form10);
   Application.Run;
 end.

@@ -1,9 +1,9 @@
 object MainPlay: TMainPlay
-  Left = 196
-  Top = 127
+  Left = 244
+  Top = 303
   BorderStyle = bsNone
-  Caption = 'bruce play'
-  ClientHeight = 354
+  Caption = 'mainplayer'
+  ClientHeight = 351
   ClientWidth = 777
   Color = clBtnFace
   TransparentColor = True
@@ -16,7 +16,6 @@ object MainPlay: TMainPlay
   OldCreateOrder = False
   PopupMenu = mainpop
   OnClose = FormClose
-  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShortCut = FormShortCut
@@ -237,16 +236,15 @@ object MainPlay: TMainPlay
       Top = 44
       Width = 81
       Height = 40
-      Hint = #21333#26426#20999#25442#25928#26524#13#21452#20987#20840#23631#26174#31034#13#21491#20987#33258#23450#20041
+      Hint = #21333#26426#20999#25442#25928#26524#13#21491#20987#33258#23450#20041
       ForeColor = 10808989
-      DataScale = 20000
-      WaveMode = svmDot
+      DataScale = 32768
       Redial = True
+      AMStyle = smsSpectrum
       FreqWidth = 4
       PopupMenu = AudioPop
       ShowHint = True
       OnClick = SkyAudioMeter1Click
-      OnDblClick = SkyAudioMeter1DblClick
     end
     object chk1: TCheckBox
       Left = 183
@@ -277,7 +275,7 @@ object MainPlay: TMainPlay
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 335
+    Top = 332
     Width = 777
     Height = 19
     Panels = <
@@ -5102,7 +5100,7 @@ object MainPlay: TMainPlay
     Active = True
     DisableTag = 99
     SkinControls = [xcMainMenu, xcPopupMenu, xcToolbar, xcControlbar, xcCombo, xcCheckBox, xcRadioButton, xcProgress, xcScrollbar, xcEdit, xcButton, xcBitBtn, xcSpeedButton, xcSpin, xcPanel, xcGroupBox, xcStatusBar, xcTab, xcTrackBar, xcSystemMenu]
-    Options = [xoPreview, xoToolbarBK]
+    Options = [xoPreview, xoToolbarBK, xoCaptionButtonHint]
     Skin3rd.Strings = (
       'TCategoryButtons=scrollbar'
       'TPngSpeedbutton=pngspeedbutton'
@@ -5224,7 +5222,7 @@ object MainPlay: TMainPlay
       'TOVCDBNUMERICFIELD=Edit')
     SkinStore = '(Good)'
     SkinFormtype = sfMainform
-    Version = '4.11.07.25'
+    Version = '5.60.03.29'
     MenuUpdate = True
     MenuMerge = False
     Left = 312
@@ -6872,7 +6870,7 @@ object MainPlay: TMainPlay
     Top = 104
   end
   object yhcpu: TTimer
-    Interval = 5000
+    Interval = 500
     OnTimer = yhcpuTimer
     Left = 488
     Top = 104
@@ -7005,11 +7003,6 @@ object MainPlay: TMainPlay
         OnClick = N8Click
       end
     end
-    object N80: TMenuItem
-      Caption = #36855#20320#27169#24335'&(F5)'
-      ShortCut = 116
-      OnClick = N80Click
-    end
     object N14: TMenuItem
       Caption = '-'
     end
@@ -7077,7 +7070,6 @@ object MainPlay: TMainPlay
     end
     object ballhint1: TMenuItem
       Caption = #22312#23631#24149#21491#19979#35282#24377#20986#25773#25918#25552#31034
-      Checked = True
       OnClick = ballhint1Click
     end
     object N36: TMenuItem
@@ -7215,10 +7207,6 @@ object MainPlay: TMainPlay
     end
     object N33: TMenuItem
       Caption = '-'
-    end
-    object N34: TMenuItem
-      Caption = #20840#23631#26174#31034
-      OnClick = N34Click
     end
   end
   object Timer3: TTimer

@@ -4,10 +4,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, id3v1,MPlayer;
+  Dialogs, StdCtrls, id3v1;
 
 type
-  TbTag = class(TForm)
+  TForm10 = class(TForm)
 
     Edit1: TEdit;
     Edit2: TEdit;
@@ -46,14 +46,14 @@ type
   end;
 
 var
-  bTag: TbTag;
+  Form10: TForm10;
     ID3v1: TID3v1;
 implementation
 
 uses Unit1, Unit2;
 
 {$R *.dfm}
-procedure TbTag.ClearID3v1;
+procedure TForm10.ClearID3v1;
 begin
  Edit1.Text:='';
  Edit2.Text:='';
@@ -64,7 +64,7 @@ begin
  ComboBox1.ItemIndex:=0;
  ComboBox1.Enabled:=false;
 end;
-procedure TbTag.Button1Click(Sender: TObject);
+procedure TForm10.Button1Click(Sender: TObject);
 begin
 if not OpenDialog1.Execute then exit;
 begin
@@ -85,7 +85,7 @@ begin
 end;
 end;
 
-procedure TbTag.FormCreate(Sender: TObject);
+procedure TForm10.FormCreate(Sender: TObject);
 var
   Iterator: Integer;
 begin
@@ -97,12 +97,10 @@ begin
 
 end;
 
-procedure TbTag.Button4Click(Sender: TObject);
+procedure TForm10.Button4Click(Sender: TObject);
 var
   Value, Code: Integer;
 begin
-
- if (mainplay.MediaPlayer1.Mode in[mpplaying]) and  (mainplay.stat1.Panels[0].Text<>copy(playlist.lv1.Selected.Caption,0,length(playlist.lv1.Selected.Caption)-4))  then begin
 If MessageDlg ('您要把更改后的ID3标签信息保存到文件吗?',mtConfirmation,[mbYes,mbCancel],0)=mrYes then begin
 begin
  ID3v1.Artist:=Trim(Edit1.Text);
@@ -118,10 +116,10 @@ begin
  ID3v1.SaveToFile(Edit7.Text);
    end;
   end;
-  close;                                                                end else showmessage('正在播放该文件，请稍后再试！');
+  close;
 end;
 
-procedure TbTag.Button2Click(Sender: TObject);
+procedure TForm10.Button2Click(Sender: TObject);
 begin
  ID3v1.ReadFromFile(Edit7.Text);
  Edit1.Text:=ID3v1.Artist;
@@ -134,7 +132,7 @@ begin
  ComboBox1.Enabled:=true;
 end;
 
-procedure TbTag.Button3Click(Sender: TObject);
+procedure TForm10.Button3Click(Sender: TObject);
 begin
 If MessageDlg ('bruce提示:'+#13+'您要删除ID3标鉴吗?如果删除就不能恢复了!',mtConfirmation,[mbOK,mbCancel],0)=mrOK then
 begin
@@ -144,23 +142,22 @@ begin
 end;
 end;
 
-procedure TbTag.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TForm10.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 ID3v1.ResetData;
 ID3v1.Free;
 end;
 
-procedure TbTag.FormShow(Sender: TObject);
+procedure TForm10.FormShow(Sender: TObject);
 begin
 
 
    ID3v1 := TID3v1.Create;
  Edit7.Text:=playlist.Lv1.Selected.SubItems.Strings[0] +playlist.lv1.Selected.Caption;
  button2.Click;
- button4.Enabled:=true ;
- button3.Enabled:=true;
+ button4.Enabled:=true;
  button2.Enabled:=true;
-
+ button3.Enabled:=true;
 end;
 
 end.

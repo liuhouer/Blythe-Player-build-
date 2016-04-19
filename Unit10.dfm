@@ -1,4 +1,4 @@
-object bTag: TbTag
+object Form10: TForm10
   Left = 295
   Top = 335
   Width = 381
@@ -258,7 +258,6 @@ object bTag: TbTag
     OnClick = Button4Click
   end
   object OpenDialog1: TOpenDialog
-    Filter = #38899#39057#23646#24615'MP3|*.MP3|'#38899#39057#23646#24615'wav|*.wav|'#38899#39057#23646#24615'wma|*.wma'
     Left = 320
     Top = 40
   end

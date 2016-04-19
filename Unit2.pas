@@ -80,7 +80,8 @@ begin
     DragQueryFile(Msg.WParam, i, buffer, sizeof(buffer)); // 第二次调用得到文件名称
     if (ExtractFileExt(buffer) <> '.mp3') and (ExtractFileExt(buffer) <> '.wma')and (ExtractFileExt(buffer) <> '.wav')and(ExtractFileExt(buffer) <> '.mp2') then
     begin
-      Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+     // Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+     // rztray.ShowBalloonHint('','不支持播放此类文件！',bhiinfo,10);
       Exit;
     end;
     try
@@ -104,7 +105,8 @@ begin
       mainplay.Timer2.Enabled := True;
     except
       on EMCIDeviceError do
-        Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+      //rztray.ShowBalloonHint('','不支持播放此类文件！',bhiinfo,10);
+       // Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
     end;
   end;
 end;
@@ -230,7 +232,7 @@ procedure TPlayList.Timer1Timer(Sender: TObject);
 var
   plylst: TStrings;
   i: Integer;
-begin
+  begin
                  //列表change时自动保存列表---created by bruce 2012.4.4---
     plylst := TStringList.Create;
     for i := 0 to lv1.Items.Count - 1 do //利用循环语句保存listview到播放列表
@@ -270,7 +272,7 @@ end;
 
 procedure TPlayList.N5Click(Sender: TObject);
 begin
-bTag.Show;
+form10.show;
 end;
 
 end.
