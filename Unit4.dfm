@@ -1,9 +1,11 @@
 object Form4: TForm4
-  Left = 464
-  Top = 225
-  Width = 375
-  Height = 372
+  Left = 572
+  Top = 382
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = #31616#26126#20171#32461
+  ClientHeight = 397
+  ClientWidth = 310
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -31828,8 +31830,8 @@ object Form4: TForm4
     OnMouseMove = Img1MouseMove
   end
   object Image1: TImage
-    Left = 72
-    Top = 24
+    Left = 112
+    Top = 26
     Width = 33
     Height = 33
     Picture.Data = {
@@ -34737,9 +34739,9 @@ object Form4: TForm4
       0000ABFF00009AFF00009BFF80019CFF80039CFFC0079DFFF00F0470}
   end
   object Label1: TLabel
-    Left = 120
+    Left = 144
     Top = 32
-    Width = 88
+    Width = 84
     Height = 21
     Caption = #23567#27493#38745#21548
     Color = 13559755
@@ -34752,14 +34754,14 @@ object Form4: TForm4
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 33
-    Top = 112
+    Left = 17
+    Top = 224
     Width = 272
     Height = 96
     Caption = 
       #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012- '#13#13#29256#26412#65306'B.001     '#23436#25104#26085#26399#65306'2012.1.1'#13#13#37038#31665#65306'6547142' +
       '26@qq.com'#13'               qhdsoftware@163.com'
-    Color = clSkyBlue
+    Color = clActiveCaption
     Font.Charset = GB2312_CHARSET
     Font.Color = clWindowText
     Font.Height = -16
@@ -34769,8 +34771,8 @@ object Form4: TForm4
     ParentFont = False
   end
   object Button1: TButton
-    Left = 120
-    Top = 272
+    Left = 112
+    Top = 352
     Width = 73
     Height = 25
     Caption = #30830#23450
@@ -34782,5 +34784,12 @@ object Form4: TForm4
     OnTimer = tmr1Timer
     Left = 288
     Top = 296
+  end
+  object OBFormMagnet1: TOBFormMagnet
+    Active = True
+    FormGlue = False
+    MainFormMagnet = True
+    Left = 56
+    Top = 96
   end
 end

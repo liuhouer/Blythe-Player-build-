@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, MPlayer, Registry, Mmsystem, FileCtrl,
-  Menus, ShellAPI, AppEvnts, Buttons, ImgList, SkyAudioMeter, WinSkinData;
+  Menus, ShellAPI, AppEvnts, Buttons, ImgList, SkyAudioMeter, WinSkinData,
+  OBMagnet, OBGammaPanel, OBStarfield, OBXPBarMenu;
 const WM_NID = WM_User + 1000;
 
 type
@@ -147,7 +148,9 @@ type
     N75: TMenuItem;
     N76: TMenuItem;
     N77: TMenuItem;
-    mover: TTimer;
+    OBFormMagnet1: TOBFormMagnet;
+    OBStarfield1: TOBStarfield;
+    OBXPBarMenu1: TOBXPBarMenu;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button8Click(Sender: TObject);
@@ -260,11 +263,6 @@ type
     procedure N75Click(Sender: TObject);
     procedure N76Click(Sender: TObject);
     procedure N77Click(Sender: TObject);
-    procedure FormMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure moverTimer(Sender: TObject);
-    procedure FormDockDrop(Sender: TObject; Source: TDragDockObject; X,
-      Y: Integer);
       private
     procedure DropFiles(var Msg: TMessage); message WM_DropFILES;
     procedure SysCommand(var SysMsg: TMessage); message WM_SYSCOMMAND;
@@ -292,6 +290,8 @@ begin
   case SysMsg.WParam of
     SC_CLOSE: // 当关闭时
       begin
+        form4.Close;  //同时关闭说明界面
+        form3.Hide;  //同时隐藏歌词界面
         SetWindowPos(Application.Handle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_HIDEWINDOW);
         Hide; // 在任务栏隐藏程序
       // 在托盘区显示图标
@@ -323,6 +323,7 @@ begin
   case msg.LParam of
     WM_LBUTTONUP: // 在托盘区点击左键后
       begin
+       
         Form1.Visible := not Form1.Visible; // 显示主窗体与否
 
         Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 显示主窗体后删除托盘区的图标
@@ -406,13 +407,17 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+//self.ScreenSnap:=True;
+//self.SnapBuffer:=30;//窗体吸附效果
+
 label3.Cursor:=crHandPoint;
 listname.Caption:='暂无文件播放..';
   if Win32Platform = VER_PLATFORM_WIN32_NT then
-  begin
+    begin
     SetProcessWorkingSetSize(GetCurrentProcess, $FFFFFFFF, $FFFFFFFF);
+    //释放物理内存
     Application.ProcessMessages;
-  end;
+    end;
 
   DragAcceptFiles(Handle, True);
   PositionChange := False; //设置初始值；
@@ -1345,6 +1350,7 @@ procedure TForm1.N210Click(Sender: TObject);
 begin
 n210.Checked:=true;n110.Checked:=false;n310.Checked:=false;n410.Checked:=false;n510.Checked:=false;n68.Checked:=false;
 skyaudiometer1.FreqWidth:=2;
+
 end;
 
 procedure TForm1.N310Click(Sender: TObject);
@@ -1416,7 +1422,7 @@ case   dayofweek(now)   of
 
  label3.Caption:=formatdatetime(' yyyy-mm-dd  ',now)+j+formatdatetime('hh:nn:ss',now) ;
  label3.Left:=label3.Left-1;
- if label3.Left=0 then
+ if label3.Left=-12 then
  begin
 
  timer3.Enabled:=false;
@@ -1430,6 +1436,7 @@ procedure TForm1.Label3MouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
  label3.Font.Color:=clred;
+ label3.Font.Size:=12;
 label3.Font.Style:=[fsUnderline];
 timer3.Enabled:=false;
 timer4.Enabled:=false;
@@ -1438,6 +1445,7 @@ end;
 procedure TForm1.Label3MouseLeave(Sender: TObject);
 begin
 label3.Font.Color:=clgreen;
+ label3.Font.Size:=8;
 label3.Font.Style:=[];
 timer3.Enabled:=true;
 
@@ -1471,11 +1479,9 @@ procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
 const      //没有标题栏  照样拖动窗体的办法
     sc_dragmove   =   $f012;
 begin
-mover.Enabled:=true ;
 if   form1.Top   <=0   then   form1.Top   :=2;
     releasecapture;
     twincontrol(application.mainform).perform(wm_syscommand,sc_dragmove,   0);
-
 end;
 
 procedure TForm1.GroupBox1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -1596,26 +1602,15 @@ n77.checked:=true;
 skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'蓝色海洋.skn');
 end;
 
-procedure TForm1.FormMouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-mover.Enabled:=false;
-end;
-
-procedure TForm1.moverTimer(Sender: TObject);
-begin
-form3.Left:=form1.Left+form1.Width;
-form3.Top:=form1.Top;
-end;
-
-procedure TForm1.FormDockDrop(Sender: TObject; Source: TDragDockObject; X,
-  Y: Integer);
-begin
-//mover.Enabled:=true ;
-end;
-
 end.
+//--------------------------使窗体自动吸附屏幕边缘------------------------------
 
+            { 各位。。原来DELPHI7就可以，在OnCreate里加两句代码就行了：
+         self.ScreenSnap:=True;
+         self.SnapBuffer:=30;
+呵呵，不用整那么麻烦的代码。 }
+
+//--------------------------使窗体自动吸附屏幕边缘-------------------------------
 
 
 //==============================任意位置拖动窗体的办法=======================
@@ -1626,6 +1621,8 @@ if   form1.Top   <=0   then   form1.Top   :=2;
     releasecapture;
     twincontrol(application.mainform).perform(wm_syscommand,sc_dragmove,   0); }
 //===========================================================================
+
+
              //                  获取应用程序路径.....
              //ExtractFilePath(ParamStr(0))-------带'\'；
              //ExtractFilePath(ParamStr(0))-----不带'\'；

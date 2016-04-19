@@ -1,11 +1,10 @@
 object Form3: TForm3
-  Left = 682
-  Top = 140
+  Left = 573
+  Top = 131
+  Width = 328
+  Height = 250
   BorderIcons = [biSystemMenu]
-  BorderStyle = bsSingle
   Caption = #27468#35789#31168
-  ClientHeight = 174
-  ClientWidth = 436
   Color = clMoneyGreen
   TransparentColor = True
   TransparentColorValue = clMoneyGreen
@@ -17,14 +16,16 @@ object Form3: TForm3
   OldCreateOrder = False
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lst1: TListBox
     Left = 0
     Top = 0
-    Width = 436
-    Height = 170
+    Width = 312
+    Height = 212
+    Align = alClient
     Color = clMoneyGreen
     Font.Charset = ANSI_CHARSET
     Font.Color = clOlive
@@ -38,9 +39,16 @@ object Form3: TForm3
   end
   object tmr1: TTimer
     Enabled = False
-    Interval = 1
+    Interval = 500
     OnTimer = tmr1Timer
     Left = 240
+    Top = 80
+  end
+  object OBFormMagnet1: TOBFormMagnet
+    Active = True
+    FormGlue = False
+    MainFormMagnet = True
+    Left = 208
     Top = 80
   end
 end
