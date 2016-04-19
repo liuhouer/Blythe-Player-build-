@@ -73,3 +73,16 @@ Join desktop lyrics maintain the front end function, I don't know his thousands 
 Download address:
 
 1.8.3：  http://pan.baidu.com/share/link?shareid=85311&uk=3860164064 
+
+------------------------------------------------------------------------------------------
+## 2014-7-10 1.9.0.1
+###　ｖｅｒｓｉｏｎ　1.9.0.1
+Original Software: Bush listening 2014-7-10 update to 1.9.0.1
+Very busy in recent days, before the imperfections are rewritten. Notably the following:
+Add Folder, the directory will be scanned
+Comprehensive analysis lrc lyrics and lyrics of some of the desktop operating logic
+Reconstruction of the file structure, removing redundant code
+Partial tag information Perfection
+Add to adjust the operating logic / edit lyrics
+Some details of the adjustment
+Download: http://pan.baidu.com/s/1c01Vp5I
