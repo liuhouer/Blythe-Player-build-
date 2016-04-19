@@ -1,0 +1,12 @@
+case   dayofweek(now)   of
+    1:j:= '星期天 ';
+    2:j:= '星期一 ';
+    3:j:= '星期二 ';
+    4:j:= '星期三 ';
+    5:j:= '星期四 ';
+    6:j := '星期五 ';
+    7:j:= '星期六 ';
+end;
+
+
+格式统一定义：formatdatetime(' yyyy-mm-dd  ',now)////formatdatetime('hh:nn:ss',now) ;

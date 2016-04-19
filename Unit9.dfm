@@ -1,13 +1,12 @@
 object Vision: TVision
-  Left = 497
-  Top = 328
+  Left = 603
+  Top = 318
   Align = alClient
   BorderStyle = bsNone
   Caption = 'Vision'
   ClientHeight = 447
   ClientWidth = 657
   Color = clBtnFace
-  DefaultMonitor = dmDesktop
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -30,15 +29,15 @@ object Vision: TVision
     DataScale = 400
     WaveMode = svmNubby
     Redial = True
-    FreqWidth = 15
+    FreqWidth = 5
     Align = alClient
     PopupMenu = PopupMenu1
     ShowHint = True
     OnClick = am2Click
   end
   object PopupMenu1: TPopupMenu
-    Left = 544
-    Top = 120
+    Left = 552
+    Top = 232
     object ppfx: TMenuItem
       Caption = #39057#35889#20998#26512
       OnClick = ppfxClick
@@ -60,7 +59,7 @@ object Vision: TVision
     end
   end
   object ColorDialog1: TColorDialog
-    Left = 544
-    Top = 176
+    Left = 552
+    Top = 264
   end
 end

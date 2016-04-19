@@ -1,6 +1,6 @@
 object EditLrc: TEditLrc
-  Left = 784
-  Top = 369
+  Left = 732
+  Top = 365
   Width = 326
   Height = 218
   Caption = #32534#36753#27468#35789

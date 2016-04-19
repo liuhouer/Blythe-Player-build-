@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, SkyAudioMeter, Menus;
+  Dialogs, SkyAudioMeter, Menus, ExtCtrls, StdCtrls;
 
 type
   TVision = class(TForm)
@@ -21,6 +21,7 @@ type
     procedure N2Click(Sender: TObject);
     procedure ppfxClick(Sender: TObject);
     procedure sbqClick(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -31,6 +32,8 @@ var
   Vision: TVision;
 
 implementation
+
+uses Unit1, Unit3;
 
 {$R *.dfm}
 
@@ -72,5 +75,7 @@ ppfx.Checked:=false;
 sbq.Checked:=true;
 am2.AMStyle:= smsOscillograph;
 end;
+
+
 
 end.

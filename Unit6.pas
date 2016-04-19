@@ -92,23 +92,23 @@ if ListView1.ItemIndex<>-1 then
    memo1.Text:=Utf8ToAnsi(idhttp1.Get(LrcDownLoadLink(id,Art,Tit,RadioGroup1.ItemIndex)));
 
    memo1.Lines.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
-   //自动把歌词存入歌曲所在目录，哈哈哈  我是不是爆发了？！！-----by 小布 2012.4.1
 
-   mainplay.chk1.Checked:=false;//重新加载它..
+   //自动把歌词存入歌曲所在目录，哈哈哈  我是不是爆发了？！！-----by 小布 2012.4.1
    serlrc.Close;
    sleep(50);
-   mainplay.chk1.Checked:=true;
+   mainplay.loadlrc(mainplay.MediaPlayer1.FileName);
+
 
  end;
 end;
 
 procedure TSerLrc.FormShow(Sender: TObject);
-var k:integer;         
+var k:integer;
 var s1,s2 :string;
   list : TStringlist;
 begin
 serlrc.Left:=mainplay.Left+mainplay.Width;
-serlrc.Top:=mainplay.Top+lrcshow.Height;
+serlrc.Top:=mainplay.Top;
 
   if mainplay.MediaPlayer1.Mode in [mpplaying]then  //分离歌曲名这个字符串为2部分 2012.4.2 by-- 小布
   begin
@@ -127,7 +127,7 @@ serlrc.Top:=mainplay.Top+lrcshow.Height;
             s1:='';
           end;
       edit1.text:=s1;
-      edit2.text:=s2;
+      edit2.text:=copy(s2,0,length(s2)-4);
    end;
 
 
@@ -135,4 +135,3 @@ serlrc.Top:=mainplay.Top+lrcshow.Height;
 end;
 
 end.
-

@@ -21,7 +21,7 @@ type
     vsback: TVsHotSpot;
     vsclose: TVsHotSpot;
     procedure vsleftClick(Sender: TObject);
-    procedure vsbackClick(Sender: TObject);
+   
     procedure vscloseClick(Sender: TObject);
     procedure vsplayClick(Sender: TObject);
     procedure vsrightClick(Sender: TObject);
@@ -31,7 +31,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure waveTimer(Sender: TObject);
     procedure am1Click(Sender: TObject);
-    procedure VsSkin1DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,7 +42,7 @@ var
 
 implementation
 
-uses Unit1, Unit2, Unit3;
+uses Unit1, Unit3;
 
 {$R *.dfm}
 
@@ -53,14 +52,6 @@ begin
 
 end;
 
-procedure Tminiplay.vsbackClick(Sender: TObject);
-begin
-miniplay.close;
-mainplay.Left:=(screen.Width-mainplay.Width) div 2;
-playlist.left:= (screen.Width-mainplay.Width) div 2;
-mainplay.show;
-playlist.show;
-end;
 
 procedure Tminiplay.vscloseClick(Sender: TObject);
 begin
@@ -143,11 +134,6 @@ if am1.AMStyle =smsOscillograph then
 am1.AMStyle:=smsSpectrum     //(ÆµÆ×)
 else
 am1.AMStyle:=smsOscillograph;
-end;
-
-procedure Tminiplay.VsSkin1DblClick(Sender: TObject);
-begin
-vsbackclick(sender);
 end;
 
 end.

@@ -1,0 +1,29 @@
+ //                  获取应用程序路径.....
+             //ExtractFilePath(ParamStr(0))-------带'\'；
+             //ExtractFileDir(ParamStr(0))-----不带'\'；
+     
+
+
+
+   浏览所在目录：
+ShellExecute(Handle,'open','Explorer.exe', ‘C:\WINDOWS’,nil,1);
+
+-----------------------------------------------------
+     AnsiString __fastcall ExtractFilePath;
+
+　　ExtractFilePath和相近函数：
+
+　　ExtractFileDrive ：返回完整文件名中的驱动器，如"C:"
+
+　　ExtractFilePath：返回完整文件名中的路径，最后带“/”，如"C:\test\"
+
+　　ExtractFileDir：返回完整文件名中的路径，最后不带“/” ,如"C:\test"
+
+　　ExtractFileName:返回完整文件名中的文件名称 (带扩展名)，如"mytest.doc"
+
+　　ExtractFileExt 返回完整文件名中的文件扩展名（带.），如".doc"
+
+　　extractfiledir //这个没有最后的 \
+
+　　extractfilepath //这个最后有 \
+}

@@ -4,41 +4,31 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, VsControls, VsSkin, VsImageClip, ComCtrls, SkyAudioMeter,Mmsystem,FileCtrl,
-  VsComposer, WinSkinData, Menus,ShellAPI,AppEvnts, OBMagnet, ExtCtrls, MPlayer, StdCtrls,
-  VsHotSpot, VsImage, RzTray,  RzCommon,Registry, VsCheckBox, VsSlider,id3v1,
-  RzBHints;
+  Dialogs,  ComCtrls, SkyAudioMeter,Mmsystem,FileCtrl,
+   Menus,ShellAPI,AppEvnts, OBMagnet, ExtCtrls, MPlayer, StdCtrls,
+   RzTray,  RzCommon,
+  SUIForm, SUIButton, SUITrackBar,
+  SUIImagePanel, SUIGroupBox, RzLstBox, SUIMainMenu, SUITitleBar;
  const WM_NID = WM_User + 1000;
 type
   TMainPlay = class(TForm)
-    VsComposer1: TVsComposer;
-    mainskin: TVsSkin;
-    SkyAudioMeter1: TSkyAudioMeter;
-    SkinData1: TSkinData;
-    Label3: TLabel;
     MediaPlayer1: TMediaPlayer;
     OpenDialog1: TOpenDialog;
     OpenDialog2: TOpenDialog;
     SaveDialog1: TSaveDialog;
     Timer1: TTimer;
     yhcpu: TTimer;
-    OBFormMagnet1: TOBFormMagnet;
     OpenDialog3: TOpenDialog;
     Timer2: TTimer;
     mainpop: TPopupMenu;
     N81: TMenuItem;
-    N70: TMenuItem;
     N53: TMenuItem;
     listname: TMenuItem;
-    N80: TMenuItem;
     N85: TMenuItem;
-    N78: TMenuItem;
-    N79: TMenuItem;
     N83: TMenuItem;
     N82: TMenuItem;
     N84: TMenuItem;
     N50: TMenuItem;
-    N4: TMenuItem;
     N5: TMenuItem;
     AudioPop: TPopupMenu;
     N37: TMenuItem;
@@ -65,17 +55,7 @@ type
     N73: TMenuItem;
     Timer3: TTimer;
     Timer4: TTimer;
-    btn4: TVsHotSpot;
-    btn1: TVsHotSpot;
-    btn2: TVsHotSpot;
-    btn3: TVsHotSpot;
-    btn5: TVsHotSpot;
-    op1: TVsHotSpot;
-    VsHotSpot7: TVsHotSpot;
-    Label1: TLabel;
-    Label2: TLabel;
-    chk1: TCheckBox;
-    StartUpTimer: TTimer;
+    stat1: TStatusBar;
     N1: TMenuItem;
     N2: TMenuItem;
     N3: TMenuItem;
@@ -104,11 +84,7 @@ type
     N27: TMenuItem;
     N28: TMenuItem;
     N29: TMenuItem;
-    N30: TMenuItem;
-    N31: TMenuItem;
     N32: TMenuItem;
-    N44: TMenuItem;
-    gundong: TLabel;
     gd: TTimer;
     N45: TMenuItem;
     N46: TMenuItem;
@@ -125,26 +101,61 @@ type
     jzlst: TTimer;
     N33: TMenuItem;
     N34: TMenuItem;
-    trackbar2: TVsSlider;
-    trackbar1: TVsSlider;
-    VsHotSpot1: TVsHotSpot;
-    VsHotSpot2: TVsHotSpot;
-    qq1: TTimer;
-    qq2: TTimer;
-    stat1: TStatusBar;
-    ballhint1: TMenuItem;
-    N36: TMenuItem;
-    VsHotSpot3: TVsHotSpot;
+    suiForm1: TsuiForm;
+    Label3: TLabel;
+    btn4: TsuiImageButton;
+    btn1: TsuiImageButton;
+    btn2: TsuiImageButton;
+    btn5: TsuiImageButton;
+    btn3: TsuiImageButton;
+    op1: TsuiImageButton;
+    tmr1: TTimer;
+    lv1: TListView;
+    bclb: TTimer;
+    list: TPopupMenu;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    x1: TMenuItem;
+    x2: TMenuItem;
+    x3: TMenuItem;
+    MenuItem7: TMenuItem;
+    x4: TMenuItem;
+    x5: TMenuItem;
+    MenuItem10: TMenuItem;
+    MenuItem11: TMenuItem;
+    MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
     N35: TMenuItem;
-    mover: TTimer;
-    cixing: TTimer;
-    moverlrc: TTimer;
-    Label4: TLabel;
+    Panel1: TPanel;
+    TrackBar1: TTrackBar;
+    SkyAudioMeter1: TSkyAudioMeter;
+    Label1: TLabel;
+    gundong: TLabel;
+    Label2: TLabel;
+    suiMainMenu1: TsuiMainMenu;
+    M1: TMenuItem;
+    N36: TMenuItem;
+    N57: TMenuItem;
+    N58: TMenuItem;
+    N59: TMenuItem;
+    N60: TMenuItem;
+    N61: TMenuItem;
+    N62: TMenuItem;
+    L1: TMenuItem;
+    N63: TMenuItem;
+    N64: TMenuItem;
+    N65: TMenuItem;
+    N66: TMenuItem;
+    MusicBar1: TMenuItem;
+    N71: TMenuItem;
+    N74: TMenuItem;
+    N75: TMenuItem;
+    conui: TTimer;
+    lst1: TListBox;
     procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure N81Click(Sender: TObject);
-    procedure TrackBar2Change(Sender: TObject);
+
     procedure btn1Click(Sender: TObject);
     procedure N5Click(Sender: TObject);
     procedure N37Click(Sender: TObject);
@@ -168,14 +179,14 @@ type
     procedure N22Click(Sender: TObject);
     procedure N72Click(Sender: TObject);
     procedure N73Click(Sender: TObject);
-    procedure StartUpTimerTimer(Sender: TObject);
+  
     procedure Timer2Timer(Sender: TObject);
     procedure btn2Click(Sender: TObject);
     procedure btn3Click(Sender: TObject);
     procedure btn4Click(Sender: TObject);
-    procedure VsHotSpot7Click(Sender: TObject);
+
     procedure op1Click(Sender: TObject);
-    procedure N70Click(Sender: TObject);
+
     procedure MediaPlayer1Notify(Sender: TObject);
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
@@ -185,14 +196,14 @@ type
     procedure N9Click(Sender: TObject);
     procedure btn5Click(Sender: TObject);
     procedure N52Click(Sender: TObject);
-    procedure VsHotSpot1Click(Sender: TObject);
+
     procedure N80Click(Sender: TObject);
-    procedure N79Click(Sender: TObject);
-    procedure N83Click(Sender: TObject);
+
+
     procedure N82Click(Sender: TObject);
-    procedure N84Click(Sender: TObject);
-    procedure N4Click(Sender: TObject);
-    procedure chk1Click(Sender: TObject);
+
+
+
     procedure VsHotSpot2Click(Sender: TObject);
     procedure TrackBar1Change(Sender: TObject);
     procedure N11Click(Sender: TObject);
@@ -208,13 +219,13 @@ type
     procedure N25Click(Sender: TObject);
     procedure N27Click(Sender: TObject);
     procedure N28Click(Sender: TObject);
-    procedure N30Click(Sender: TObject);
-    procedure N31Click(Sender: TObject);
+
+  
     procedure N32Click(Sender: TObject);
-    procedure N44Click(Sender: TObject);
+   
     procedure gdTimer(Sender: TObject);
     procedure SkyAudioMeter1Click(Sender: TObject);
-    procedure N45Click(Sender: TObject);
+
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure N47Click(Sender: TObject);
@@ -223,57 +234,68 @@ type
     procedure N49Click(Sender: TObject);
     procedure N51Click(Sender: TObject);
     procedure yhcpuTimer(Sender: TObject);
-    procedure VsCheckBox1Click(Sender: TObject);
+
     procedure jzlstTimer(Sender: TObject);
     procedure SkyAudioMeter1DblClick(Sender: TObject);
     procedure N34Click(Sender: TObject);
-    procedure qq1Timer(Sender: TObject);
-    procedure qq2Timer(Sender: TObject);
-    procedure trackbar1MouseMove(Sender: TObject; Shift: TShiftState; X,
-      Y: Integer);
-    procedure ballhint1Click(Sender: TObject);
-    procedure VsHotSpot3MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+   
+    procedure miClick(Sender: TObject);
+
+   
+    procedure VsHotSpot3Click(Sender: TObject);
+    procedure cicleClick(Sender: TObject);
+    procedure cicletoendClick(Sender: TObject);
+ 
+    procedure bclbTimer(Sender: TObject);
+    procedure lv1DblClick(Sender: TObject);
+    procedure lv1Change(Sender: TObject; Item: TListItem;
+      Change: TItemChange);
+    procedure x1Click(Sender: TObject);
     procedure N35Click(Sender: TObject);
-    procedure FormShortCut(var Msg: TWMKey; var Handled: Boolean);
-    procedure cixingTimer(Sender: TObject);
-    procedure moverTimer(Sender: TObject);
-    procedure mainskinMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure mainskinMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure moverlrcTimer(Sender: TObject);
-   // procedure soundClick(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
+    procedure x2Click(Sender: TObject);
+    procedure x3Click(Sender: TObject);
+    procedure MenuItem7Click(Sender: TObject);
+    procedure x4Click(Sender: TObject);
+    procedure x5Click(Sender: TObject);
+    procedure MenuItem11Click(Sender: TObject);
+    procedure MenuItem12Click(Sender: TObject);
+    procedure MenuItem13Click(Sender: TObject);
+    procedure tmr1Timer(Sender: TObject);
+    procedure loadlrc(s: string);
+    procedure lv1SelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+    procedure N36Click(Sender: TObject);
+    procedure N57Click(Sender: TObject);
+    procedure N59Click(Sender: TObject);
+    procedure N60Click(Sender: TObject);
+    procedure N62Click(Sender: TObject);
+    procedure N83Click(Sender: TObject);
+    procedure conuiTimer(Sender: TObject);
+    procedure N63Click(Sender: TObject);
+    procedure N64Click(Sender: TObject);
+    procedure N84Click(Sender: TObject);
+    procedure N65Click(Sender: TObject);
+    procedure MusicBar1Click(Sender: TObject);
+    procedure N71Click(Sender: TObject);
+    procedure N75Click(Sender: TObject);
+    procedure N45Click(Sender: TObject);
 
 
 
 
   private
-      function GetFormNameAt(const Pos: TPoint): string;
-
+     procedure WMWINDOWPOSCHANGING(Var Msg: TWMWINDOWPOSCHANGING);message WM_WINDOWPOSCHANGING;
     { Private declarations }
+
   public
   procedure DropFiles(var Msg: TMessage); message WM_DropFILES;
-      procedure SysCommand(var SysMsg: TMessage); message WM_SYSCOMMAND;
-    procedure WMNID(var msg: TMessage); message WM_NID;
+  //    procedure SysCommand(var SysMsg: TMessage); message WM_SYSCOMMAND;
+ //   procedure WMNID(var msg: TMessage); message WM_NID;
     { Public declarations }
   end;
 
-  type            ///------------edited by bruce 2012/9/30/23:33
-  
-    TID3Tag=packed   record   //   128   字节
-      TAGID:   array[0..2]   of   char;   //   3   字节:   必须是TAG
-      Title:   array[0..29]   of   char;   //   30   字节:   歌曲标题
-      Artist:   array[0..29]   of   char;   //   30   字节:   歌曲的艺术家
-      Album:   array[0..29]   of   char;   //   30   字节:   歌曲专辑
-      Year:   array[0..3]   of   char;   //   4   字节:   出版年
-      Comment:   array[0..29]   of   char;   //   30   字节:   评论
-      Genre:   byte;   //   1   字节:   种类标识
 
-    end;
-
-
-                ///------------edited by bruce 2012/9/30/23:33
 
 
 var
@@ -285,138 +307,95 @@ var
   Flnm: string;
   xlist: TListItem;
   sumtime :Integer   ;
-  s1,s2,s3 :string;          //s1:歌手  s2:歌曲名    s3:专辑
+  s1,s2,gs :string;          //s1:歌手  s2:歌曲名     gs:歌曲格式
   list : TStringlist;     //分离字符串
-   ID3v1: TID3v1;
 
-   const   //获取操作系统信息 by bruce 2012.7.28--------
-        OsUnknown:integer=-1;
-        OsWin95:integer=0;
-        OsWin98:integer=1;
-        OsWin98SE:integer=2;
-        OsWinMe:integer=3;
-        OsWinNT:integer=4;
-        OsWin2000:integer=5;
-        OsWinXP:integer=6;
-        OsWinOther:integer=7;
-    //--------------------------------------------------
+  fle: string;
+  Lrc: TStrings;
+  movelrc :string;
+
 implementation
 
-uses Unit2, Unit5, Unit8, Unit3, Unit6, Unit7, Unit4, Unit9;
+uses Unit6, Unit9, Unit7, Unit4;
+
 
 {$R *.dfm}
-//----------------------------------------------获取操作系统id编号----------
-function GetOsVersion:integer;
+
+procedure Tmainplay.WMWINDOWPOSCHANGING(var Msg: TWMWINDOWPOSCHANGING);
 var
-    OsVerInfo:TOsVersionInfo;
-    majorVer,minorVer:integer;
+WorkDound: TRect;
+remove : Word;
 begin
-      result := OsUnknown;
-      OsVerInfo.dwOSVersionInfoSize := sizeof(TOsVersionInfo);
-      if GetVersionEx(OsVerInfo) then
-      begin
-          majorVer:= OsVerInfo.dwMajorVersion ;
-          minorVer:= OsVerInfo.dwMinorVersion ;
-          case OsVerInfo.dwPlatformId of
-              VER_PLATFORM_WIN32_NT:      //NT/2000
-              begin
-                  if (majorVer <= 4) then
-                    result:= OsWinNT
-                    else if ((majorVer=5 ) and (minorVer=0)) then
-                      result:=OsWin2000
-                      else if ((majorVer=5) and (minorVer=1)) then
-                        result:= OsWinXP
-                        else
-                          result:= OsWinOther;
-              end;
-
-              VER_PLATFORM_WIN32_WINDOWS:  //9X/ME
-              begin
-                  if ((majorVer=4) and (minorVer=0)) then
-                    result := OsWin95
-                    else if ((majorVer=4) and (minorVer=10)) then
-                          begin
-                            if (OsVerInfo.szCSDVersion[1]='A') then
-                                result:= OsWin98SE
-                            else
-                                result:= OsWin98;
-                          end
-                        else if ((majorVer=4) and (minorVer=90)) then
-                          result:= OsWinMe
-                          else
-                            Result:= OsUnknown;
-              end;
-              else            //unknown
-                result:= OsUnknown;
-              end;         //end case
-
-      end;       //end if
-end;
-//------------------------------------------------------------------
-function GetOsVersionName(OsCode:Integer):String;
+remove :=50; //可随意设置，是磁性的范围大小。
+WorkDound.Left:=mainplay.left;
+WorkDound.Top:=mainplay.Top;
+WorkDound.Right:=mainplay.left+mainplay.Width;
+WorkDound.Bottom:=mainplay.Top+mainplay.Height;
+with Msg.WindowPos^ do
 begin
-    case OsCode of
-        -1: result:='Microsoft UnKnown';
-        0: result:= 'Windows 95';
-        1: result:= 'Windows 98';
-        2: result:= 'Windows 98SE';
-        3: result:= 'Windows ME';
-        4: result:= 'Windows NT';
-        5: result:= 'Windows 2000';
-        6: result:= 'Windows XP';
-        7: result:= 'Windows 7';
-       // 8: result:= 'Windows 8' ;
-        else
-          result:= 'UnKnown';
-    end;
-end;
-//----------------------------------获取操作系统名称------------------
-
-//*****************************************************************************
- function Tmainplay.GetFormNameAt(const Pos: TPoint): string;
-var
-  w: TWinControl;
-begin
-  //得到鼠标指针下的VCL可视组件
-  w:= FindVclWindow(Pos);
-  if (w <> nil) then
-  begin
-    //当W的上级Parent不为空时就继续往上找
-    while w.Parent <> nil do
-      w:= w.Parent;
-    //最后返回窗体的名称Name
-    Result:= w.Name;
-  end
-  else
-    Result:= '';
-end;
-//******************************************************************************
-procedure Tmainplay.SysCommand(var SysMsg: TMessage);
-begin
-  case SysMsg.WParam of
-    SC_CLOSE: // 当关闭时
-      begin
-        SetWindowPos(Application.Handle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_HIDEWINDOW);
-        Hide; // 在任务栏隐藏程序
-      // 在托盘区显示图标
-        with NotifyIcon do
+    if (x+cx<WorkDound.Left+remove) then    //左方具有磁性
+      if (x+cx>WorkDound.Left-remove)or((x+cx>WorkDound.Left) and (x+cx<WorkDound.Left+remove)) then
         begin
-          cbSize := SizeOf(TNotifyIconData);
-          Wnd := Handle;
-          uID := 1;
-          uFlags := NIF_ICON or NIF_MESSAGE or NIF_TIP;
-          uCallBackMessage := WM_NID;
-          hIcon := Application.Icon.Handle;
-          szTip := '小步静听~静听精彩！';
+          x:=WorkDound.Left-cx;
         end;
+    if (x>WorkDound.Right-remove) then   //右方具有磁性
+      if (x<WorkDound.Right+remove)or((x<WorkDound.Right) and (x>WorkDound.Right-remove)) then
+        begin
+          x:=WorkDound.Right;
+        end;
+    if (y+cy<WorkDound.Top+remove) then    //上方具有磁性
+      if (y+cy>WorkDound.Top-remove)or((y+cy>WorkDound.Top) and (y+cy<WorkDound.Top+remove)) then
+        begin
+          y:= WorkDound.Top-cy;
+        end;
+    if (y>WorkDound.Bottom-remove) then   //下方具有磁性
+      if (y<WorkDound.Bottom+remove)or((y<WorkDound.Bottom) and (y>WorkDound.Bottom-remove)) then
+        begin
+          y:= WorkDound.Bottom;
+        end;
+end;
+inherited;
+end;
 
-        Shell_NotifyIcon(NIM_ADD, @NotifyIcon); // 在托盘区显示图标
+ procedure Tmainplay.loadlrc(s: string);
+var
+  i: Integer;
+
+begin
+  lrc := TStringList.Create;
+  if s <> '' then
+  begin
+    fle := ExtractFileName(s);
+    SetLength(fle, Length(ExtractFileName(fle)) - Length(ExtractFileExt(fle)));
+
+
+
+    if   FileExists(ExtractFilePath(s) + fle + '.lrc')  then  //存在则加载它
+    begin
+      lrc.LoadFromFile(ExtractFilePath(s) + fle + '.lrc');
+
+      tmr1.Enabled := True;
+
+    end  else                                              //不存在则联网搜索..
+    begin
+
+       serlrc.show;
+    end;
+       for i := 0 to lrc.Count - 1 do
+     begin
+   // Form3.lst1.Items.Add(lrc.strings[i]);
+     if i>=2 then  //i > 2  是略去标题 -作者 - 专辑信息 【0-2】  2012.3.20
+
+     lst1.Items.Add(Copy(lrc.Strings[i],11, length(lrc.Strings[i])-10));
+
+     //实现[00:01.03]显示  [00:01.03][01:02.50]多行显示正在思考..  2012.3.26
       end;
-  else
-    inherited;
+
   end;
 
-end;
+   end;
+
+
 
 //------------------------支持拖动模块---------------------------------------
 procedure Tmainplay.DropFiles(var Msg: TMessage);
@@ -431,12 +410,11 @@ begin
     DragQueryFile(Msg.WParam, i, buffer, sizeof(buffer)); // 第二次调用得到文件名称
     if (ExtractFileExt(buffer) <> '.mp3') and (ExtractFileExt(buffer) <> '.wma')and (ExtractFileExt(buffer) <> '.wav')and(ExtractFileExt(buffer) <> '.mp2') then
     begin
-     rztray.ShowBalloonHint('','不支持播放此类文件！',bhiinfo,10);
-      //Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+      Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
       Exit;
     end;
     try
-      xlist := playlist.lv1.Items.Add;
+      xlist := lv1.Items.Add;
       xlist.Caption := ExtractFileName(buffer);
       xlist.SubItems.add(ExtractFilePath(buffer));
       MediaPlayer1.FileName := ExtractFilePath(buffer) + xlist.Caption;
@@ -450,14 +428,13 @@ begin
       label1.Caption:='状态:播放' ;
       stat1.panels[0].text:=extractfilename(mediaplayer1.filename);
       MediaPlayer1.Play;
-      if chk1.Checked=True then lrcshow.loadlrc(MediaPlayer1.FileName); //加载歌词文件！
+      loadlrc(MediaPlayer1.FileName); //加载歌词文件！
       btn2.Enabled := True;
       btn3.Enabled := true;
       Timer2.Enabled := True;
     except
       on EMCIDeviceError do
-      rztray.ShowBalloonHint('','不支持播放此类文件！',bhiinfo,10);
-     //  Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+        Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
     end;
   end;
 end;
@@ -466,7 +443,7 @@ end;
 ///------------------------------------------------------------------------------------
 
 
-procedure Tmainplay.WMNID(var msg: TMessage);
+{procedure Tmainplay.WMNID(var msg: TMessage);
 var
   mousepos: TPoint;
 begin
@@ -484,7 +461,7 @@ begin
   end;
 end;
 
-
+ }
 
 
 
@@ -510,15 +487,7 @@ begin
 
   end;
 
-  procedure TMainPlay.TrackBar2Change(Sender: TObject);
 
-var
-  t, v: Longint;
-begin
-  t := TrackBar2.Position;
-  v := (t shl 8) or (t shl 24);
-  waveOutSetVolume(0, v);
-end;
 
 
 
@@ -532,15 +501,15 @@ begin
   a := False;
   if opendialog1.Execute then
   begin
-    for i := 0 to playlist.Lv1.Items.Count - 1 do   //  1重for循环控制listview
+    for i := 0 to Lv1.Items.Count - 1 do   //  1重for循环控制listview
     begin
-      if OpenDialog1.FileName = playlist.lv1.Items[i].SubItems.Strings[0] + playlist.lv1.Items[i].Caption then
+      if OpenDialog1.FileName = lv1.Items[i].SubItems.Strings[0] + lv1.Items[i].Caption then
       begin
         a := True;
         MessageBox(Handle, '已存在于播放列表中！', '提示', MB_OK +
           MB_IconInformation);
-        playlist.lv1.SetFocus;
-        playlist.Lv1.ItemIndex := i; //选定重复的列表项
+        lv1.SetFocus;
+        Lv1.ItemIndex := i; //选定重复的列表项
         exit;
       end;
     end;
@@ -548,12 +517,13 @@ begin
     begin
     for i:=0 to opendialog1.Files.Count-1 do   //   2重for循环控制opendialog个数
       begin
+   
      // Flnm := ExtractFileName(OpenDialog1.FileName);
-      xlist := playlist.lv1.Items.Add;
+      xlist := lv1.Items.Add;
       xlist.Caption :=ExtractFileName(opendialog1.Files[i]);
       xlist.SubItems.add(ExtractFilePath(opendialog1.Files[i]));
       btn1.Enabled := true;
-      playlist.lv1.Items[0].Selected:=true;
+      lv1.Items[0].Selected:=true;
        end;
     end;
   end;
@@ -569,15 +539,15 @@ begin
     begin
       if N2.Checked then //如果选择了顺序播放
       begin
-        for i := 0 to playlist.lv1.Items.Count do
+        for i := 0 to lv1.Items.Count do
         begin
-          if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.lv1.Items[i].Caption then
+          if MediaPlayer1.FileName = lv1.Items[i].SubItems.strings[0] + lv1.Items[i].Caption then
           begin
-            playlist.lv1.ItemIndex := i;
+            lv1.ItemIndex := i;
             Break;
           end;
         end; //此循环语句用于判断当前正在播放的是哪一个列表项
-        if playlist.lv1.ItemIndex = playlist.lv1.Items.Count - 1 then
+        if lv1.ItemIndex = lv1.Items.Count - 1 then
         begin
           Notify := False;
           skyaudiometer1.Repaint; //重绘一次..
@@ -588,7 +558,7 @@ begin
         begin
           if (IsIconic(mainplay.Handle) = False) and (IsZoomed(mainplay.Handle) = false) then //此段程序的目的是在托盘状态下连续播放不会出错
           begin
-            playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
+            lv1.ItemIndex := lv1.ItemIndex + 1;
             trackbar1.Position := 0; //此处必须置0,否则遇到时间比自身短的文件会触发TrackBar1Change会自动跳过去
             skyaudiometer1.Repaint; //重绘一次..
             vision.am2.Repaint;
@@ -596,8 +566,8 @@ begin
           end
           else
           begin
-            playlist.lv1.SetFocus; //选中要播放的列表项
-            playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
+            lv1.SetFocus; //选中要播放的列表项
+            lv1.ItemIndex := lv1.ItemIndex + 1;
             trackbar1.Position := 0; //此处必须置0,否则遇到时间比自身短的文件会触发TrackBar1Change会自动跳过去
             skyaudiometer1.Repaint; //重绘一次..
             vision.am2.Repaint;
@@ -623,18 +593,18 @@ begin
 
       if N8.Checked then //如果选择了列表循环播放
       begin
-        for i := 0 to playlist.lv1.Items.Count do
+        for i := 0 to lv1.Items.Count do
         begin
-          if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.lv1.Items[i].Caption then
+          if MediaPlayer1.FileName = lv1.Items[i].SubItems.strings[0] + lv1.Items[i].Caption then
           begin
-            playlist.lv1.ItemIndex := i;
+            lv1.ItemIndex := i;
             Break;
           end;
         end; //此循环语句用于判断当前正在播放的是哪一个列表项
-        if playlist.lv1.ItemIndex = playlist.lv1.Items.Count - 1 then playlist.lv1.ItemIndex := -1; //判断当前播放的项是否是最后一行
+        if lv1.ItemIndex = lv1.Items.Count - 1 then lv1.ItemIndex := -1; //判断当前播放的项是否是最后一行
         if (IsIconic(mainplay.Handle) = False) and (IsZoomed(mainplay.Handle) = false) then //此段程序的目的是在托盘状态下连续播放不会出错
         begin
-          playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
+          lv1.ItemIndex := lv1.ItemIndex + 1;
           trackbar1.Position := 0; //此处必须置0,否则遇到时间比自身短的文件会触发TrackBar1Change会自动跳过去
           skyaudiometer1.Repaint; //重绘一次..
           vision.am2.Repaint;
@@ -642,8 +612,8 @@ begin
         end
         else
         begin
-          playlist.lv1.SetFocus; //选中要播放的列表项
-          playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
+          lv1.SetFocus; //选中要播放的列表项
+          lv1.ItemIndex := lv1.ItemIndex + 1;
           trackbar1.Position := 0; //此处必须置0,否则遇到时间比自身短的文件会触发TrackBar1Change会自动跳过去
           skyaudiometer1.Repaint; //重绘一次..
           vision.am2.Repaint;
@@ -653,7 +623,7 @@ begin
       if N7.Checked then  //随机播放
       begin
         Randomize;
-        playlist.lv1.ItemIndex := Random(playlist.lv1.Items.Count - 1); //使用随机函数生成随机的播放项目
+        lv1.ItemIndex := Random(lv1.Items.Count - 1); //使用随机函数生成随机的播放项目
         trackbar1.Position := 0; //此处必须置0,否则遇到时间比自身短的文件会触发TrackBar1Change会自动跳过去
         skyaudiometer1.Repaint; //重绘一次..
         vision.am2.Repaint;
@@ -670,10 +640,10 @@ end;
 procedure TMainPlay.FormCreate(Sender: TObject);
 
 begin
-label4.Caption:=GetOsVersionName(GetOsversion);
-//osinfo:OSVERSIONINFO;
-//--------------------------------------------------------
+self.ScreenSnap:=True;
+self.SnapBuffer:=30;//窗体吸附效果
 
+//--------------------------------------------------------
 
 sumtime:=0;       //标签计数器
 label3.Cursor:=crHandPoint;  //鼠标形状
@@ -682,32 +652,27 @@ DragAcceptFiles(Handle, True);
 PositionChange := False; //设置初始值；
 end;
 
-procedure TMainPlay.FormDestroy(Sender: TObject);
-begin
-skyaudiometer1.free;
-rztray.free;
-Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
-end;
-
 procedure TMainPlay.Timer1Timer(Sender: TObject);
+var k:integer;list:Tstringlist;
 
 begin
  with mediaplayer1 do
     if mode in [mpplaying] then //必须先判断播放器状态 否则会出错！
       begin
-
-      Trackbar1.Maxvalue := mediaplayer1.Length div 1000; //首先取得文件的长度，并设置为滑块的最大值！
+      Trackbar1.Max := mediaplayer1.Length div 1000; //首先取得文件的长度，并设置为滑块的最大值！
       TrackBar1.Position := MediaPlayer1.Position div 1000; //让播放器随播放进度滑动
-      rztray.Hint:=mainplay.stat1.Panels[0].Text + chr(13)+'  ~小步静听,享受音乐盛宴~  ';    //rz托盘提示信息
-      miniplay.vsskin1.Hint:=mainplay.stat1.Panels[0].Text + chr(13)+'  ~小步静听,享受音乐盛宴~  ';
+      rztray.Hint:=stat1.Panels[0].Text + chr(13)+'  小步静听，静听精彩 !  ';    //rz托盘提示信息
 
-     
-       {
+
+      //分离出歌曲名-歌手 等 信息--------------
+
+
       k:= pos('-',stat1.Panels[0].Text);       //先用pos语句判断歌曲名里有没有'-' 否则会出错--edit by bruce 2012.4.3
       if  k>0   then
       begin
       list := TStringlist.Create;
       list.Delimiter :='-' ;
+      //list.DelimitedText :=stat1.Panels[0].Text;
       list.DelimitedText :=StringReplace(stat1.Panels[0].Text,' ','',[rfReplaceAll]);//去除空格;
       s1:=list.strings[0];
       s2:= list.Strings[1];
@@ -715,7 +680,6 @@ begin
       s2:= stat1.Panels[0].Text;
       s1:='未知';
       end;
-      }
       //-------右键菜单播放控制切换-----
       n17.Caption:='暂停' ;
       n18.Caption:='停止' ;
@@ -751,16 +715,16 @@ begin
     if (S.Attr and faDirectory) = 0 then
     begin
       a := False;
-      for i := 0 to playlist.lv1.Items.Count - 1 do
+     for i := 0 to mainplay.Lv1.Items.Count - 1 do
       begin
-        if GetCurrentDir + '\' + s.Name = playlist.Lv1.Items[i].SubItems.Strings[0] + playlist.lv1.items[i].Caption then a := True;
+        if GetCurrentDir + '\' + s.Name = mainplay.lv1.Items[i].SubItems.Strings[0] + mainplay.lv1.items[i].Caption then a := True;
       end;
       if a = false then
       begin
-        xlist := playlist.lv1.Items.Add;
+        xlist := mainplay.lv1.Items.Add;
         xlist.Caption := s.name;
         xlist.SubItems.add(GetCurrentDir + '\');
-       mainplay.btn1.Enabled := true;
+        mainplay.btn1.Enabled := true;
       end;
 
     end;
@@ -772,16 +736,16 @@ end;
 
 
 procedure TMainPlay.btn1Click(Sender: TObject);
-begin
+ var
+ i:integer;
+ k:integer;
+ p1,p2:string;          //s1:歌手  s2:歌曲名     gs:歌曲格式
+  plist : TStringlist;     //分离字符串
 
-if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
+begin
+if lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
   begin
-    mediaplayer1.FileName := playlist.Lv1.Selected.SubItems.Strings[0] + playlist.lv1.Selected.Caption; //
-     ID3v1 := TID3v1.Create;
-     id3v1.ReadFromFile(mediaplayer1.FileName);
-     s2:=id3v1.Artist;
-     s1:=id3v1.Title ;
-     s3:=id3v1.Album;
+    mediaplayer1.FileName := lv1.Selected.SubItems.Strings[0] + lv1.Selected.Caption; //
     if MediaPlayer1.Mode in [mppaused] then
     begin
       MediaPlayer1.Resume;//恢复播放状态--记忆播放位置
@@ -789,8 +753,6 @@ if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
       skyaudiometer1.Open;
       skyaudiometer1.Active:=true;
       vision.am2.Active:=true;
-
-
       btn1.Enabled := False;
       btn2.Enabled := True;
     end
@@ -799,11 +761,9 @@ if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
       try
         mediaplayer1.Open;
         mediaplayer1.Play; //播放列表框中选择的文件
-
         label1.Caption:='状态:播放 ';
-
         skyaudiometer1.active:=true;
-        vision.am2.Active:=true;
+
         mediaplayer1.Notify := true;
         btn1.Enabled := false; //播放按钮变为不可用
         btn2.Enabled := true;
@@ -811,40 +771,51 @@ if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
         timer1.Enabled := true;
         timer2.Enabled := true;
         gd.Enabled:=true;
+
         listname.Caption:=extractfilename(MediaPlayer1.FileName);
         trackbar1.Enabled := true;
-        stat1.Panels[0].Text := copy(extractfilename(MediaPlayer1.FileName),0,length(extractfilename(MediaPlayer1.FileName))-4);
-        if ballhint1.Checked then
-        begin
-        rztray.ShowBalloonHint(copy(extractfilename(MediaPlayer1.FileName),0,length(extractfilename(MediaPlayer1.FileName))-4),'小步静听，静听精彩！',bhiinfo,10);
-        end;
-        if chk1.Checked=True then
-        begin
-        lrcshow.lst1.Clear;
-        lrcshow.loadlrc(MediaPlayer1.FileName);
-        end;
+        stat1.Panels[0].Text :=  ExtractFileName(mediaplayer1.FileName);
+         //分离出歌曲名-歌手 等 信息--------------
+
+
+      k:= pos('-',stat1.Panels[0].Text);       //先用pos语句判断歌曲名里有没有'-' 否则会出错--edit by bruce 2012.4.3
+      if  k>0   then
+      begin
+      plist := TStringlist.Create;
+      plist.Delimiter :='-' ;
+      //list.DelimitedText :=stat1.Panels[0].Text;
+      plist.DelimitedText :=StringReplace(stat1.Panels[0].Text,' ','',[rfReplaceAll]);//去除空格;
+      p1:=plist.strings[0];
+      p2:= plist.Strings[1];
+      end else  begin
+      p2:= stat1.Panels[0].Text;
+      p1:='未知';
+      end;
+        rztray.ShowBalloonHint('歌手: '+p1,'    歌曲: ' + copy(p2,0,length(p2)-4),bhiinfo ,10);
+        lst1.Clear;
+        loadlrc(MediaPlayer1.FileName);
+
       except
         on EMCIDeviceError do
-          //MessageBox(Handle, '无法播放，请检查路径或者文件名是否正确！', '错误',
-           // MB_OK + MB_ICONSTOP);
-           rztray.ShowBalloonHint('','文件不存在',bhiinfo,10);
-          
+          MessageBox(Handle, '无法播放，请检查路径或者文件名是否正确！', '错误',
+            MB_OK + MB_ICONSTOP);
+
       end;
 
 
     end;
   end;
-
 end;
 
 procedure TMainPlay.N5Click(Sender: TObject);
 begin
-
-Application.Terminate;
-rztray.Free;
+skyaudiometer1.Close;
+skyaudiometer1.Free;
+rztray.Destroy;
+  rztray.Free;
 Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
-
- 
+  Application.Terminate;
+  close;
 end;
 
 procedure TMainPlay.N37Click(Sender: TObject);
@@ -938,8 +909,9 @@ skyaudiometer1.FreqSpace:=3;
 end;
 
 procedure TMainPlay.Timer3Timer(Sender: TObject);
-var j:string  ;
+var j:string ; k:integer;
 begin
+
 case   dayofweek(now)   of
     1:j:= '星期天 ';
     2:j:= '星期一 ';
@@ -950,7 +922,7 @@ case   dayofweek(now)   of
     7:j:= '星期六 ';
     end;
 
- label3.Caption:=formatdatetime(' yyyy-mm-dd  ',now)+j+formatdatetime('hh:nn:ss',now) ;
+ label3.Caption:=formatdatetime(' yy-mm-dd  ',now)+j+formatdatetime('hh:nn:ss',now) ;
  label3.Left:=label3.Left-1;
  if label3.Left=6 then
  begin
@@ -974,7 +946,7 @@ end;
 
 procedure TMainPlay.Label3MouseLeave(Sender: TObject);
 begin
-label3.Font.Color:=$00072D7A;
+label3.Font.Color:=clAqua;
  label3.Font.Size:=8;
 label3.Font.Style:=[];
 timer3.Enabled:=true;
@@ -993,9 +965,9 @@ case   dayofweek(now)   of
     7:j:= '星期六 ';
     end;
 
- label3.Caption:=formatdatetime(' yyyy-mm-dd  ',now)+j+formatdatetime('hh:nn:ss',now) ;
+ label3.Caption:=formatdatetime(' yy-mm-dd  ',now)+j+formatdatetime('hh:nn:ss',now) ;
  label3.Left:=label3.Left+1;
- if label3.Left=mainskin.Width-label3.Width -6  then
+ if label3.Left=mainplay.Width-label3.Width -6  then
  begin
   timer4.Enabled:=false;
   timer3.Enabled:=true;
@@ -1027,22 +999,6 @@ n22.Checked:=false;
 skyaudiometer1.ForeColor:=$00DBA7F3;
 end;
 
-procedure TMainPlay.StartUpTimerTimer(Sender: TObject);
- 
-begin
- StartupTimer.Enabled := False;
- 
-
- mainplay.height := mainskin.Height;
- mainplay.Width := mainskin.Width;
- mainplay.Left := (screen.width - mainplay.Width) div 2;
- mainplay.Top := (screen.Height -mainplay.Height) div 2;
- playlist.Top := mainplay.Top +mainplay.Height;
- playlist.Left :=mainplay.Left;
- playlist.Show;
-
-
-end;
 
 
 procedure TMainPlay.Timer2Timer(Sender: TObject);
@@ -1051,16 +1007,18 @@ with mediaplayer1 do
     if mode in [mpplaying] then
     begin
 
-      TrackBar1.Maxvalue := MediaPlayer1.Length div 1000;
-      stat1.Panels[2].Text := ZeroFill(2, IntToStr(TrackBar1.Maxvalue div 60))
-        + ':' + ZeroFill(2, IntToStr(TrackBar1.Maxvalue mod 60)) + '   ';
+      TrackBar1.Max := MediaPlayer1.Length div 1000;
+      stat1.Panels[2].Text :='时长:'+ ZeroFill(2, IntToStr(TrackBar1.max div 60))
+        + ':' + ZeroFill(2, IntToStr(TrackBar1.max mod 60)) + '   ';
 
       TrackBar1.Position := Position div 1000;
       stat1.Panels[1].Text := ZeroFill(2, IntToStr(TrackBar1.Position div 60))
         + ':' + ZeroFill(2, IntToStr(TrackBar1.Position mod 60));
+
        label2.Caption:=ZeroFill(2, IntToStr(TrackBar1.Position div 60))
         + ':' + ZeroFill(2, IntToStr(TrackBar1.Position mod 60));
 
+       
     end;
 end;
 
@@ -1089,8 +1047,9 @@ case mediaplayer1.Mode of
       begin
         label1.Caption:='状态:停止 ';
         label2.Caption:='00:00';
-        skyaudiometer1.active:=false;
+
         skyaudiometer1.Repaint;// 用repaint方法实现频谱的重绘...... 2012.4.3  edit by bruce
+        sleep(50);
         vision.am2.Active:=false;
         vision.am2.repaint;
         vision.am2.Repaint;
@@ -1112,55 +1071,44 @@ procedure TMainPlay.btn4Click(Sender: TObject);
 var
   i: Integer;
 begin
-  if playlist.Lv1.ItemIndex = -1 then exit; //如果列表为空，则不执行语句
+  if lv1.ItemIndex = -1 then exit; //如果列表为空，则不执行语句
   with mediaplayer1 do //使用判断播放器状态语句，不至于直接执行Mediaplayer.stop，那样会出错！
     if mode in [mpopen, mpplaying] then
     begin
-      for i := 0 to playlist.Lv1.Items.Count do
+      for i := 0 to lv1.Items.Count do
       begin
-        if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.Lv1.Items[i].Caption then //和第一列第I行比较
+        if MediaPlayer1.FileName = lv1.Items[i].SubItems.strings[0] + lv1.Items[i].Caption then //和第一列第I行比较
         begin
-          playlist.lv1.ItemIndex := i;
+          lv1.ItemIndex := i;
           skyaudiometer1.active:=false;
           Break;
         end;
       end; //此循环语句用于判断当前正在播放的是哪一个列表项
-      if playlist.lv1.ItemIndex > 0 then // 保证列表框中有内容，才执行下面语句，否则也会出错！
+      if lv1.ItemIndex > 0 then // 保证列表框中有内容，才执行下面语句，否则也会出错！
       begin
-        playlist.lv1.SetFocus;
-        playlist.lv1.ItemIndex := playlist.lv1.ItemIndex - 1;
+        btn3click(sender);
+        lv1.SetFocus;
+        lv1.ItemIndex := lv1.ItemIndex - 1;
         btn1Click(Sender);
       end;
     end
     else
     begin
-      if playlist.lv1.ItemIndex > 0 then // 保证列表框中有内容，才执行下面语句，否则也会出错！
+      if lv1.ItemIndex > 0 then // 保证列表框中有内容，才执行下面语句，否则也会出错！
       begin
-        playlist.lv1.SetFocus;
-        playlist.Lv1.ItemIndex := playlist.lv1.ItemIndex - 1;
+        lv1.SetFocus;
+        lv1.ItemIndex := lv1.ItemIndex - 1;
       end;
     end;
 end;
 
-procedure TMainPlay.VsHotSpot7Click(Sender: TObject);
-begin
-n70click(sender);
 
-end;
 
 procedure TMainPlay.op1Click(Sender: TObject);
 begin
 n81click(sender);
 end;
 
-procedure TMainPlay.N70Click(Sender: TObject);
-begin
-n70.Checked := not n70.Checked;
-if n70.Checked then
-playlist.Hide
-else
-playlist.Show;
-end;
 
 procedure TMainPlay.N2Click(Sender: TObject);
 begin
@@ -1226,31 +1174,32 @@ procedure TMainPlay.btn5Click(Sender: TObject);
 var
   i: Integer;
 begin
-  if playlist.lv1.ItemIndex = -1 then exit;
+  if lv1.ItemIndex = -1 then exit;
   with mediaplayer1 do
     if mode in [mpopen, mpplaying] then
     begin
-      for i := 0 to playlist.lv1.Items.Count - 1 do
+      for i := 0 to lv1.Items.Count - 1 do
       begin
-        if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.lv1.Items[i].Caption then //此循环语句用于判断当前正在播放的是哪一个列表项
+        if MediaPlayer1.FileName = lv1.Items[i].SubItems.strings[0] + lv1.Items[i].Caption then //此循环语句用于判断当前正在播放的是哪一个列表项
         begin
-          playlist.lv1.ItemIndex := i;
+          lv1.ItemIndex := i;
           skyaudiometer1.active:=false;
           Break;
         end;
       end;
-      if playlist.lv1.ItemIndex <> playlist.lv1.Items.count - 1 then //如果当前播放的不是最后一首
+      if lv1.ItemIndex <> lv1.Items.count - 1 then //如果当前播放的不是最后一首
       begin
-        playlist.lv1.SetFocus;
-        playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
+        btn3click(sender);
+        lv1.SetFocus;
+        lv1.ItemIndex := lv1.ItemIndex + 1;
         btn1Click(Sender);
       end;
     end
     else
     begin
-      if playlist.lv1.ItemIndex = playlist.lv1.Items.count - 1 then Exit;
-      playlist.lv1.SetFocus;
-      playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
+      if lv1.ItemIndex = lv1.Items.count - 1 then Exit;
+      lv1.SetFocus;
+      lv1.ItemIndex := lv1.ItemIndex + 1;
     end;
 end;
 
@@ -1261,102 +1210,26 @@ end;
 
 
 
-procedure TMainPlay.VsHotSpot1Click(Sender: TObject);
-begin
-application.Minimize;
-if minilrc.Showing then
-begin
-n79.Checked:=false;
-minilrc.Close;
-n79.Checked:=true;
-minilrc.Show;
-end;
-end;
+
 procedure TMainPlay.N80Click(Sender: TObject);
 begin
-if MediaPlayer1.Mode in [mpplaying] then
-begin
-miniplay.vsplay.GraphicName:='pause.bmp';
-end
-else
-begin
-miniplay.vsplay.GraphicName:='play.bmp';
-end;
+mainplay.Left:=screen.Width;
 
-mainplay.Left:=screen.Width+1;
-playlist.left:=screen.Width+1;  
-
-miniplay.Show;
 
 end;
 
-procedure TMainPlay.N79Click(Sender: TObject);
-begin
-n79.Checked:=true;
-n44.Checked:=false;
-if chk1.Checked then   begin
-lrcshow.hide;
-minilrc.Show;
-end
-else
-begin
-chk1.Checked:=true;
-lrcshow.Show;
-lrcshow.hide;
-minilrc.show;
-end;
-end;
 
-procedure TMainPlay.N83Click(Sender: TObject);
-begin
-opendialog3.Filter:='LRC歌词文件|*.LRC'  ;
-if opendialog3.Execute then
 
- lrcshow.lst1.Items.LoadFromFile(opendialog3.FileName);
-lrcshow.lst1.Items.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
- mainplay.chk1.Checked:=false;//初始化它..
- mainplay.chk1.Checked:=true;
- mainplay.chk1.Checked:=false;//重新加载它..
- mainplay.chk1.Checked:=true;
-
-end;
 
 procedure TMainPlay.N82Click(Sender: TObject);
 begin
 serlrc.show;
 end;
 
-procedure TMainPlay.N84Click(Sender: TObject);
-begin
-lrcshow.tmr1.Enabled:=false;
-editlrc.show;
-lrcshow.Close;
 
-end;
 
-procedure TMainPlay.N4Click(Sender: TObject);
-begin
-mainplay.RzTray.RestoreApp;
- miniplay.close;
- mainplay.Left:=(screen.Width-mainplay.Width) div 2;
- playlist.Left:=(screen.Width-mainplay.Width) div 2 ;
- mainplay.Visible:=true;
-  mainplay.show;
-//SetWindowPos(Application.Handle, HWND_TOP, 0, 0, 0, 0, SWP_SHOWWINDOW);
-//  Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
-end;
 
-procedure TMainPlay.chk1Click(Sender: TObject);
-begin
- if chk1.Checked = True then
-  begin
-   minilrc.Hide;
-   lrcshow.show;
-  
-    if MediaPlayer1.Mode in[mpplaying] then lrcshow.loadlrc(MediaPlayer1.FileName);
-      end;
-  if chk1.Checked = False then lrcshow.hide;
-end;
+
 
 procedure TMainPlay.VsHotSpot2Click(Sender: TObject);
 begin
@@ -1390,7 +1263,7 @@ end;
 
 procedure TMainPlay.N10Click(Sender: TObject);
 begin
-MessageBox(Handle, '最好歌曲与歌词目录一致，否则可能加载歌词错误！~~~~~反馈邮箱：qhdsoftware@163.com~~~~~QQ:654714226', PChar('Powerd BY Bruce（小布）~~ 2012~03'), MB_OK);
+MessageBox(Handle, '注意歌词书写规范，否则可能加载歌词时错误！~~~~~反馈邮箱：qhdsofeware@163.com~~~~~QQ:654714226', PChar('BruceMusicBar~~ 2012~03'), MB_OK);
 end;
 
 procedure TMainPlay.SinaBlog1Click(Sender: TObject);
@@ -1461,16 +1334,7 @@ begin
  mcisendstring('set cdaudio door closed wait', nil, 0, handle); //关闭
 end;
 
-procedure TMainPlay.N30Click(Sender: TObject);
-begin
 
-TrackBar2.Position:=TrackBar2.Position+60;
-end;
-
-procedure TMainPlay.N31Click(Sender: TObject);
-begin
-TrackBar2.Position:=TrackBar2.Position - 60;
-end;
 
 procedure TMainPlay.N32Click(Sender: TObject);
 var
@@ -1481,10 +1345,9 @@ begin
      begin
     N32.Checked:=True;
     n32.caption:='取消静音';
-    N30.Enabled:=False;  //增大不能用
-    N31.Enabled:=False;  //减小...
 
-    TrackBar2.Enabled:=False; //音条..
+
+
     v := (0 shl 8) or (0 shl 24);
     waveOutSetVolume(0, v);
      end;
@@ -1493,12 +1356,6 @@ begin
     begin
     N32.Checked:=False;
     N32.Caption:='静音';
-    N30.Enabled:=True;
-    N31.Enabled:=True;
-
-
-
-    TrackBar2.Enabled:=true;
     v := (255 shl 8) or (255 shl 24);
     waveOutSetVolume(0, v);
 
@@ -1508,53 +1365,34 @@ begin
 end;
 
 
-procedure TMainPlay.N44Click(Sender: TObject);
-begin
-chk1.Checked:=true;
-n44.Checked:=true;
-n79.Checked:=false;
-chk1click(sender);
-end;
+
 
 procedure TMainPlay.gdTimer(Sender: TObject);   //计时器 控制标签的切换
-var
-   strTrim:Widestring; //只需把字符串定义成 WideString 即可解决半个中文的问题了。--edit by bruce 2012/10/1 0:23
-   strScroll:Widestring;
-   begin
-//gs:=copy(s2,length(s2)-2,length(s2)) ;     //标签文字移动--时钟控件
-{if   length( gundong.Caption)>12 then begin
-gundong.Caption:=copy(gundong.Caption,6,length(gundong.Caption)) ; end;}
+begin
 
-//千千静听的步长也是250
- strScroll:= gundong.Caption;
- strTrim:= copy(strScroll,1,1); //获取第1个字符
- Delete(strScroll,1,1);         //将第1个字符删除
- //gundong.Caption:=strScroll+strTrim;        //将原来第1个字符放到最后一位
- if length( gundong.Caption)>16 then begin
- gundong.Caption:=strScroll+' '+strTrim;                 //长度超出后才滚动（截取）
- end;
-  //显示出来。
+
+gs:=copy(s2,length(s2)-2,length(s2)) ;     //标签文字移动--时钟控件
 
 if sumtime mod 16 = 0 then
 begin
-gundong.caption:='长度:'+stat1.Panels[2].Text;
+gundong.caption:=stat1.Panels[2].Text;
 end
 
 else
 if sumtime mod 16 = 4 then
 begin
-gundong.Caption:='歌曲:' + s1;
+gundong.Caption:='歌曲:' + copy(s2,0,length(s2)-4);
 end
 
 else
 if sumtime mod 16 = 8 then
 begin
-gundong.Caption:='歌手:' + s2;
+gundong.Caption:='歌手:' + s1;
 end;
 
 if sumtime mod 16 = 12 then
 begin
-gundong.Caption:='专辑:' + s3 ;
+gundong.Caption:='格式-' + gs +' 44Khz' +' 128Kbps';
 end;
  sumtime:=sumtime + 1;
 end;
@@ -1574,23 +1412,17 @@ if skyaudiometer1.AMStyle = smsSpectrum then
        end;
 end;
 
-procedure TMainPlay.N45Click(Sender: TObject);
-begin
-vshotspot1click(sender);
-end;
+
 
 procedure TMainPlay.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-skyaudiometer1.free;
-rztray.free;
-Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
+application.Terminate;
 end;
 
 procedure TMainPlay.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
 skyaudiometer1.free;
 rztray.Free;
-Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
 end;
 
 
@@ -1635,10 +1467,7 @@ end;
 
 end;
 
-procedure TMainPlay.VsCheckBox1Click(Sender: TObject);
-begin
-chk1click(sender);
-end;
+
 
 procedure TMainPlay.jzlstTimer(Sender: TObject);
  var
@@ -1648,47 +1477,36 @@ procedure TMainPlay.jzlstTimer(Sender: TObject);
 begin
 jzlst.Enabled:=false;
 //---------------------------自动加载列表---created by bruce 2012.4.4
- if FileExists(ExtractFilePath(ParamStr(0))+'bruce.ini')=true then
+
+ if FileExists(ExtractFilePath(ParamStr(0))+'bruce.m3u8')=true then
  begin
-     {AssignFile(F,  ExtractFilePath(ParamStr(0))+'bruce.ini'); //判断是否为空文本
+     {AssignFile(F,  ExtractFilePath(ParamStr(0))+'bruce.m3u8'); //判断是否为空文本
         Reset(F);
         if   filesize(F) > 0   then        //空文本推出---2012.4.6--by bruce
 
         begin }
           buf := tstringlist.create;
-          buf.loadfromfile(ExtractFilePath(ParamStr(0))+'bruce.ini');
+          buf.loadfromfile(ExtractFilePath(ParamStr(0))+'bruce.m3u8');
 
           for i := 0 to buf.Count - 1 do
            begin
-            xlist := playlist.lv1.Items.Add;//这个得放在xlist.Caption 的上句，每使用一次增加一行
+            xlist := lv1.Items.Add;//这个得放在xlist.Caption 的上句，每使用一次增加一行
             xlist.Caption := ExtractFileName(buf.Strings[i]);
             xlist.SubItems.add(ExtractFilePath(buf.Strings[i]));
+            xlist.SubItems.add(inttostr(i+1));  //3列家载序号..edited by bruce --2012.4.13
+
            end;
            buf.free;
-         //  playlist.lv1.Items[0].Selected;
+         //  lv1.Items[0].Selected;
          btn1.Enabled := True;
        // btn1click(sender);
          end;
 
         end;
-
-
-
-
-
-
-
-
 //-------------------------------自动加载列表---created by bruce 2012.4.4
 
 
 procedure TMainPlay.SkyAudioMeter1DblClick(Sender: TObject);
-var 
-    h:THandle; 
-
-
-begin
-if mediaplayer1.Mode in [mpplaying] then
 begin
 if  SkyAudioMeter1.AMStyle=smsSpectrum then
 begin
@@ -1698,13 +1516,12 @@ vision.am2.AMStyle:=smsOscillograph  ;  vision.ppfx.Checked:=false; vision.sbq.C
 end;
  vision.width:=screen.Width;
 vision.height:=screen.Height;
+if mediaplayer1.mode in [mpplaying] then
+begin
 vision.am2.active:=true;
 vision.Show;
-//---------------------------------------
- h:=findwindow( 'Shell_TrayWnd ',nil); 
-    showWindow(h,sw_hide);
-    //------------------------------------
 end;
+
 end;
 
 procedure TMainPlay.N34Click(Sender: TObject);
@@ -1712,272 +1529,291 @@ begin
 SkyAudioMeter1dblclick(sender);
 end;
 
-{procedure TMainPlay.soundClick(Sender: TObject);
-var v:longint;
-begin
-if sound.GraphicName='sound_on.bmp' then
-begin
-    N32.Checked:=True;
-    n32.caption:='取消静音';
-    N30.Enabled:=False;  //增大不能用
-    N31.Enabled:=False;  //减小...
 
-    TrackBar2.Enabled:=False; //音条..
-    v := (0 shl 8) or (0 shl 24);
-    waveOutSetVolume(0, v);
-sound.GraphicName:='sound_off.bmp';
-sound.Hint:='~取消静音~';
-end  else
+procedure TMainPlay.miClick(Sender: TObject);
 begin
-N32.Checked:=False;
-    N32.Caption:='静音';
-    N30.Enabled:=True;
-    N31.Enabled:=True;
-    TrackBar2.Enabled:=true;
-    v := (255 shl 8) or (255 shl 24);
-    waveOutSetVolume(0, v);
-    sound.GraphicName:='sound_on.bmp';
-    sound.Hint:='~静音~';
+n80click(sender);
 end;
- end;
- }
-procedure TMainPlay.qq1Timer(Sender: TObject);
+
+
+
+
+procedure TMainPlay.VsHotSpot3Click(Sender: TObject);
+begin
+mainpop.Popup( (screen.Width-mainplay.left),390);
+end;
+
+procedure TMainPlay.cicleClick(Sender: TObject);
+begin
+n8click(sender);
+rztray.ShowBalloonHint('','已切换至列表循环模式',bhiInfo,10);
+end;
+
+procedure TMainPlay.cicletoendClick(Sender: TObject);
+begin
+n2click(sender);
+rztray.ShowBalloonHint('','已切换至顺序播放模式',bhiInfo,10);
+end;
+
+
+
+
+
+procedure TMainPlay.bclbTimer(Sender: TObject);
 var
-  winPos: TPoint;
-  t: integer;
-  a:integer;
-  b: boolean;
-  l: boolean;
+  plylst: TStrings;
+  i: Integer;
 begin
-  b:= false;
-  l:=false;
-  if (mainplay.Top <= 3) then
-  begin
-    b:= true;
-    t:= 0;
-  end
-  else if mainplay.Left + mainplay.Width - Screen.Width >= 0 then
-  begin
-    b:= true;
-    t:= mainplay.Top;
-  end
-  else if  mainplay.Left<=20 then
-  begin
-     l:= true;
-     t:=mainplay.top;
-  end
-  else
-    t:= mainplay.top;
-if b then
-  begin
-    //得到当前鼠标指针的在屏幕上的坐标
-    GetCursorPos(winPos);
-    //当鼠标指针下的窗体的Name等于form1.name时
-    if mainplay.Name = GetFormNameAt(winPos)  then
-    {在此我们可以为form1取一个特别的名称，以防有别的窗体名称与它相同}
+                 //列表change时自动保存列表---created by bruce 2012.4.4---
+    plylst := TStringList.Create;
+    for i := 0 to lv1.Items.Count - 1 do //利用循环语句保存listview到播放列表
     begin
-      //停用Timer2
-      mainplay.qq2.Enabled:= false;
-      //form1的Top与屏幕对齐
-      mainplay.Top:= t;
-      if t <> 0 then
-        mainplay.Left:= Screen.Width - mainplay.Width;
-        playlist.Left:=mainplay.Left;
-         playlist.Top:=mainplay.Top+mainplay.Height;
-    end
-    else if  playlist.name = GetFormNameAt(winPos)   then
-     begin
-      //停用Timer2
-      mainplay.qq2.Enabled:= false;
-      //form1的Top与屏幕对齐
-      mainplay.Top:= t;
-      if t <> 0 then
-        mainplay.Left:= Screen.Width - mainplay.Width;
-         playlist.Left:=mainplay.Left;
-          playlist.Top:=mainplay.Top+mainplay.Height;
-    end
-    else begin
-      mainplay.qq2.Enabled:= true;
+    plylst.Add(lv1.Items[i].SubItems.Strings[0] + lv1.Items[i].Caption);
     end;
-  end  else
-  if l then
-  begin
-    //得到当前鼠标指针的在屏幕上的坐标
-    GetCursorPos(winPos);
-    //当鼠标指针下的窗体的Name等于form1.name时
-    if mainplay.Name = GetFormNameAt(winPos)  then
-    {在此我们可以为form1取一个特别的名称，以防有别的窗体名称与它相同}
-    begin
-      //停用Timer2
-      mainplay.qq2.Enabled:= false;
-      //form1的Top与屏幕对齐
-      mainplay.top:= t;
-      if t <> 0 then
-        mainplay.Left:= 0;
-        playlist.Left:=mainplay.Left;
-    end  else if playlist.Name = GetFormNameAt(winPos)  then
-    {在此我们可以为form1取一个特别的名称，以防有别的窗体名称与它相同}
-    begin
-      //停用Timer2
-      mainplay.qq2.Enabled:= false;
-      //form1的Top与屏幕对齐
-      mainplay.top:= t;
-      if t <> 0 then
-        mainplay.Left:= 0;
-        playlist.Left:=mainplay.Left;
-    end else begin
-      mainplay.qq2.Enabled:= true;
-    end;
-    end;
+    plylst.SaveToFile(ExtractFilePath(ParamStr(0))+'bruce.m3u8');
+    plylst.Free;
 end;
 
-procedure TMainPlay.qq2Timer(Sender: TObject);
+procedure TMainPlay.lv1DblClick(Sender: TObject);
 begin
-
-if mainplay.Top <= 5 then
+if lv1.ItemIndex <> -1 then //首先判断列表内容是否为空，不为空执行下面的语句
   begin
-    //将form1向上移，在屏幕上方露出3像素
-    mainplay.Top:= -(mainplay.Height + playlist.Height - 3);
-    playlist.Top:= -(playlist.Height - 3);
-    if (mainplay.Left + mainplay.Width >= Screen.Width) then
-      begin
-      mainplay.Left:= Screen.Width - mainplay.Width;
-       playlist.Left:=mainplay.Left;
-       playlist.Top:=mainplay.Top+mainplay.Height;
-       end
-  end
 
-  // 当 left 距屏幕下侧 20 像素时,自动隐藏
-  else if mainplay.Left + mainplay.Width - Screen.Width >= -20 then
-    //将form1向右移，在屏幕右方露出4像素
-    begin
-    mainplay.Left:= Screen.Width - 4;
-     playlist.Left:=mainplay.Left;
-     end else
-       if mainplay.left <=20 then
-     begin
-    mainplay.Left:= -mainplay.width + 4;
-     playlist.Left:=mainplay.Left;
+    mainplay.btn1Click(sender);
   end;
-
 end;
 
-
-procedure TMainPlay.trackbar1MouseMove(Sender: TObject; Shift: TShiftState;
-  X, Y: Integer);
+procedure TMainPlay.lv1Change(Sender: TObject; Item: TListItem;
+  Change: TItemChange);
 begin
-trackbar1.Hint:='跳至'+ZeroFill(2, IntToStr(x div 60))
-        + ':' + ZeroFill(2, IntToStr(y mod 60));
-trackbar1.ShowHint:=true;
+bclb.Enabled:=true;
 end;
 
-procedure TMainPlay.ballhint1Click(Sender: TObject);
+procedure TMainPlay.x1Click(Sender: TObject);
 begin
-ballhint1.Checked:=not  ballhint1.Checked;
-end;
-
-procedure TMainPlay.VsHotSpot3MouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-mainpop.popup(Self.Left+VsHotSpot3.Left+VsHotSpot3.Width+10,Self.Top+VsHotSpot3.top+VsHotSpot3.Height-30);
+mainplay.N81Click(sender);
 end;
 
 procedure TMainPlay.N35Click(Sender: TObject);
- var
-  buf: Tstringlist;
-  i,j: Integer;
-  F:   Textfile;
 begin
-          if opendialog2.Execute then
-          begin
-
-          buf := tstringlist.create;
-          buf.loadfromfile(opendialog2.FileName);
-
-          for i := 0 to buf.Count - 1 do
-           begin
-            xlist := playlist.lv1.Items.Add;//这个得放在xlist.Caption 的上句，每使用一次增加一行
-            xlist.Caption := ExtractFileName(buf.Strings[i]);
-            xlist.SubItems.add(ExtractFilePath(buf.Strings[i]));
-           end;
-
-           buf.free;
-          end;
-         //  playlist.lv1.Items[0].Selected;
-         btn1.Enabled := True;
+mainplay.n9click(sender);
 end;
 
-procedure TMainPlay.FormShortCut(var Msg: TWMKey; var Handled: Boolean);
+procedure TMainPlay.MenuItem2Click(Sender: TObject);
 begin
-if (msg.CharCode=37) then
-n21.click;
-if(msg.CharCode=39) then
-n20.Click;
-if (msg.CharCode=38) then
-n30.click;
-if(msg.CharCode=40) then
-n31.Click;
+mainplay.N81Click(sender);
 end;
 
-procedure TMainPlay.cixingTimer(Sender: TObject);
+procedure TMainPlay.x2Click(Sender: TObject);
 begin
-if not(label4.Caption = 'Windows 7') then
-begin
-if  (abs(mainplay.left-playlist.Left)< 20) and (abs(playlist.Top-mainplay.Top-mainplay.Height)<20) then
-                      //根据时钟来控制磁性距离感应，写于 2012.4.27  -----------by bruce
-begin
-playlist.Left:=mainplay.Left;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end;
-{if (abs(playlist.Top-mainplay.Top-mainplay.Height)<20)   then
-begin
-playlist.Left:=mainplay.Left;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end; }
-if abs(lrcshow.left-mainplay.left-mainplay.Width)<20   then
-begin
-lrcshow.Left:=mainplay.Left+mainplay.Width;
-lrcshow.Top:=mainplay.Top;
-end;
-end;
+Lv1.DeleteSelected; //删除选中的列表项
 end;
 
-procedure TMainPlay.moverTimer(Sender: TObject);
+procedure TMainPlay.x3Click(Sender: TObject);
 begin
-
-if not(label4.Caption = 'Windows 7') then
-playlist.Left:=mainplay.Left ;
-playlist.Top:=mainplay.Top+mainplay.Height;
+if MessageBox(Handle, '确实要删除此文件吗？', PChar('确认删除'), MB_yesno + MB_ICONINFORMATION) = idyes then
+  begin
+    with mainplay.mediaplayer1 do
+      if mode in [mpplaying] then
+      begin
+        mainplay.btn3Click(sender); //如果在播放状态则停止播放
+        deletefile(Lv1.Selected.SubItems.Strings[0] + lv1.Selected.Caption); //删除文件
+        lv1.DeleteSelected; //删除选中的列表项
+      end
+      else
+      begin
+        deletefile(Lv1.Selected.SubItems.Strings[0] + lv1.Selected.Caption); //删除文件
+        lv1.DeleteSelected; //删除选中的列表项
+      end;
+  end;
 end;
 
-procedure TMainPlay.mainskinMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+procedure TMainPlay.MenuItem7Click(Sender: TObject);
 begin
-if (playlist.Left=mainplay.Left)  then
-begin
-mover.Enabled:=true;
-end ;
-
-if lrcshow.Showing then
-begin
-  if (lrcshow.Left=mainplay.Left+mainplay.Width ) then
-    begin
-     moverlrc.Enabled:=true;
-   end ;    //根据时钟来控制磁性，写于 2012.4.27  -----------by bruce
-end;
+ Lv1.Clear;
 end;
 
-procedure TMainPlay.mainskinMouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
+procedure TMainPlay.x4Click(Sender: TObject);
+var
+  filename : string;
+  sei : TShellExecuteInfo;
 begin
-mover.Enabled:=false;
+
+        filename:=lv1.Selected.SubItems.Strings[0]+lv1.Selected.Caption;//获取具体路径和文件名
+        FillChar(sei,SizeOf(sei),#0);
+        sei.cbSize:=SizeOf(sei);
+        sei.lpFile:=PChar(filename);
+        sei.lpVerb:='properties';
+        sei.fMask:=SEE_MASK_INVOKEIDLIST;
+        ShellExecuteEx(@sei);
+
+
+
 end;
 
-procedure TMainPlay.moverlrcTimer(Sender: TObject);
+procedure TMainPlay.x5Click(Sender: TObject);
 begin
-if not(label4.Caption = 'Windows 7') then
-lrcshow.Left:=mainplay.Left+mainplay.Width;
-lrcshow.top:=mainplay.top;
+ShellExecute(Application.Handle, 'open', pChar(lv1.Selected.SubItems[0]), nil, nil,
+    SW_SHOWNORMAL);
+end;
+
+procedure TMainPlay.MenuItem11Click(Sender: TObject);
+begin
+lv1.viewstyle:=vsIcon;
+n11.Checked:=true;
+n12.Checked:=false;
+n13.Checked:=false;
+end;
+
+procedure TMainPlay.MenuItem12Click(Sender: TObject);
+begin
+lv1.viewstyle:=vslist;
+n12.Checked:=true;
+n11.Checked:=false;
+n13.Checked:=false;
+end;
+
+procedure TMainPlay.MenuItem13Click(Sender: TObject);
+begin
+lv1.viewstyle:=vsreport;
+n13.Checked:=true;
+n12.Checked:=false;
+n11.Checked:=false;
+end;
+
+procedure TMainPlay.tmr1Timer(Sender: TObject);
+var
+  i: Integer;
+  begin
+
+  for i := 0 to lrc.Count - 1 do
+  begin
+     if (mainplay.stat1.Panels[1].Text = Copy(lrc.Strings[i], 2, 5)) then
+        begin
+          lst1.ItemIndex := i-2;
+          lst1.TopIndex:= i-10;
+         
+
+
+         end;
+      end;
+  end;
+
+
+procedure TMainPlay.lv1SelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+ if lv1.ItemIndex = -1 then //如果所在位置没有内容
+  begin
+    x1.Enabled := False; //则播放菜单不可用
+    x2.Enabled := False; //删除菜单不可使用
+    x3.Enabled := False; //删除菜单不可使用
+    x4.Enabled := False;  //浏览功能不能用
+    x5.Enabled:=False;   //属性信息........
+  end
+  else
+  begin
+    x1.Enabled := True;
+    x2.Enabled := True;
+    x3.Enabled := True;
+    x4.Enabled := true;
+    x5.Enabled:=True;
+    ; //否则的话恢复为播放和删除菜单可用，并选中列表项
+  end;
+end;
+
+procedure TMainPlay.N36Click(Sender: TObject);
+begin
+n81.click;
+end;
+
+procedure TMainPlay.N57Click(Sender: TObject);
+begin
+n9.Click;
+end;
+
+procedure TMainPlay.N59Click(Sender: TObject);
+begin
+lv1.Clear;
+end;
+
+procedure TMainPlay.N60Click(Sender: TObject);
+begin
+lv1.DeleteSelected;
+end;
+
+procedure TMainPlay.N62Click(Sender: TObject);
+begin
+close;
+end;
+
+procedure TMainPlay.N83Click(Sender: TObject);
+begin
+opendialog3.Filter:='LRC歌词文件|*.LRC'  ;
+if opendialog3.Execute then
+
+ lst1.Items.LoadFromFile(opendialog3.FileName);
+lst1.Items.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
+loadlrc(mediaplayer1.FileName) ;
+end;
+
+procedure TMainPlay.conuiTimer(Sender: TObject);
+begin
+lv1.Left:=suiform1.left+4;
+lv1.Width:=suiform1.Width-281-8 ;
+lst1.Left:=lv1.Left+lv1.Width+1;
+lst1.Width:=281 ;
+lv1.Top:=168;lv1.Height:=suiform1.Height-180;
+lst1.Top:=168;lst1.Height:=suiform1.Height-180;
+panel1.left :=180;skyaudiometer1.Left:=203;
+panel1.Width:=suiform1.Width-180-10;skyaudiometer1.Width:=panel1.Width-23-200;
+trackbar1.Left:=100; trackbar1.Width:= panel1.Width-112;
+
+
+
+end;
+
+procedure TMainPlay.N63Click(Sender: TObject);
+begin
+n83.Click;
+end;
+
+procedure TMainPlay.N64Click(Sender: TObject);
+begin
+editlrc.Show;
+end;
+
+procedure TMainPlay.N84Click(Sender: TObject);
+begin
+editlrc.Show;
+end;
+
+procedure TMainPlay.N65Click(Sender: TObject);
+begin
+serlrc.Show;
+end;
+
+procedure TMainPlay.MusicBar1Click(Sender: TObject);
+begin
+form4.Show;
+end;
+
+procedure TMainPlay.N71Click(Sender: TObject);
+begin
+MessageBox(Handle, '刚写完千千动听，受到FooBar2000启发，重新编写成FooBar界面UI  2012.05.05 By Bruce', PChar('Bruce MusicBar  2012~05'), MB_OK);
+end;
+
+procedure TMainPlay.N75Click(Sender: TObject);
+begin
+ShellExecute(handle, 'open','http://user.qzone.qq.com/654714226?ptlang=2052','Qzone',nil, SW_SHOWNORMAL);
+ShellExecute(handle, 'open','http://blog.sina.com.cn/u/1843375347','SINABLOG',nil, SW_SHOWNORMAL);
+end;
+
+procedure TMainPlay.N45Click(Sender: TObject);
+begin
+application.Minimize;
+
 end;
 
 end.
+

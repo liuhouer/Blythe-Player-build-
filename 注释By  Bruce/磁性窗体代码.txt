@@ -1,0 +1,55 @@
+windows屏幕磁性：
+
+//self.ScreenSnap:=True;
+//self.SnapBuffer:=30;//窗体吸附效果
+
+
+------------------------------------------------------------------------------------
+各方向都有磁性：
+
+
+<1>先声明方法：private
+
+// procedure WMWINDOWPOSCHANGING(Var Msg: TWMWINDOWPOSCHANGING);message WM_WINDOWPOSCHANGING;
+  //实现磁性窗体吸附效--------------------------------------------------------------
+    { Private declarations }
+
+
+<2>
+/------------------------实现磁性窗体--------------------------------------
+{procedure TForm3.WMWINDOWPOSCHANGING(var Msg: TWMWINDOWPOSCHANGING);
+var
+WorkDound: TRect;
+remove : Word;
+begin
+remove :=50; //可随意设置，是磁性的范围大小。
+WorkDound.Left:=form1.left;
+WorkDound.Top:=form1.Top;
+WorkDound.Right:=form1.left+form1.Width;
+WorkDound.Bottom:=form1.Top+form1.Height;
+with Msg.WindowPos^ do
+begin
+    if (x+cx<WorkDound.Left+remove) then    //左方具有磁性
+      if (x+cx>WorkDound.Left-remove)or((x+cx>WorkDound.Left) and (x+cx<WorkDound.Left+remove)) then
+        begin
+          x:=WorkDound.Left-cx;
+        end;
+    if (x>WorkDound.Right-remove) then   //右方具有磁性
+      if (x<WorkDound.Right+remove)or((x<WorkDound.Right) and (x>WorkDound.Right-remove)) then
+        begin
+          x:=WorkDound.Right;
+        end;
+    if (y+cy<WorkDound.Top+remove) then    //上方具有磁性
+      if (y+cy>WorkDound.Top-remove)or((y+cy>WorkDound.Top) and (y+cy<WorkDound.Top+remove)) then
+        begin
+          y:= WorkDound.Top-cy;
+        end;
+    if (y>WorkDound.Bottom-remove) then   //下方具有磁性
+      if (y<WorkDound.Bottom+remove)or((y<WorkDound.Bottom) and (y>WorkDound.Bottom-remove)) then
+        begin
+          y:= WorkDound.Bottom;
+        end;
+end;
+inherited;
+end;    }
+//----------------------------------实现磁性窗体------------------------------

@@ -1,0 +1,5 @@
+if Win32Platform = VER_PLATFORM_WIN32_NT then
+  begin
+    SetProcessWorkingSetSize(GetCurrentProcess, $FFFFFFFF, $FFFFFFFF);
+    Application.ProcessMessages;
+  end;

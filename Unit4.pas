@@ -45,23 +45,15 @@ begin
    if Random(8)= 1 then
     Water.Blob(-1,-1,Random(1)+1,Random(500)+50);
   Water.Render(Bmp,img1.Picture.Bitmap);
-
-
-
-  with img1.Canvas do
+with img1.Canvas do
     begin
       Brush.Style:=bsClear;
       font.size:=50;
-//      Font.Style:=[fsBold];
-//      Font.Name := '隶书';
+    Font.Style:=[fsBold];
+     Font.Name := '隶书';
       font.color:=$FFFFFF;
       TextOut((Bmp.Width - TextWidth(''))div 2+2,
         10,'');
-    end;
-    label3.Top:=label3.Top-1;
-    if label3.Top<=-label3.Height then
-    begin
-     label3.Top:=form4.Height-40;
     end;
 end;
 
@@ -73,8 +65,6 @@ end;
 
 procedure TForm4.FormCreate(Sender: TObject);
 begin
-self.ScreenSnap:=True;
-self.SnapBuffer:=30;//窗体吸附效果
    Bmp := TBitmap.Create;
   Bmp.Assign(img1.Picture.Graphic);
   img1.Picture.Graphic := nil;
@@ -84,7 +74,6 @@ self.SnapBuffer:=30;//窗体吸附效果
   Water.SetSize(Bmp.Width,Bmp.Height);
 
   x:=img1.Height;
-  label3.Top:=form4.Height-label3.Height;
 end;
 
 procedure TForm4.Img1MouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -100,9 +89,8 @@ end;
 
 procedure TForm4.FormShow(Sender: TObject);
 begin
- form4.Left:=mainplay.Left+mainplay.Width;
-  Form4.Top:=mainplay.Top;
-AnimateWindow(Form4.Handle,800,AW_BLEND);
+form4.Left:=mainplay.Left+mainplay.Width;
+Form4.Top:=mainplay.Top;
 end;
 
 end.
