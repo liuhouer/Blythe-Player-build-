@@ -3,36 +3,37 @@ unit Unit8;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, VsControls, VsComposer,MPlayer, VsHotSpot, VsSkin, VsLabel,
-  ExtCtrls;
+   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, IGDIPlus, ExtCtrls, Menus, StdCtrls,RzTray, OBMagnet;
 
 type
   Tminilrc = class(TForm)
-    VsSkin1: TVsSkin;
-    Label1: TVsLabel;
-    VsComposer1: TVsComposer;
-    PopupMenu1: TPopupMenu;
-    N3: TMenuItem;
-    N2: TMenuItem;
-    N4: TMenuItem;
-    Fdg1: TFontDialog;
-    gd: TTimer;
-    N1: TMenuItem;
-    N5: TMenuItem;
-    stayOnTop: TTimer;
+    tmr: TTimer;
+    pm1: TPopupMenu;
+    mni_topMost: TMenuItem;
+    mni_transparent: TMenuItem;
+    mni_exit: TMenuItem;
+    OBFormMagnet1: TOBFormMagnet;
+    Label1: TLabel;
+    Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure N3Click(Sender: TObject);
-    procedure cloClick(Sender: TObject);
-    procedure gdTimer(Sender: TObject);
-    procedure N4Click(Sender: TObject);
-   
-    procedure N1Click(Sender: TObject);
-
-    procedure N5Click(Sender: TObject);
-    procedure stayOnTopTimer(Sender: TObject);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+     
+    procedure mni_topMostClick(Sender: TObject);
+    procedure MouseLeave(var Msg: TMessage);message WM_MOUSELEAVE;
+    procedure mni_transparentClick(Sender: TObject);
+    procedure mni_exitClick(Sender: TObject);
+    procedure tmrTimer(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
+   m_Kind: Integer;        //当前第几行字符串
+    m_bBack: Boolean;       //是否显示背景
+    m_pszbuf: array[0..5] of WideString;   //要绘制的字符串数组
+    function UpdateDisplay(pszbuf: WideString;bBack: Boolean = False;
+        Transparent: Integer = 100):Boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -40,99 +41,230 @@ type
 
 var
   minilrc: Tminilrc;
- 
-   strScroll:Widestring ;
+
 implementation
 
-uses Unit1, Unit3;
+uses Unit1;
 
 {$R *.dfm}
+function Tminilrc.UpdateDisplay(pszbuf: WideString;bBack: Boolean;Transparent: Integer):Boolean;
+var
+  hdcTemp,hdcScreen,m_hdcMemory: HDC;
+  hBitMap: Windows.HBITMAP;
+  blend: BLENDFUNCTION;      //这种结构的混合控制通过指定源和目标位图的混合功能
+  rct: TRect;
+  ptWinPos,ptSrc: TPoint;
+  graphics: IGPGraphics;     //封装一个 GDI+ 绘图图面
+  fontFamily: IGPFontFamily; //定义有着相似的基本设计但在形式上有某些差异的一组字样
+  path: IGPGraphicsPath;     //表示一系列相互连接的直线和曲线
+  strFormat: IGPStringFormat;//封装文本布局信息，显示操作
+  pen,pen1,pen2: IGPPen;     //定义用于绘制直线和曲线的对象
+  linGrBrush,linGrBrushW: IGPLinearGradientBrush;  //使用线性渐变封装 Brush
+  brush: IGPSolidBrush;      //定义单色画笔，画笔用于填充图形形状
+  image: TGPImage;           //使用这个类来创建和操作GDI+图像
+  i: Integer;
+  sizeWindow: SIZE;
+begin
+  //---------------------开始：初始化操作--------------------------------------
+  hdcTemp := GetDC(Self.Handle);
+  m_hdcMemory := CreateCompatibleDC(hdcTemp);
+  hBitMap := CreateCompatibleBitmap(hdcTemp,755,350);
+  SelectObject(m_hdcMemory,hBitMap);
+  if (Transparent < 0) or (Transparent > 100) then
+    Transparent := 100;
+  with blend do
+  begin
+    BlendOp := AC_SRC_OVER;     //把源图片覆盖到目标之上
+    BlendFlags := 0;
+    AlphaFormat := AC_SRC_ALPHA;//每个像素有各自的alpha通道
+    SourceConstantAlpha :=Trunc(Transparent * 2.55);  //源图片的透明度
+  end;
+  hdcScreen := GetDC(Self.Handle);
+  GetWindowRect(Self.Handle,rct);
+  ptWinPos := Point(rct.Left,rct.Top);
+  graphics := TGPGraphics.Create(m_hdcMemory);
+  graphics.SetSmoothingMode(SmoothingModeAntiAlias); //指定平滑（抗锯齿）
+  graphics.SetInterpolationMode(InterpolationModeHighQualityBicubic);//指定的高品质，双三次插值
+  fontFamily := TGPFontFamily.Create('Arial Black'); //△字体，效果图为'微软雅黑'字体
+  strFormat := TGPStringFormat.Create();
+  path := TGPGraphicsPath.Create();
+  //---------------------结束：初始化操作--------------------------------------
+  path.AddString(label1.caption,          //要添加的 String
+                fontFamily,       //表示绘制文本所用字体的名称
+                0,                //指定应用到文本的字形信息,这里为普通文本
+                26,               //限定字符的 Em（字体大小）方框的高度
+                MakePoint(10,10), //一个 Point，它表示文本从其起始的点
+                strFormat);       //指定文本格式设置信息
+  pen := TGPPen.Create(MakeColor(155,215,215,150),3);  //颜色、宽度
+  graphics.DrawPath(pen,path);    //初步绘制GraphicsPath
+  linGrBrush := TGPLinearGradientBrush.Create(MakePoint(0,0),    //线性渐变起始点
+                                                MakePoint(0,90), //线性渐变终结点
+                                                MakeColor(255,255,255,255), //线性渐变起始色
+                                                MakeColor(255,30,120,195)); //线性渐变结束色
+  linGrBrushW := TGPLinearGradientBrush.Create(MakePoint(0,10),
+                                                MakePoint(0,60),
+                                                MakeColor(255,255,255,255),
+                                                MakeColor(15,1,1,1));
+  //---------------------开始：画字符串阴影--------------------------------------
+  for i := 1 to 8 do
+  begin
+    pen.SetWidth(i);
+    pen.SetColor(MakeColor(62, 0, 2, 2));
+    pen.SetLineJoin(LineJoinRound); //指定圆形联接。这将在两条线之间产生平滑的圆弧。
+    graphics.DrawPath(pen,path);
+  end;
+  //---------------------开始：画背景框和背景图----------------------------------
+  if bBack then
+  begin
+    brush := TGPSolidBrush.Create(MakeColor(25,228,228,228));
+    pen1 := TGPPen.Create(MakeColor(155,223,223,223));
+    pen2 := TGPPen.Create(MakeColor(55,223,223,223));
+    image := TGPImage.Create('bruce.png');             //背景图片
+    graphics.FillRectangle(brush,3,5,750,90);         //填充背景框色
+    graphics.DrawRectangle(pen1,2,6,751,91);          //内层背景框
+    graphics.DrawRectangle(pen2,1,5,753,93);          //外层背景框
+    graphics.DrawImage(image,600,25);
+  end;
+  //---------------------开始：以渐变色笔刷填充GraphicsPath内部-----------------
+  graphics.FillPath(linGrBrush,path);
+  graphics.FillPath(linGrBrushW,path);
+  sizeWindow.cx := 755;
+  sizeWindow.cy := 350;
+  ptSrc := Point(0,0);
+  //---------------------开始：更新一个分层的窗口的位置，大小，形状，内容和半透明度---
+  Result := UpdateLayeredWindow(Self.Handle,   //分层窗口的句柄
+                                hdcScreen,     //屏幕的DC句柄
+                                @ptWinPos,     //分层窗口新的屏幕坐标
+                                @sizeWindow,   //分层窗口新的大小
+                                m_hdcMemory,   //用来定义分层窗口的表面DC句柄
+                                @ptSrc,        //分层窗口在设备上下文的位置
+                                0,             //合成分层窗口时使用指定颜色键值
+                                @blend,        //在分层窗口进行组合时的透明度值
+                                ULW_ALPHA);    //使用pblend为混合功能
+  //---------------------开始：释放和删除--------------------------------------
+  ReleaseDC(Self.Handle,hdcScreen);
+  ReleaseDC(Self.Handle,hdcTemp);
+  DeleteObject(hBitMap);
+  DeleteDC(m_hdcMemory);
+end;
 
 procedure Tminilrc.FormCreate(Sender: TObject);
 begin
 self.ScreenSnap:=True;
 self.SnapBuffer:=30;//窗体吸附效果
+  //设置窗体属性
+  {SetWindowLong(Application.Handle,
+                GWL_EXSTYLE,
+                GetWindowLong(Application.Handle,GWL_EXSTYLE)
+                or WS_EX_TOOLWINDOW);   //不在任务栏出现      }
+  SetWindowLong(Self.Handle,
+                GWL_EXSTYLE,
+                GetWindowLong(Self.Handle,GWL_EXSTYLE)
+                or WS_EX_LAYERED       //层次窗口
+                or WS_EX_TOOLWINDOW);  //不在alt+tab中出现
+  //初始化变量等等
+  m_kind := 0;
+  m_bBack := False;
+  PopupMenu := pm1;
+  Self.Cursor := crHandPoint;
+  mni_topMost.Checked := True;
+  mni_topMostClick(mni_topMost);
 
+  m_pszbuf[0] := Label1.caption;
+  m_pszbuf[1] := Label1.caption;
+  m_pszbuf[2] := Label1.caption;
+  m_pszbuf[3] := Label1.caption;
+  m_pszbuf[4] := Label1.caption;
+  UpdateDisplay(m_pszbuf[m_kind],m_bBack);
+end;
+{-------------------------------------------------------------------------------
+  功能:      鼠标按下移动窗体
+-------------------------------------------------------------------------------}
 
-
+procedure Tminilrc.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+ ReleaseCapture;
+  SendMessage(Self.Handle,WM_SYSCOMMAND,SC_MOVE or HTCAPTION,0);
 end;
 
-procedure Tminilrc.FormShow(Sender: TObject);
+procedure Tminilrc.FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+var
+  xh: TTrackMouseEvent;
 begin
-minilrc.top:=(screen.height-minilrc.height *2) ;
-minilrc.left:=(screen.width-minilrc.width ) div 2 ;
+  m_bBack := True;
+  UpdateDisplay(m_pszbuf[m_kind],m_bBack);
+  with xh do
+  begin
+    cbSize := SizeOf(xh);
+    dwFlags := TME_LEAVE;
+    hwndTrack := Self.Handle;
+    dwHoverTime := 0;
+  end;
+  TrackMouseEvent(xh);
 
 end;
-
-procedure Tminilrc.N3Click(Sender: TObject);
+{-------------------------------------------------------------------------------
+  功能:      鼠标移出窗体时，去掉背景
+-------------------------------------------------------------------------------}
+procedure Tminilrc.MouseLeave(var Msg: TMessage);
 begin
-if fdg1.Execute then
- label1.Font:=fdg1.Font;
-
-end;
-
-procedure Tminilrc.cloClick(Sender: TObject);
-begin
-mainplay.n79.Checked:=false;
-minilrc.close;
-
-end;
-
-procedure Tminilrc.gdTimer(Sender: TObject);
- var
-   strTrim:Widestring; //只需把字符串定义成 WideString 即可解决半个中文的问题了。--edit by bruce 2012/10/1 0:23
-  // strScroll:Widestring = 'Beyond - 海阔天空.mp3 - 小布静听';
-begin
-
-strScroll:=label1.Caption;
-if length(strScroll)>=36 then
-begin
-label1.Alignment:=vaLeftjustify;
-strTrim:= copy(strScroll,1,36); //获取第1-36个字符
-Delete(strScroll,1,1);         //将第1个字符删除
-
-strScroll:=strScroll+'------>'+strTrim;                 //长度超出后才滚动（截取）
-
-end else
-begin
- label1.Alignment:=vaCenter;
-end;
- label1.Caption:= strScroll;
-             //显示出来。
-
-end;
-
-procedure Tminilrc.N4Click(Sender: TObject);
-begin
-mainplay.n79.Checked:=false;
-minilrc.close;
-
-end;
-
-
-
-procedure Tminilrc.N1Click(Sender: TObject);
-begin
-minilrc.Hide;
-mainplay.chk1.checked:=true;
-lrcshow.Show;
+  m_bBack := False;
+  UpdateDisplay(m_pszbuf[m_kind],m_bBack);
+  Msg.Result := 0;
 end;
 
 
-
-procedure Tminilrc.N5Click(Sender: TObject);
+{-------------------------------------------------------------------------------
+  功能:      窗体置顶
+-------------------------------------------------------------------------------}
+procedure Tminilrc.mni_topMostClick(Sender: TObject);
 begin
-n5.Checked:=not   n5.Checked;
+  if mni_topMost.Checked then
+  SetWindowPos(Self.Handle,
+               HWND_TOPMOST,
+               0,0,0,0,
+               SWP_NOSIZE or SWP_NOMOVE)    //窗口置顶
+  else
+  SetWindowPos(Self.Handle,
+               HWND_NOTOPMOST,
+               0,0,0,0,
+               SWP_NOSIZE or SWP_NOMOVE);    //窗口置顶
+end;
+{-------------------------------------------------------------------------------
+  功能:      背景穿透 （相当于锁定桌面）
+-------------------------------------------------------------------------------}
+procedure Tminilrc.mni_transparentClick(Sender: TObject);
+begin
+  SetWindowLong(Self.Handle,
+                GWL_EXSTYLE,
+                GetWindowLong(Self.Handle,GWL_EXSTYLE) or WS_EX_TRANSPARENT);
+   mainplay.rztray.ShowBalloonHint('','已经锁定桌面歌词',bhiinfo,10);
+
+end;
+{-------------------------------------------------------------------------------
+  功能:      退出
+-------------------------------------------------------------------------------}
+
+
+procedure Tminilrc.mni_exitClick(Sender: TObject);
+begin
+ Self.Close;
 end;
 
-procedure Tminilrc.stayOnTopTimer(Sender: TObject);
+procedure Tminilrc.tmrTimer(Sender: TObject);
 begin
-if n5.Checked then
-begin
-SetWindowPos(minilrc.handle,   HWND_TOPMOST,   0,   0,
-
-0,   0,SWP_NOMOVE+SWP_NOSIZE);
+Inc(m_Kind);
+  if m_kind > 4 then
+    m_kind := 0;
+  UpdateDisplay(m_pszbuf[m_kind],m_bBack);
 end;
+
+procedure Tminilrc.Timer1Timer(Sender: TObject);
+begin
+if length(label1.Caption)=0 then
+label1.caption:='music......';
 end;
 
 end.

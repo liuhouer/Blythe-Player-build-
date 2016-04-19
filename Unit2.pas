@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, VsControls,ShellAPI,AppEvnts, VsSkin, VsComposer, Menus, ComCtrls, MPlayer,
-  VsHotSpot, OBMagnet,Mmsystem,FileCtrl, ExtCtrls, StdCtrls;
+  VsHotSpot, OBMagnet,Mmsystem,FileCtrl, ExtCtrls;
  const WM_NID = WM_User + 1000;
 type
   TPlayList = class(TForm)
@@ -25,8 +25,6 @@ type
     VsHotSpot1: TVsHotSpot;
     Timer1: TTimer;
     N4: TMenuItem;
-    N5: TMenuItem;
-    Label3: TLabel;
     procedure lv1DblClick(Sender: TObject);
     procedure N48Click(Sender: TObject);
     procedure N49Click(Sender: TObject);
@@ -44,9 +42,6 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure N4Click(Sender: TObject);
     procedure FormShortCut(var Msg: TWMKey; var Handled: Boolean);
-    procedure VsSkin1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure N5Click(Sender: TObject);
    
 
   private
@@ -62,7 +57,7 @@ var
 
 implementation
 
-uses Unit1, Unit3, Unit10;
+uses Unit1, Unit3;
 
 {$R *.dfm}
 
@@ -149,7 +144,6 @@ if lv1.ItemIndex = -1 then //如果所在位置没有内容
     N2.Enabled := False; //删除菜单不可使用
     N3.Enabled := False;
     N4.Enabled := False;
-    N5.Enabled := False;
     N11.Enabled:=False;
   end
   else
@@ -158,7 +152,6 @@ if lv1.ItemIndex = -1 then //如果所在位置没有内容
     N2.Enabled := True;
     N3.Enabled := True;
     N4.Enabled := True;
-    N5.Enabled := True;
     N11.Enabled:=True;
     ; //否则的话恢复为播放和删除菜单可用，并选中列表项
   end;
@@ -237,20 +230,14 @@ begin
     begin
     plylst.Add(lv1.Items[i].SubItems.Strings[0] + lv1.Items[i].Caption);
     end;
-    plylst.SaveToFile(ExtractFilePath(ParamStr(0))+'bruce.log');
+    plylst.SaveToFile(ExtractFilePath(ParamStr(0))+'bruce.ini');
     plylst.Free;
 end;
 
 procedure TPlayList.N4Click(Sender: TObject);
- var FilePath:String  ;
 begin
-{ShellExecute(Application.Handle, 'open', pChar(lv1.Selected.SubItems[0]), nil, nil,
-    SW_SHOWNORMAL); } //打开文件位置  ，bruce于2012/11/11抛弃它
-   // showmessage(lv1.Selected.SubItems[0]);
-FilePath:= lv1.Selected.SubItems[0]+lv1.Selected.Caption ;
-ShellExecute(Handle, 'open', 'Explorer.exe', Pchar('/select,'+ FilePath ),nil, 1);
-//打开文件位置,并且选中它。 ------------------------------ edit by bruce 2012/11/11
-
+ShellExecute(Application.Handle, 'open', pChar(lv1.Selected.SubItems[0]), nil, nil,
+    SW_SHOWNORMAL);
 end;
 
 procedure TPlayList.FormShortCut(var Msg: TWMKey; var Handled: Boolean);
@@ -260,17 +247,6 @@ n2.click;
 if(msg.CharCode=13) then
 n1.Click;
 
-end;
-
-procedure TPlayList.VsSkin1MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-mainplay.mover.Enabled:=false;
-end;
-
-procedure TPlayList.N5Click(Sender: TObject);
-begin
-form10.show;
 end;
 
 end.

@@ -15,6 +15,7 @@ type
     vsplay: TVsHotSpot;
     vsright: TVsHotSpot;
     vsmin: TVsHotSpot;
+    yhcpu: TTimer;
     am1: TSkyAudioMeter;
     wave: TTimer;
     vsback: TVsHotSpot;
@@ -26,11 +27,10 @@ type
     procedure vsrightClick(Sender: TObject);
     procedure vsminClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-  
+    procedure yhcpuTimer(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure waveTimer(Sender: TObject);
     procedure am1Click(Sender: TObject);
-    procedure VsSkin1DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -110,7 +110,15 @@ self.SnapBuffer:=30;//窗体吸附效果
 
 end;
 
+procedure Tminiplay.yhcpuTimer(Sender: TObject);
+begin
 
+
+    SetProcessWorkingSetSize(GetCurrentProcess, $FFFFFFFF, $FFFFFFFF);
+    //释放物理内存
+    Application.ProcessMessages;
+
+end;
 
 procedure Tminiplay.FormShow(Sender: TObject);
 begin
@@ -134,11 +142,6 @@ if am1.AMStyle =smsOscillograph then
 am1.AMStyle:=smsSpectrum     //(频谱)
 else
 am1.AMStyle:=smsOscillograph;
-end;
-
-procedure Tminiplay.VsSkin1DblClick(Sender: TObject);
-begin
-vsbackclick(sender);
 end;
 
 end.

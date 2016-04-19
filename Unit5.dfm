@@ -1,6 +1,6 @@
 object miniplay: Tminiplay
-  Left = 455
-  Top = 309
+  Left = 537
+  Top = 500
   BorderStyle = bsNone
   Caption = #23567#27493#38745#21548
   ClientHeight = 243
@@ -27,7 +27,6 @@ object miniplay: Tminiplay
     ParentShowHint = False
     PopupMenu = MainPlay.mainpop
     ShowHint = True
-    OnDblClick = VsSkin1DblClick
     object vsleft: TVsHotSpot
       Left = 12
       Top = 5
@@ -2387,6 +2386,12 @@ object miniplay: Tminiplay
       96CDAD96CDAD96CFAF98CFB099D1B29BCEB19CD1B49FD2B7A3D4B9A5}
     Left = 112
     Top = 144
+  end
+  object yhcpu: TTimer
+    Interval = 500
+    OnTimer = yhcpuTimer
+    Left = 280
+    Top = 136
   end
   object wave: TTimer
     Enabled = False

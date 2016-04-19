@@ -1,8 +1,8 @@
 object LrcShow: TLrcShow
-  Left = 648
-  Top = 140
-  Width = 469
-  Height = 202
+  Left = 695
+  Top = 243
+  Width = 246
+  Height = 393
   Caption = #27468#35789#31168
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -13,15 +13,14 @@ object LrcShow: TLrcShow
   OldCreateOrder = False
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
-  OnMouseDown = FormMouseDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lst1: TListBox
     Left = 0
     Top = 0
-    Width = 461
-    Height = 168
+    Width = 230
+    Height = 355
     Align = alClient
     BevelInner = bvSpace
     BevelKind = bkFlat
@@ -30,11 +29,11 @@ object LrcShow: TLrcShow
     Color = 10982031
     Font.Charset = ANSI_CHARSET
     Font.Color = clWhite
-    Font.Height = -16
-    Font.Name = #24494#36719#38597#40657
+    Font.Height = -13
+    Font.Name = 'Segoe Script'
     Font.Style = []
     ImeName = #20013#25991' ('#31616#20307') - '#35895#27468#25340#38899#36755#20837#27861
-    ItemHeight = 21
+    ItemHeight = 20
     ParentFont = False
     PopupMenu = PopupMenu1
     TabOrder = 0

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, VsControls, VsSkin, VsImageClip, ComCtrls, SkyAudioMeter,Mmsystem,FileCtrl,
   VsComposer, WinSkinData, Menus,ShellAPI,AppEvnts, OBMagnet, ExtCtrls, MPlayer, StdCtrls,
-  VsHotSpot, VsImage, RzTray,  RzCommon,Registry, VsCheckBox, VsSlider,id3v1,
+  VsHotSpot, VsImage, RzTray,  RzCommon,Registry, VsCheckBox, VsSlider,
   RzBHints;
  const WM_NID = WM_User + 1000;
 type
@@ -15,6 +15,7 @@ type
     mainskin: TVsSkin;
     SkyAudioMeter1: TSkyAudioMeter;
     SkinData1: TSkinData;
+    Label3: TLabel;
     MediaPlayer1: TMediaPlayer;
     OpenDialog1: TOpenDialog;
     OpenDialog2: TOpenDialog;
@@ -63,6 +64,7 @@ type
     N72: TMenuItem;
     N73: TMenuItem;
     Timer3: TTimer;
+    Timer4: TTimer;
     btn4: TVsHotSpot;
     btn1: TVsHotSpot;
     btn2: TVsHotSpot;
@@ -134,11 +136,6 @@ type
     N36: TMenuItem;
     VsHotSpot3: TVsHotSpot;
     N35: TMenuItem;
-    mover: TTimer;
-    cixing: TTimer;
-    moverlrc: TTimer;
-    Label4: TLabel;
-    IniFile1: TRzRegIniFile;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -161,7 +158,9 @@ type
     procedure N211Click(Sender: TObject);
     procedure N311Click(Sender: TObject);
     procedure Timer3Timer(Sender: TObject);
-   
+    procedure Label3MouseEnter(Sender: TObject);
+    procedure Label3MouseLeave(Sender: TObject);
+    procedure Timer4Timer(Sender: TObject);
     procedure N22Click(Sender: TObject);
     procedure N72Click(Sender: TObject);
     procedure N73Click(Sender: TObject);
@@ -233,13 +232,6 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure N35Click(Sender: TObject);
     procedure FormShortCut(var Msg: TWMKey; var Handled: Boolean);
-    procedure cixingTimer(Sender: TObject);
-    procedure moverTimer(Sender: TObject);
-    procedure mainskinMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure mainskinMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure moverlrcTimer(Sender: TObject);
    // procedure soundClick(Sender: TObject);
 
 
@@ -256,21 +248,7 @@ type
     { Public declarations }
   end;
 
-  type            ///------------edited by bruce 2012/9/30/23:33
-  
-    TID3Tag=packed   record   //   128   字节
-      TAGID:   array[0..2]   of   char;   //   3   字节:   必须是TAG
-      Title:   array[0..29]   of   char;   //   30   字节:   歌曲标题
-      Artist:   array[0..29]   of   char;   //   30   字节:   歌曲的艺术家
-      Album:   array[0..29]   of   char;   //   30   字节:   歌曲专辑
-      Year:   array[0..3]   of   char;   //   4   字节:   出版年
-      Comment:   array[0..29]   of   char;   //   30   字节:   评论
-      Genre:   byte;   //   1   字节:   种类标识
 
-    end;
-
-
-                ///------------edited by bruce 2012/9/30/23:33
 
 
 var
@@ -282,94 +260,14 @@ var
   Flnm: string;
   xlist: TListItem;
   sumtime :Integer   ;
-  s1,s2,s3 :string;          //s1:歌手  s2:歌曲名    s3:专辑
+  s1,s2,gs :string;          //s1:歌手  s2:歌曲名     gs:歌曲格式
   list : TStringlist;     //分离字符串
-   ID3v1: TID3v1;
 
-   const   //获取操作系统信息 by bruce 2012.7.28--------
-        OsUnknown:integer=-1;
-        OsWin95:integer=0;
-        OsWin98:integer=1;
-        OsWin98SE:integer=2;
-        OsWinMe:integer=3;
-        OsWinNT:integer=4;
-        OsWin2000:integer=5;
-        OsWinXP:integer=6;
-        OsWinOther:integer=7;
-    //--------------------------------------------------
 implementation
 
 uses Unit2, Unit5, Unit8, Unit3, Unit6, Unit7, Unit4, Unit9;
 
 {$R *.dfm}
-//----------------------------------------------获取操作系统id编号----------
-function GetOsVersion:integer;
-var
-    OsVerInfo:TOsVersionInfo;
-    majorVer,minorVer:integer;
-begin
-      result := OsUnknown;
-      OsVerInfo.dwOSVersionInfoSize := sizeof(TOsVersionInfo);
-      if GetVersionEx(OsVerInfo) then
-      begin
-          majorVer:= OsVerInfo.dwMajorVersion ;
-          minorVer:= OsVerInfo.dwMinorVersion ;
-          case OsVerInfo.dwPlatformId of
-              VER_PLATFORM_WIN32_NT:      //NT/2000
-              begin
-                  if (majorVer <= 4) then
-                    result:= OsWinNT
-                    else if ((majorVer=5 ) and (minorVer=0)) then
-                      result:=OsWin2000
-                      else if ((majorVer=5) and (minorVer=1)) then
-                        result:= OsWinXP
-                        else
-                          result:= OsWinOther;
-              end;
-
-              VER_PLATFORM_WIN32_WINDOWS:  //9X/ME
-              begin
-                  if ((majorVer=4) and (minorVer=0)) then
-                    result := OsWin95
-                    else if ((majorVer=4) and (minorVer=10)) then
-                          begin
-                            if (OsVerInfo.szCSDVersion[1]='A') then
-                                result:= OsWin98SE
-                            else
-                                result:= OsWin98;
-                          end
-                        else if ((majorVer=4) and (minorVer=90)) then
-                          result:= OsWinMe
-                          else
-                            Result:= OsUnknown;
-              end;
-              else            //unknown
-                result:= OsUnknown;
-              end;         //end case
-
-      end;       //end if
-end;
-//------------------------------------------------------------------
-function GetOsVersionName(OsCode:Integer):String;
-begin
-    case OsCode of
-        -1: result:='Microsoft UnKnown';
-        0: result:= 'Windows 95';
-        1: result:= 'Windows 98';
-        2: result:= 'Windows 98SE';
-        3: result:= 'Windows ME';
-        4: result:= 'Windows NT';
-        5: result:= 'Windows 2000';
-        6: result:= 'Windows XP';
-        7: result:= 'Windows 7';
-       // 8: result:= 'Windows 8' ;
-        else
-          result:= 'UnKnown';
-    end;
-end;
-//----------------------------------获取操作系统名称------------------
-
-//*****************************************************************************
  function Tmainplay.GetFormNameAt(const Pos: TPoint): string;
 var
   w: TWinControl;
@@ -428,8 +326,7 @@ begin
     DragQueryFile(Msg.WParam, i, buffer, sizeof(buffer)); // 第二次调用得到文件名称
     if (ExtractFileExt(buffer) <> '.mp3') and (ExtractFileExt(buffer) <> '.wma')and (ExtractFileExt(buffer) <> '.wav')and(ExtractFileExt(buffer) <> '.mp2') then
     begin
-     rztray.ShowBalloonHint('','不支持播放此类文件！',bhiinfo,10);
-      //Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+      Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
       Exit;
     end;
     try
@@ -453,8 +350,7 @@ begin
       Timer2.Enabled := True;
     except
       on EMCIDeviceError do
-      rztray.ShowBalloonHint('','不支持播放此类文件！',bhiinfo,10);
-     //  Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+        Application.MessageBox('不支持播放此类文件！', '错误', MB_OK + MB_ICONSTOP + MB_TOPMOST);
     end;
   end;
 end;
@@ -668,13 +564,10 @@ procedure TMainPlay.FormCreate(Sender: TObject);
 
 begin
 
-label4.Caption:=GetOsVersionName(GetOsversion);
-//osinfo:OSVERSIONINFO;
 //--------------------------------------------------------
 
-
 sumtime:=0;       //标签计数器
-
+label3.Cursor:=crHandPoint;  //鼠标形状
 listname.Caption:='暂无文件播放..';
 DragAcceptFiles(Handle, True);
 PositionChange := False; //设置初始值；
@@ -688,7 +581,7 @@ Shell_NotifyIcon(NIM_DELETE, @NotifyIcon); // 删除托盘图标
 end;
 
 procedure TMainPlay.Timer1Timer(Sender: TObject);
-
+var k:integer;
 begin
  with mediaplayer1 do
     if mode in [mpplaying] then //必须先判断播放器状态 否则会出错！
@@ -699,8 +592,9 @@ begin
       rztray.Hint:=mainplay.stat1.Panels[0].Text + chr(13)+'  ~小步静听,享受音乐盛宴~  ';    //rz托盘提示信息
       miniplay.vsskin1.Hint:=mainplay.stat1.Panels[0].Text + chr(13)+'  ~小步静听,享受音乐盛宴~  ';
 
-     
-       {
+      //分离出歌曲名-歌手 等 信息--------------
+
+
       k:= pos('-',stat1.Panels[0].Text);       //先用pos语句判断歌曲名里有没有'-' 否则会出错--edit by bruce 2012.4.3
       if  k>0   then
       begin
@@ -713,7 +607,6 @@ begin
       s2:= stat1.Panels[0].Text;
       s1:='未知';
       end;
-      }
       //-------右键菜单播放控制切换-----
       n17.Caption:='暂停' ;
       n18.Caption:='停止' ;
@@ -770,16 +663,12 @@ end;
 
 
 procedure TMainPlay.btn1Click(Sender: TObject);
+
 begin
 
 if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
   begin
     mediaplayer1.FileName := playlist.Lv1.Selected.SubItems.Strings[0] + playlist.lv1.Selected.Caption; //
-     ID3v1 := TID3v1.Create;
-     id3v1.ReadFromFile(mediaplayer1.FileName);
-     s2:=id3v1.Artist;
-     s1:=id3v1.Title ;
-     s3:=id3v1.Album;
     if MediaPlayer1.Mode in [mppaused] then
     begin
       MediaPlayer1.Resume;//恢复播放状态--记忆播放位置
@@ -832,7 +721,6 @@ if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
 
     end;
   end;
-
 end;
 
 procedure TMainPlay.N5Click(Sender: TObject);
@@ -939,19 +827,67 @@ procedure TMainPlay.Timer3Timer(Sender: TObject);
 var j:string  ;
 begin
 case   dayofweek(now)   of
-    1:j:= '星期天';
-    2:j:= '星期一';
-    3:j:= '星期二';
-    4:j:= '星期三';
-    5:j:= '星期四';
-    6:j := '星期五';
-    7:j:= '星期六';
+    1:j:= '星期天 ';
+    2:j:= '星期一 ';
+    3:j:= '星期二 ';
+    4:j:= '星期三 ';
+    5:j:= '星期四 ';
+    6:j := '星期五 ';
+    7:j:= '星期六 ';
     end;
 
+ label3.Caption:=formatdatetime(' yy-mm-dd  ',now)+j+formatdatetime('hh:nn:ss',now) ;
+ label3.Left:=label3.Left-1;
+ if label3.Left=6 then
+ begin
 
- playlist.label3.Caption:=formatdatetime('yyyy-mm-dd ',now)+j+formatdatetime(' hh:nn:ss',now) ;
+ timer3.Enabled:=false;
+ timer4.Enabled:=true;
+
+ end;
+
 end;
 
+
+procedure TMainPlay.Label3MouseEnter(Sender: TObject);
+begin
+ label3.Font.Color:=clwhite;
+ label3.Font.Size:=9;
+label3.Font.Style:=[fsUnderline];
+timer3.Enabled:=false;
+timer4.Enabled:=false;
+end;
+
+procedure TMainPlay.Label3MouseLeave(Sender: TObject);
+begin
+label3.Font.Color:=clgreen;
+ label3.Font.Size:=8;
+label3.Font.Style:=[];
+timer3.Enabled:=true;
+end;
+
+procedure TMainPlay.Timer4Timer(Sender: TObject);
+var j:string  ;
+begin
+case   dayofweek(now)   of
+    1:j:= '星期天 ';
+    2:j:= '星期一 ';
+    3:j:= '星期二 ';
+    4:j:= '星期三 ';
+    5:j:= '星期四 ';
+    6:j := '星期五 ';
+    7:j:= '星期六 ';
+    end;
+
+ label3.Caption:=formatdatetime(' yy-mm-dd  ',now)+j+formatdatetime('hh:nn:ss',now) ;
+ label3.Left:=label3.Left+1;
+ if label3.Left=mainskin.Width-label3.Width -6  then
+ begin
+  timer4.Enabled:=false;
+  timer3.Enabled:=true;
+
+ end;
+end;
 
 procedure TMainPlay.N22Click(Sender: TObject);
 begin
@@ -1002,7 +938,7 @@ with mediaplayer1 do
     begin
 
       TrackBar1.Maxvalue := MediaPlayer1.Length div 1000;
-      stat1.Panels[2].Text := ZeroFill(2, IntToStr(TrackBar1.Maxvalue div 60))
+      stat1.Panels[2].Text :='时长:'+ ZeroFill(2, IntToStr(TrackBar1.Maxvalue div 60))
         + ':' + ZeroFill(2, IntToStr(TrackBar1.Maxvalue mod 60)) + '   ';
 
       TrackBar1.Position := Position div 1000;
@@ -1119,7 +1055,6 @@ n3.Checked:=false;
 n6.Checked:=false;
 n7.Checked :=false ;
 n8.Checked :=false;
-
 end;
 
 procedure TMainPlay.N3Click(Sender: TObject);
@@ -1341,7 +1276,7 @@ end;
 
 procedure TMainPlay.N10Click(Sender: TObject);
 begin
-MessageBox(Handle, '最好歌曲与歌词目录一致，否则可能加载歌词错误！~~~~~反馈邮箱：qhdsoftware@163.com~~~~~QQ:654714226', PChar('Powerd BY Bruce（小布）~~ 2012~03'), MB_OK);
+MessageBox(Handle, '最好歌曲与歌词目录一致，否则可能加载歌词错误！~~~~~反馈邮箱：qhdsofeware@163.com~~~~~QQ:654714226', PChar('Powerd BY Bruce（小布）~~ 2012~03'), MB_OK);
 end;
 
 procedure TMainPlay.SinaBlog1Click(Sender: TObject);
@@ -1468,44 +1403,30 @@ chk1click(sender);
 end;
 
 procedure TMainPlay.gdTimer(Sender: TObject);   //计时器 控制标签的切换
-var
-   strTrim:Widestring; //只需把字符串定义成 WideString 即可解决半个中文的问题了。--edit by bruce 2012/10/1 0:23
-   strScroll:Widestring;
-   begin
-//gs:=copy(s2,length(s2)-2,length(s2)) ;     //标签文字移动--时钟控件
-{if   length( gundong.Caption)>12 then begin
-gundong.Caption:=copy(gundong.Caption,6,length(gundong.Caption)) ; end;}
-
-//千千静听的步长也是250
- strScroll:= gundong.Caption;
- strTrim:= copy(strScroll,1,18); //获取第1个字符
- Delete(strScroll,1,1);         //将第1个字符删除
- //gundong.Caption:=strScroll+strTrim;        //将原来第1个字符放到最后一位
- if length( gundong.Caption)>18 then begin
- gundong.Caption:=strScroll+' '+strTrim;                 //长度超出后才滚动（截取）
- end;
-  //显示出来。
-
-if sumtime mod 64 = 0 then
 begin
-gundong.caption:='长度:'+stat1.Panels[2].Text;
+gs:=copy(s2,length(s2)-2,length(s2)) ;     //标签文字移动--时钟控件
+if   length( gundong.Caption)>12 then begin
+gundong.Caption:=copy(gundong.Caption,6,length(gundong.Caption)) ; end;
+if sumtime mod 16 = 0 then
+begin
+gundong.caption:=stat1.Panels[2].Text;
 end
 
 else
-if sumtime mod 64 = 16 then
+if sumtime mod 16 = 4 then
 begin
-gundong.Caption:='歌曲:' + s1;
+gundong.Caption:='歌曲:' + copy(s2,0,length(s2)-4);
 end
 
 else
-if sumtime mod 64 = 32 then
+if sumtime mod 16 = 8 then
 begin
-gundong.Caption:='歌手:' + s2;
+gundong.Caption:='歌手:' + s1;
 end;
 
-if sumtime mod 64 = 48 then
+if sumtime mod 16 = 12 then
 begin
-gundong.Caption:='专辑:' + s3 ;
+gundong.Caption:='格式-' + gs +' -44Khz' +' -128Kbps';
 end;
  sumtime:=sumtime + 1;
 end;
@@ -1591,24 +1512,23 @@ begin
 chk1click(sender);
 end;
 
-
-
 procedure TMainPlay.jzlstTimer(Sender: TObject);
  var
   buf: Tstringlist;
   i,j: Integer;
   F:   Textfile;
-  dir: string;
-  Reg: TRegistry;//读注册表一些信息
-  filename:string;
-
 begin
 jzlst.Enabled:=false;
 //---------------------------自动加载列表---created by bruce 2012.4.4
- if FileExists(ExtractFilePath(ParamStr(0))+'bruce.log')=true then
+ if FileExists(ExtractFilePath(ParamStr(0))+'bruce.ini')=true then
  begin
+     {AssignFile(F,  ExtractFilePath(ParamStr(0))+'bruce.ini'); //判断是否为空文本
+        Reset(F);
+        if   filesize(F) > 0   then        //空文本推出---2012.4.6--by bruce
+
+        begin }
           buf := tstringlist.create;
-          buf.loadfromfile(ExtractFilePath(ParamStr(0))+'bruce.log');
+          buf.loadfromfile(ExtractFilePath(ParamStr(0))+'bruce.ini');
 
           for i := 0 to buf.Count - 1 do
            begin
@@ -1620,33 +1540,9 @@ jzlst.Enabled:=false;
          //  playlist.lv1.Items[0].Selected;
          btn1.Enabled := True;
        // btn1click(sender);
-  end;
- {
- //----------------------读取我的文档目录---------------------------------
+         end;
 
-    Reg := TRegistry.Create;
-  try
-    Reg.RootKey := HKEY_CURRENT_USER;
-    if Reg.OpenKey('Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders', False)
-    then  dir:= Reg.ReadString('Personal')
-  finally
-    Reg.CloseKey;
-    Reg.Free;
-  end;
-   dir := dir+'\bruce step\config';
-  // showmessage(dir);
-   if not DirectoryExists(dir) then 
-    CreateDir(dir); //返回 Boolean
-    ForceDirectories(dir); //返回 Boolean  如果缺少上层目录自动补齐
-   //---------------------创建配置文件 by bruce 2012/11/17------+------------------------
-     filename:=dir+'\bruce.cfg' ;
-     FileCreate(filename);
-     //创建文件，写入配置
-     
-
-   }
-
-end;
+        end;
 
 
 
@@ -1664,8 +1560,6 @@ var
 
 
 begin
-if mediaplayer1.Mode in [mpplaying] then
-begin
 if  SkyAudioMeter1.AMStyle=smsSpectrum then
 begin
  vision.am2.AMStyle:=smsSpectrum ; vision.ppfx.Checked:=true; vision.sbq.Checked:=false;
@@ -1680,7 +1574,6 @@ vision.Show;
  h:=findwindow( 'Shell_TrayWnd ',nil); 
     showWindow(h,sw_hide);
     //------------------------------------
-end;
 end;
 
 procedure TMainPlay.N34Click(Sender: TObject);
@@ -1893,67 +1786,6 @@ if (msg.CharCode=38) then
 n30.click;
 if(msg.CharCode=40) then
 n31.Click;
-end;
-
-procedure TMainPlay.cixingTimer(Sender: TObject);
-begin
-if not(label4.Caption = 'Windows 7') then
-begin
-if  (abs(mainplay.left-playlist.Left)< 20) and (abs(playlist.Top-mainplay.Top-mainplay.Height)<20) then
-                      //根据时钟来控制磁性距离感应，写于 2012.4.27  -----------by bruce
-begin
-playlist.Left:=mainplay.Left;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end;
-{if (abs(playlist.Top-mainplay.Top-mainplay.Height)<20)   then
-begin
-playlist.Left:=mainplay.Left;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end; }
-if abs(lrcshow.left-mainplay.left-mainplay.Width)<20   then
-begin
-lrcshow.Left:=mainplay.Left+mainplay.Width;
-lrcshow.Top:=mainplay.Top;
-end;
-end;
-end;
-
-procedure TMainPlay.moverTimer(Sender: TObject);
-begin
-
-if not(label4.Caption = 'Windows 7') then
-playlist.Left:=mainplay.Left ;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end;
-
-procedure TMainPlay.mainskinMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-if (playlist.Left=mainplay.Left)  then
-begin
-mover.Enabled:=true;
-end ;
-
-if lrcshow.Showing then
-begin
-  if (lrcshow.Left=mainplay.Left+mainplay.Width ) then
-    begin
-     moverlrc.Enabled:=true;
-   end ;    //根据时钟来控制磁性，写于 2012.4.27  -----------by bruce
-end;
-end;
-
-procedure TMainPlay.mainskinMouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-mover.Enabled:=false;
-end;
-
-procedure TMainPlay.moverlrcTimer(Sender: TObject);
-begin
-if not(label4.Caption = 'Windows 7') then
-lrcshow.Left:=mainplay.Left+mainplay.Width;
-lrcshow.top:=mainplay.top;
 end;
 
 end.

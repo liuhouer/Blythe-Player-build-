@@ -124,19 +124,18 @@ DLL=0
 Locale=2052
 CodePage=936
 [Version Info Keys]
-CompanyName=Bruce Joy Corporation
-FileDescription=小布静听
+CompanyName=
+FileDescription=
 FileVersion=1.0.0.0
 InternalName=
-LegalCopyright=bruce
+LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=1.8.4
-Comments=bruce joy works
+ProductVersion=1.0.0.0
+Comments=
 [Excluded Packages]
-F:\编程\Delphi 7\控件\SkinPackv1\发布版SkinPack for Delphi7\AutoUpgraderProD7.bpl=AutoUpgrader Pro for Delphi 7
-c:\program files\borland\delphi7\Projects\Bpl\SkinPack.bpl=(untitled)
+f:\编程\delphi 7\borland\delphi7\Projects\Bpl\SkinPack.bpl=(untitled)
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;

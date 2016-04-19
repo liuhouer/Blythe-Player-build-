@@ -127,7 +127,7 @@ serlrc.Top:=mainplay.Top+lrcshow.Height;
             s1:='';
           end;
       edit1.text:=s1;
-      edit2.text:=s2;
+      edit2.text:=copy(s2,0,length(s2)-4);
    end;
 
 
@@ -135,4 +135,3 @@ serlrc.Top:=mainplay.Top+lrcshow.Height;
 end;
 
 end.
-
