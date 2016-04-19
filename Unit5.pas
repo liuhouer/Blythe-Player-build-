@@ -31,6 +31,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure waveTimer(Sender: TObject);
     procedure am1Click(Sender: TObject);
+    procedure VsSkin1DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -142,6 +143,11 @@ if am1.AMStyle =smsOscillograph then
 am1.AMStyle:=smsSpectrum     //(ÆµÆ×)
 else
 am1.AMStyle:=smsOscillograph;
+end;
+
+procedure Tminiplay.VsSkin1DblClick(Sender: TObject);
+begin
+vsbackclick(sender);
 end;
 
 end.

@@ -1,6 +1,6 @@
 object miniplay: Tminiplay
-  Left = 537
-  Top = 500
+  Left = 362
+  Top = 278
   BorderStyle = bsNone
   Caption = #23567#27493#38745#21548
   ClientHeight = 243
@@ -27,6 +27,7 @@ object miniplay: Tminiplay
     ParentShowHint = False
     PopupMenu = MainPlay.mainpop
     ShowHint = True
+    OnDblClick = VsSkin1DblClick
     object vsleft: TVsHotSpot
       Left = 12
       Top = 5

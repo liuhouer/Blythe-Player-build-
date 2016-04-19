@@ -1,6 +1,6 @@
 object Form4: TForm4
-  Left = 705
-  Top = 306
+  Left = 724
+  Top = 310
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #31616#26126#20171#32461
@@ -4434,8 +4434,8 @@ object Form4: TForm4
     Width = 288
     Height = 96
     Caption = 
-      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012- '#13#13#29256#26412#65306'1.8.1     '#23436#25104#26085#26399#65306'2012.07.25'#13#13#37038#31665#65306'65471' +
-      '4226@qq.com'#13'               qhdsoftware@163.com'
+      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012-2016 '#13#13#29256#26412#65306'1.8.4     '#23436#25104#26085#26399#65306'2012.10.24'#13#13#37038#31665#65306'6' +
+      '54714226@qq.com'#13'               qhdsoftware@163.com'
     Color = clActiveCaption
     Font.Charset = GB2312_CHARSET
     Font.Color = clWindowText

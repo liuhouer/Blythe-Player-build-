@@ -1,11 +1,11 @@
 object SerLrc: TSerLrc
-  Left = 772
-  Top = 319
-  BorderIcons = [biSystemMenu]
+  Left = 774
+  Top = 210
+  BorderIcons = [biSystemMenu, biHelp]
   BorderStyle = bsSingle
   Caption = #32593#19978#25628#32034#27468#35789
-  ClientHeight = 185
-  ClientWidth = 321
+  ClientHeight = 203
+  ClientWidth = 313
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -29,6 +29,19 @@ object SerLrc: TSerLrc
     Width = 48
     Height = 13
     Caption = #27468#26354#21517#65306
+  end
+  object Label3: TLabel
+    Left = 136
+    Top = 184
+    Width = 25
+    Height = 16
+    AutoSize = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clAqua
+    Font.Height = -16
+    Font.Name = #23435#20307
+    Font.Style = []
+    ParentFont = False
   end
   object Button1: TButton
     Left = 254

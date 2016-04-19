@@ -4,128 +4,135 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls;
+  Dialogs, Menus, VsControls, VsComposer,MPlayer, VsHotSpot, VsSkin, VsLabel,
+  ExtCtrls;
 
 type
   Tminilrc = class(TForm)
-    Timer1: TTimer;
-    Label1: TLabel;
-    Timer2: TTimer;
-    procedure Timer1Timer(Sender: TObject);
+    VsSkin1: TVsSkin;
+    Label1: TVsLabel;
+    VsComposer1: TVsComposer;
+    PopupMenu1: TPopupMenu;
+    N3: TMenuItem;
+    N2: TMenuItem;
+    N4: TMenuItem;
+    Fdg1: TFontDialog;
+    gd: TTimer;
+    N1: TMenuItem;
+    N5: TMenuItem;
+    stayOnTop: TTimer;
     procedure FormCreate(Sender: TObject);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure Timer2Timer(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure N3Click(Sender: TObject);
+    procedure cloClick(Sender: TObject);
+    procedure gdTimer(Sender: TObject);
+    procedure N4Click(Sender: TObject);
+   
+    procedure N1Click(Sender: TObject);
 
-  procedure CreateParams(var Params: TCreateParams);override; 
+    procedure N5Click(Sender: TObject);
+    procedure stayOnTopTimer(Sender: TObject);
   private
-  bmp:TBitmap;
-    nPerent:Integer;
     { Private declarations }
   public
-  procedure WMNCHitTest(var Message: TWMNCHitTest); message WM_NCHITTEST;
     { Public declarations }
   end;
 
 var
   minilrc: Tminilrc;
-
+ 
+   strScroll:Widestring ;
 implementation
+
+uses Unit1, Unit3;
 
 {$R *.dfm}
 
-
-procedure Tminilrc.CreateParams(var Params:TcreateParams); 
-begin 
-inherited; 
-params.WndParent:=getdesktopwindow; 
-end;
-
-procedure Tminilrc.Timer1Timer(Sender: TObject);
-var
-  str: string;
-  tmpWidth:Integer;
-begin
-  str := label1.Caption;
-
-
-  ClientWidth := Canvas.TextWidth(str);
-  ClientHeight := Canvas.TextHeight(str);
- 
-  bmp.Width := ClientWidth;
-  bmp.Height := ClientHeight;
-  bmp.Canvas.Lock;
-  bmp.Canvas.Brush.Color := clblack;
-  bmp.Canvas.FillRect(ClientRect);
-  bmp.Canvas.Brush.Style := bsClear;
-//  bmp.Canvas.Font.Color := clRed;
-//  bmp.Canvas.TextOut(1, 1, str);
-  bmp.Canvas.Font.Color := clYellow;
-  bmp.Canvas.TextOut(0, 0, str);
-  bmp.Canvas.Unlock;
-
- Canvas.Lock;
-
-  Canvas.Brush.Color := clblack;
-  Canvas.FillRect(ClientRect);
-  Canvas.Brush.Style := bsClear;
-//  Canvas.Font.Color := clYellow;
-//  Canvas.TextOut(1, 1, str);
-  Canvas.Font.Color := clgreen;
-  Canvas.TextOut(0, 0, str);
-  Canvas.Brush.Style := bsSolid;
-  tmpWidth:=Round(ClientWidth / 100 * nPerent);
-  Canvas.CopyRect(Rect(0,0,tmpWidth,ClientHeight),bmp.Canvas,Rect(0,0,tmpWidth,ClientHeight));
-
-  Canvas.Unlock;
-
-  Inc(nPerent);
-  if nPerent = 101 then nPerent := 0;
-
-end;
-
 procedure Tminilrc.FormCreate(Sender: TObject);
 begin
-minilrc.Left:=round((screen.Width-ClientWidth)/2);
-minilrc.Top:=screen.Height-Clientheight-6;
-FormStyle := fsStayOnTop;
-  BorderStyle := bsNone;
-  TransparentColor := True;
-  TransparentColorValue := Color;
+self.ScreenSnap:=True;
+self.SnapBuffer:=30;//窗体吸附效果
 
-  Font.Size := 20;
-  Font.Name := 'Arial Black';
-  nPerent:=0;
 
-  bmp := TBitmap.Create;
-  bmp.Canvas.Font.Assign(Font);
+
 end;
 
-procedure Tminilrc.FormKeyPress(Sender: TObject; var Key: Char);
+procedure Tminilrc.FormShow(Sender: TObject);
 begin
-if Key = Chr(27) then Close;
+minilrc.top:=(screen.height-minilrc.height *2) ;
+minilrc.left:=(screen.width-minilrc.width ) div 2 ;
+
 end;
 
-procedure Tminilrc.WMNCHitTest(var Message: TWMNCHitTest);
+procedure Tminilrc.N3Click(Sender: TObject);
 begin
-Message.Result := HTCAPTION;
-end;
-procedure Tminilrc.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-bmp.Free;
+if fdg1.Execute then
+ label1.Font:=fdg1.Font;
+
 end;
 
-procedure Tminilrc.Timer2Timer(Sender: TObject);
+procedure Tminilrc.cloClick(Sender: TObject);
 begin
-if length(label1.Caption)=0 then
-begin
-label1.Caption:='music......'  ;
-end;
-if  length(label1.Caption)>0 then
-begin
-timer1.Interval:=Round(888/length(label1.Caption));
+mainplay.n79.Checked:=false;
+minilrc.close;
+
 end;
 
+procedure Tminilrc.gdTimer(Sender: TObject);
+ var
+   strTrim:Widestring; //只需把字符串定义成 WideString 即可解决半个中文的问题了。--edit by bruce 2012/10/1 0:23
+  // strScroll:Widestring = 'Beyond - 海阔天空.mp3 - 小布静听';
+begin
+
+strScroll:=label1.Caption;
+if length(strScroll)>=36 then
+begin
+label1.Alignment:=vaLeftjustify;
+strTrim:= copy(strScroll,1,36); //获取第1-36个字符
+Delete(strScroll,1,1);         //将第1个字符删除
+
+strScroll:=strScroll+'------>'+strTrim;                 //长度超出后才滚动（截取）
+
+end else
+begin
+ label1.Alignment:=vaCenter;
+end;
+ label1.Caption:= strScroll;
+             //显示出来。
+
+end;
+
+procedure Tminilrc.N4Click(Sender: TObject);
+begin
+mainplay.n79.Checked:=false;
+minilrc.close;
+
+end;
+
+
+
+procedure Tminilrc.N1Click(Sender: TObject);
+begin
+minilrc.Hide;
+mainplay.chk1.checked:=true;
+lrcshow.Show;
+end;
+
+
+
+procedure Tminilrc.N5Click(Sender: TObject);
+begin
+n5.Checked:=not   n5.Checked;
+end;
+
+procedure Tminilrc.stayOnTopTimer(Sender: TObject);
+begin
+if n5.Checked then
+begin
+SetWindowPos(minilrc.handle,   HWND_TOPMOST,   0,   0,
+
+0,   0,SWP_NOMOVE+SWP_NOSIZE);
+end;
 end;
 
 end.

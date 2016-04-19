@@ -4,10 +4,11 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, OBMagnet, ExtCtrls, StdCtrls, TntStdCtrls;
+  Dialogs, Menus, OBMagnet, ExtCtrls, StdCtrls;
 
 type
   TLrcShow = class(TForm)
+    lst1: TListBox;
     tmr1: TTimer;
     OBFormMagnet1: TOBFormMagnet;
     PopupMenu1: TPopupMenu;
@@ -15,7 +16,6 @@ type
     N2: TMenuItem;
     N3: TMenuItem;
     N4: TMenuItem;
-    lst1: TTntListBox;
      procedure loadlrc(s: string);
     procedure tmr1Timer(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -25,6 +25,8 @@ type
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4Click(Sender: TObject);
+    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
   public
@@ -37,7 +39,6 @@ type
   fle: string;
   Lrc: TStrings;
   movelrc :string;
-  timeNums:integer;
 implementation
 
 uses Unit1, Unit6, Unit8;
@@ -46,12 +47,9 @@ uses Unit1, Unit6, Unit8;
 
 procedure TLrcShow.loadlrc(s: string);
 var
-  i,j,k: Integer;
-
-    getstr:String ;
+  i: Integer;
 
 begin
-
   lrc := TStringList.Create;
   if s <> '' then
   begin
@@ -69,56 +67,11 @@ begin
     end;
 
 
-   for i := 0 to lrc.Count - 1 do
+
+    for i := 0 to lrc.Count - 1 do
     begin
-
-       timeNums:=0;
-       for j:=0 to LENGTH(lrc.Strings[i])-1 do
-       begin
-       getstr:= copy(lrc.Strings[i],j,1);
-        if(getstr=']')  then timeNums:=timeNums+1;
-
-       end;
-       {
-        if(copy(lrc.Strings[i],0,1)='[') then
-        begin
-
-        if copy(lrc.Strings[i],1,2)='ar' then  //作者信息
-         begin
-          showmessage('..........');
-       FAur:= copy(lrc.Strings[i],4,length(lrc.Strings[i])-3);
-       lrcshow.lst1.Items.Add('艺术家: '+'bruce') ;
-         end
-       else if copy(lrc.Strings[i],1,2)='ti' then  //曲目标题
-         begin
-           showmessage('..........');
-       FTi:= copy(lrc.Strings[i],4,length(lrc.Strings[i])-3)  ;
-       lrcshow.lst1.Items.Add('歌曲: '+FTi);
-         end
-       else if copy(Lowercase(lrc.Strings[i]),1,2)='al' then  //专辑名
-         begin
-       FAl:= copy(lrc.Strings[i],4,length(lrc.Strings[i])-3)   ;
-       lrcshow.lst1.Items.Add('专辑: '+FAl);
-         end
-       else if copy(Lowercase(lrc.Strings[i]),1,2)='by' then  //编辑LRC歌词的人
-         begin
-       FBy:= copy(lrc.Strings[i],4,length(lrc.Strings[i])-3) ;
-       lrcshow.lst1.Items.Add('歌词编辑: '+FBy);
-         end
-       else if copy(Lowercase(lrc.Strings[i]),1,6)='offset' then  //时间补偿值
-       begin
-
-        FOffset:= strtoint(copy(lrc.Strings[i],8,length(lrc.Strings[i])-7));
-        lrcshow.lst1.Items.Add('延迟时间(毫秒): '+inttostr(FOffset));
-        end
-
-        end;
-
-        }
-        if(length(lrc.Strings[i])>=10*timeNums) then
-        begin
-        lrcshow.lst1.Items.Add((Copy(lrc.Strings[i],10*timeNums+1, length(lrc.Strings[i])-10*timeNums)));
-        end
+     // lrcshow.lst1.Items.Add(lrc.strings[i]);
+     lrcshow.lst1.Items.Add(Copy(lrc.Strings[i],11, length(lrc.Strings[i])-10));
     end;
   end;
 
@@ -126,41 +79,20 @@ begin
 
 
 procedure TLrcShow.tmr1Timer(Sender: TObject);
-
- var
+var
   i: Integer;
-  k,j: integer;
-  Point:   TPoint;
-  DrawRect:   TRect;
   begin
-
-     j:=lrc.Count;   //多少行歌词..
-
-
   for i := 0 to lrc.Count - 1 do
   begin
-       for k:=1 to  timeNums  do
-       begin
-           if(mainplay.stat1.Panels[1].Text = Copy(lrc.Strings[i], 10*(k-1)+2, 5)) then
-         
-             if(length(lrc.Strings[i])>10) then
-                begin
-                  lst1.ItemIndex := i;
-                     if(i>8 )  then
-                     begin
-                     if( i<(j-10)) then
-                         begin
-                       lst1.TopIndex:= i-8;   //选中行一直居中....
-                         end;
-                     end;
-                     if minilrc.Showing then
-                     begin
-                      minilrc.Label1.Caption:=lrcshow.lst1.items.strings[integer(lrcshow.lst1.itemindex)];//控制显示一行mini歌词
-                     end;
-                end;
+       if (mainplay.stat1.Panels[1].Text = Copy(lrc.Strings[i], 2, 5)) then
 
-       end;
+         begin
 
+          lst1.ItemIndex := i;
+
+          minilrc.Label1.Caption:=lrcshow.lst1.items.strings[integer(lrcshow.lst1.itemindex)];//控制显示一行mini歌词
+
+         end;
 
       end;
 
@@ -208,6 +140,12 @@ end;
 procedure TLrcShow.N4Click(Sender: TObject);
 begin
 mainplay.n84click(sender);
+end;
+
+procedure TLrcShow.FormMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+mainplay.moverlrc.Enabled:=false; //关闭同时移动
 end;
 
 end.

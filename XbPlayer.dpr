@@ -9,8 +9,9 @@ uses
   Unit5 in 'Unit5.pas' {miniplay},
   Unit6 in 'Unit6.pas' {SerLrc},
   Unit7 in 'Unit7.pas' {EditLrc},
+  Unit8 in 'Unit8.pas' {minilrc},
   Unit9 in 'Unit9.pas' {Vision},
-  Unit8 in 'Unit8.pas' {minilrc};
+  Unit10 in 'Unit10.pas' {Form10};
 
 {$R *.res}
 
@@ -23,7 +24,8 @@ begin
   Application.CreateForm(Tminiplay, miniplay);
   Application.CreateForm(TSerLrc, SerLrc);
   Application.CreateForm(TEditLrc, EditLrc);
-  Application.CreateForm(TVision, Vision);
   Application.CreateForm(Tminilrc, minilrc);
+  Application.CreateForm(TVision, Vision);
+  Application.CreateForm(TForm10, Form10);
   Application.Run;
 end.

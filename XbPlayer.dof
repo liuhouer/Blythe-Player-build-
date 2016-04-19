@@ -124,15 +124,18 @@ DLL=0
 Locale=2052
 CodePage=936
 [Version Info Keys]
-CompanyName=
-FileDescription=
+CompanyName=Bruce Joy Corporation
+FileDescription=Music Player
 FileVersion=1.0.0.0
 InternalName=
-LegalCopyright=
+LegalCopyright=bruce
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=1.0.0.0
-Comments=
+ProductVersion=1.8.4
+Comments=bruce joy works
 [Excluded Packages]
-f:\±à³Ì\delphi 7\borland\delphi7\Projects\Bpl\SkinPack.bpl=(untitled)
+c:\program files\borland\delphi7\Projects\Bpl\SkinPack.bpl=(untitled)
+[HistoryLists\hlUnitAliases]
+Count=1
+Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
