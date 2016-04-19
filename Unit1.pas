@@ -5,8 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, MPlayer, Registry, Mmsystem, FileCtrl,
-  Menus, ShellAPI, AppEvnts, Buttons, ImgList, SkyAudioMeter, WinSkinData,
-  OBMagnet;
+  Menus, ShellAPI, AppEvnts, Buttons, ImgList, SkyAudioMeter, WinSkinData;
 const WM_NID = WM_User + 1000;
 
 type
@@ -31,7 +30,6 @@ type
     N10: TMenuItem;
     N13: TMenuItem;
     N14: TMenuItem;
-    N15: TMenuItem;
     N16: TMenuItem;
     N17: TMenuItem;
     CDDVDROM1: TMenuItem;
@@ -46,7 +44,6 @@ type
     btn3: TBitBtn;
     btn4: TBitBtn;
     btn5: TBitBtn;
-    N22: TMenuItem;
     N23: TMenuItem;
     btn6: TBitBtn;
     btn7: TBitBtn;
@@ -90,7 +87,6 @@ type
     N43: TMenuItem;
     N44: TMenuItem;
     N45: TMenuItem;
-    N46: TMenuItem;
     N47: TMenuItem;
     N48: TMenuItem;
     N49: TMenuItem;
@@ -141,7 +137,17 @@ type
     Label3: TLabel;
     Timer3: TTimer;
     Timer4: TTimer;
-    OBFormMagnet1: TOBFormMagnet;
+    N15: TMenuItem;
+    N22: TMenuItem;
+    N72: TMenuItem;
+    N73: TMenuItem;
+    Itunes1: TMenuItem;
+    N74: TMenuItem;
+    N46: TMenuItem;
+    N75: TMenuItem;
+    N76: TMenuItem;
+    N77: TMenuItem;
+    mover: TTimer;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button8Click(Sender: TObject);
@@ -162,7 +168,6 @@ type
     procedure N6Click(Sender: TObject);
     procedure N13Click(Sender: TObject);
     procedure N14Click(Sender: TObject);
-    procedure N15Click(Sender: TObject);
     procedure N17Click(Sender: TObject);
     procedure CDDVDROM1Click(Sender: TObject);
     procedure CDDVDROM2Click(Sender: TObject);
@@ -204,7 +209,7 @@ type
     procedure N42Click(Sender: TObject);
     procedure N41Click(Sender: TObject);
     procedure N43Click(Sender: TObject);
-    procedure N46Click(Sender: TObject);
+   
     procedure N52Click(Sender: TObject);
     procedure N101Click(Sender: TObject);
     procedure N201Click(Sender: TObject);
@@ -246,6 +251,20 @@ type
     procedure GroupBox2MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure N71Click(Sender: TObject);
+    procedure N22Click(Sender: TObject);
+    procedure N72Click(Sender: TObject);
+    procedure N73Click(Sender: TObject);
+    procedure N46Click(Sender: TObject);
+    procedure Itunes1Click(Sender: TObject);
+    procedure N74Click(Sender: TObject);
+    procedure N75Click(Sender: TObject);
+    procedure N76Click(Sender: TObject);
+    procedure N77Click(Sender: TObject);
+    procedure FormMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure moverTimer(Sender: TObject);
+    procedure FormDockDrop(Sender: TObject; Source: TDragDockObject; X,
+      Y: Integer);
       private
     procedure DropFiles(var Msg: TMessage); message WM_DropFILES;
     procedure SysCommand(var SysMsg: TMessage); message WM_SYSCOMMAND;
@@ -264,7 +283,7 @@ var
   xlist: TListItem;
 implementation
 
-uses Unit2, Unit3, Unit4;
+uses  Unit3, Unit4;
 
 {$R *.dfm}
 
@@ -843,11 +862,6 @@ begin
   FindClose(s);
 end;
 
-procedure TForm1.N15Click(Sender: TObject);
-begin
-  form2.ShowModal;
-end;
-
 procedure TForm1.N17Click(Sender: TObject);
 begin
  form4.Show;
@@ -916,6 +930,7 @@ begin
     if MediaPlayer1.Mode in [mppaused] then
     begin
       MediaPlayer1.Resume;//恢复播放状态--记忆播放位置
+      skyaudiometer1.Active:=true;
       btn1.Enabled := False;
       btn2.Enabled := True;
     end
@@ -1220,17 +1235,6 @@ n41.checked:=false;
 skyaudiometer1.wavemode:=svmdot;
 end;
 
-procedure TForm1.N46Click(Sender: TObject);
-begin
-N46.Checked:=not N46.Checked;
-if n46.Checked then
-
-form1.Height:=206
-
-else
-
-form1.Height:=685;
-end;
 
 procedure TForm1.N52Click(Sender: TObject);
 begin
@@ -1467,9 +1471,11 @@ procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
 const      //没有标题栏  照样拖动窗体的办法
     sc_dragmove   =   $f012;
 begin
+mover.Enabled:=true ;
 if   form1.Top   <=0   then   form1.Top   :=2;
     releasecapture;
     twincontrol(application.mainform).perform(wm_syscommand,sc_dragmove,   0);
+
 end;
 
 procedure TForm1.GroupBox1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -1498,16 +1504,152 @@ begin
  MessageBox(Handle, '最好歌曲与歌词目录一致，否则可能加载歌词错误！~~~~~反馈邮箱：qhdsofeware@163.com~~~~~QQ:654714226', PChar('Powerd BY Bruce（小布）~~ 2012~03'), MB_OK);
 end;
 
+procedure TForm1.N22Click(Sender: TObject);
+begin
+n22.checked:=true;
+n72.Checked:=false;
+n73.Checked:=false;
+skyaudiometer1.ForeColor:=clMenuHighlight;
+end;
+
+procedure TForm1.N72Click(Sender: TObject);
+begin
+n72.checked:=true;
+n22.Checked:=false;
+n73.Checked:=false;
+skyaudiometer1.ForeColor:=clolive;
+end;
+
+procedure TForm1.N73Click(Sender: TObject);
+begin
+n73.checked:=true;
+n72.Checked:=false;
+n22.Checked:=false;
+skyaudiometer1.ForeColor:=clFuchsia;
+end;
+
+procedure TForm1.N46Click(Sender: TObject);
+begin
+
+
+n46.Checked:=true;
+itunes1.Checked:=false;
+n74.Checked:=false;
+n75.Checked:=false;
+n76.Checked:=false;
+n77.checked:=false;
+skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'绿色节拍.skn');
+end;
+
+procedure TForm1.Itunes1Click(Sender: TObject);
+begin
+ n46.Checked:=false;
+itunes1.Checked:=true;
+n74.Checked:=false;
+n75.Checked:=false;
+n76.Checked:=false;
+n77.checked:=false;
+skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'Itunes.skn');
+end;
+
+procedure TForm1.N74Click(Sender: TObject);
+begin
+ n46.Checked:=false;
+itunes1.Checked:=false;
+n74.Checked:=true;
+n75.Checked:=false;
+n76.Checked:=false;
+n77.checked:=false;
+skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'青青草地.skn');
+end;
+
+procedure TForm1.N75Click(Sender: TObject);
+begin
+ n46.Checked:=false;
+itunes1.Checked:=false;
+n74.Checked:=false;
+n75.Checked:=true;
+n76.Checked:=false;
+n77.checked:=false;
+skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'橙子情结.skn');
+end;
+
+procedure TForm1.N76Click(Sender: TObject);
+begin
+n76.Checked:=true;
+itunes1.Checked:=false;
+n74.Checked:=false;
+n46.Checked:=false;
+n75.Checked:=false;
+n77.checked:=false;
+skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'智能时代.skn');
+end;
+
+procedure TForm1.N77Click(Sender: TObject);
+begin
+n46.Checked:=false;
+itunes1.Checked:=false;
+n74.Checked:=false;
+n75.Checked:=false;
+n76.Checked:=false;
+n77.checked:=true;
+skindata1.LoadFromFile(ExtractFilePath(ParamStr(0))+'蓝色海洋.skn');
+end;
+
+procedure TForm1.FormMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+mover.Enabled:=false;
+end;
+
+procedure TForm1.moverTimer(Sender: TObject);
+begin
+form3.Left:=form1.Left+form1.Width;
+form3.Top:=form1.Top;
+end;
+
+procedure TForm1.FormDockDrop(Sender: TObject; Source: TDragDockObject; X,
+  Y: Integer);
+begin
+//mover.Enabled:=true ;
+end;
+
 end.
 
 
 
 //==============================任意位置拖动窗体的办法=======================
-const      //没有标题栏  照样拖动窗体的办法
+{const      //没有标题栏  照样拖动窗体的办法
     sc_dragmove   =   $f012;
 begin
 if   form1.Top   <=0   then   form1.Top   :=2;
     releasecapture;
-    twincontrol(application.mainform).perform(wm_syscommand,sc_dragmove,   0);
+    twincontrol(application.mainform).perform(wm_syscommand,sc_dragmove,   0); }
 //===========================================================================
+             //                  获取应用程序路径.....
+             //ExtractFilePath(ParamStr(0))-------带'\'；
+             //ExtractFilePath(ParamStr(0))-----不带'\'；
+     {       -----------------------------------------------------
+     AnsiString __fastcall ExtractFilePath;
+
+　　ExtractFilePath和相近函数：
+
+　　ExtractFileDrive ：返回完整文件名中的驱动器，如"C:"
+
+　　ExtractFilePath：返回完整文件名中的路径，最后带“/”，如"C:\test\"
+
+　　ExtractFileDir：返回完整文件名中的路径，最后不带“/” ,如"C:\test"
+
+　　ExtractFileName:返回完整文件名中的文件名称 (带扩展名)，如"mytest.doc"
+
+　　ExtractFileExt 返回完整文件名中的文件扩展名（带.），如".doc"
+
+　　extractfiledir //这个没有最后的 \
+
+　　extractfilepath //这个最后有 \
+}
+////==========================================================================
+
+
+
 

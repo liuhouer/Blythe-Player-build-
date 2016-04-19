@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls,untWaterEffect, OBMagnet;
+  Dialogs, ExtCtrls, StdCtrls,untWaterEffect;
 
 type
   TForm4 = class(TForm)
@@ -14,13 +14,13 @@ type
     Label3: TLabel;
     Button1: TButton;
     tmr1: TTimer;
-    OBFormMagnet1: TOBFormMagnet;
     procedure tmr1Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Img1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure Button1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     Water: TWaterEffect;  Bmp: TBitmap;
@@ -32,6 +32,8 @@ var
   Form4: TForm4;
   x:integer;
 implementation
+
+uses Unit3, Unit1;
 
 {$R *.dfm}
 
@@ -83,6 +85,13 @@ end;
 procedure TForm4.Button1Click(Sender: TObject);
 begin
 close;
+end;
+
+procedure TForm4.FormShow(Sender: TObject);
+begin
+ form4.Left:=Form1.Left+form1.Width;
+  Form4.Top:=Form1.Top;
+AnimateWindow(Form4.Handle,800,AW_BLEND);
 end;
 
 end.

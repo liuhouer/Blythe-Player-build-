@@ -4,13 +4,12 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, OBMagnet;
+  Dialogs, StdCtrls, ExtCtrls;
 
 type
   TForm3 = class(TForm)
     lst1: TListBox;
     tmr1: TTimer;
-    OBFormMagnet1: TOBFormMagnet;
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure tmr1Timer(Sender: TObject);
     procedure loadlrc(s: string);
@@ -57,7 +56,7 @@ begin
     begin
      // Form3.lst1.Items.Add(lrc.strings[i]);
      if i>=2 then
-     Form3.lst1.Items.Add( Copy(lrc.Strings[i], 11, length(lrc.Strings[i])-11));
+     Form3.lst1.Items.Add( Copy(lrc.Strings[i], 11, length(lrc.Strings[i])-10));
       
       end;
   end;
@@ -83,7 +82,7 @@ begin
   begin
     if Form1.stat1.Panels[1].Text = Copy(lrc.Strings[i], 2, 5) then
     begin
-      lst1.ItemIndex := i;
+      lst1.ItemIndex := i-2;
       
       Break;
     end;
@@ -104,6 +103,7 @@ begin
 AnimateWindow(Form3.Handle,800,AW_BLEND);
 end;
 
-
+///////打开关闭时，缓存展示......................................
+////AnimateWindow(Form3.Handle,800,AW_HIDE or AW_BLEND); ////////
 
 end.

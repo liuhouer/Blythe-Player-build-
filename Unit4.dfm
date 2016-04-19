@@ -1,9 +1,8 @@
 object Form4: TForm4
-  Left = 653
-  Top = 159
+  Left = 464
+  Top = 225
   Width = 375
   Height = 372
-  VertScrollBar.Position = 108
   Caption = #31616#26126#20171#32461
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,11 +13,12 @@ object Form4: TForm4
   OldCreateOrder = False
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Img1: TImage
     Left = 0
-    Top = -108
+    Top = 0
     Width = 729
     Height = 425
     Picture.Data = {
@@ -31829,7 +31829,7 @@ object Form4: TForm4
   end
   object Image1: TImage
     Left = 72
-    Top = -84
+    Top = 24
     Width = 33
     Height = 33
     Picture.Data = {
@@ -34738,8 +34738,8 @@ object Form4: TForm4
   end
   object Label1: TLabel
     Left = 120
-    Top = -76
-    Width = 84
+    Top = 32
+    Width = 88
     Height = 21
     Caption = #23567#27493#38745#21548
     Color = 13559755
@@ -34753,7 +34753,7 @@ object Form4: TForm4
   end
   object Label3: TLabel
     Left = 33
-    Top = 4
+    Top = 112
     Width = 272
     Height = 96
     Caption = 
@@ -34770,7 +34770,7 @@ object Form4: TForm4
   end
   object Button1: TButton
     Left = 120
-    Top = 164
+    Top = 272
     Width = 73
     Height = 25
     Caption = #30830#23450
@@ -34778,15 +34778,9 @@ object Form4: TForm4
     OnClick = Button1Click
   end
   object tmr1: TTimer
-    Interval = 100
+    Interval = 50
     OnTimer = tmr1Timer
     Left = 288
     Top = 296
-  end
-  object OBFormMagnet1: TOBFormMagnet
-    Active = True
-    FormGlue = False
-    Left = 272
-    Top = 48
   end
 end
