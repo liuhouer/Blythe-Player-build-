@@ -1,6 +1,6 @@
 object PlayList: TPlayList
-  Left = 177
-  Top = 278
+  Left = 359
+  Top = 283
   BorderStyle = bsNone
   Caption = 'PlayList'
   ClientHeight = 301
@@ -47,10 +47,10 @@ object PlayList: TPlayList
       Alignment = taCenter
       AutoSize = False
       Color = 10528405
-      Font.Charset = ANSI_CHARSET
+      Font.Charset = GB2312_CHARSET
       Font.Color = clWhite
       Font.Height = -11
-      Font.Name = 'Arial Narrow'
+      Font.Name = #26999#20307
       Font.Style = []
       ParentColor = False
       ParentFont = False

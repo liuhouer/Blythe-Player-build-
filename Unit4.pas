@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls,untWaterEffect,  jpeg;
+  Dialogs, ExtCtrls, StdCtrls,untWaterEffect, OBMagnet, jpeg;
 
 type
   TForm4 = class(TForm)
@@ -12,15 +12,16 @@ type
     Image1: TImage;
     Label1: TLabel;
     Label3: TLabel;
+    Button1: TButton;
     tmr1: TTimer;
+    OBFormMagnet1: TOBFormMagnet;
     procedure tmr1Timer(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Img1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
+    procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Img1Click(Sender: TObject);
-    procedure Label3Click(Sender: TObject);
   private
      Water: TWaterEffect;  Bmp: TBitmap;
 
@@ -72,8 +73,8 @@ end;
 
 procedure TForm4.FormCreate(Sender: TObject);
 begin
- // self.ScreenSnap:=True;
- //self.SnapBuffer:=30;//窗体吸附效果
+self.ScreenSnap:=True;
+self.SnapBuffer:=30;//窗体吸附效果
    Bmp := TBitmap.Create;
   Bmp.Assign(img1.Picture.Graphic);
   img1.Picture.Graphic := nil;
@@ -92,19 +93,16 @@ begin
 Water.Blob(x,y,5,10000);
 end;
 
+procedure TForm4.Button1Click(Sender: TObject);
+begin
+close;
+end;
+
 procedure TForm4.FormShow(Sender: TObject);
 begin
- AnimateWindow(Form4.Handle,800,AW_BLEND);
-end;
-
-procedure TForm4.Img1Click(Sender: TObject);
-begin
-close;
-end;
-
-procedure TForm4.Label3Click(Sender: TObject);
-begin
-close;
+ form4.Left:=mainplay.Left+mainplay.Width;
+  Form4.Top:=mainplay.Top;
+AnimateWindow(Form4.Handle,800,AW_BLEND);
 end;
 
 end.

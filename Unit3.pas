@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, OBMagnet, ExtCtrls, StdCtrls;
+  Dialogs, Menus, OBMagnet, ExtCtrls, StdCtrls, ComCtrls;
 
 type
   TLrcShow = class(TForm)
@@ -27,6 +27,9 @@ type
     procedure N4Click(Sender: TObject);
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure lst1DrawItem(Control: TWinControl; Index: Integer;
+      Rect: TRect; State: TOwnerDrawState);
+   
   private
     { Private declarations }
   public
@@ -66,33 +69,34 @@ begin
        serlrc.show;
     end;
 
-
-
     for i := 0 to lrc.Count - 1 do
     begin
-     // lrcshow.lst1.Items.Add(lrc.strings[i]);
+
      lrcshow.lst1.Items.Add(Copy(lrc.Strings[i],11, length(lrc.Strings[i])-10));
     end;
   end;
-
+     
   end;
+
+
+
 
 
 procedure TLrcShow.tmr1Timer(Sender: TObject);
 var
   i: Integer;
   begin
+  
   for i := 0 to lrc.Count - 1 do
   begin
        if (mainplay.stat1.Panels[1].Text = Copy(lrc.Strings[i], 2, 5)) then
+          begin
 
-         begin
-
-          lst1.ItemIndex := i;
+           lst1.ItemIndex := i;
+           lst1.TopIndex := i-round(lst1.Height/lst1.Font.size/6);
 
           minilrc.Label1.Caption:=lrcshow.lst1.items.strings[integer(lrcshow.lst1.itemindex)];//控制显示一行mini歌词
-
-         end;
+          end;
 
       end;
 
@@ -147,5 +151,19 @@ procedure TLrcShow.FormMouseDown(Sender: TObject; Button: TMouseButton;
 begin
 mainplay.moverlrc.Enabled:=false; //关闭同时移动
 end;
+
+procedure TLrcShow.lst1DrawItem(Control: TWinControl; Index: Integer;
+  Rect: TRect; State: TOwnerDrawState);
+  var pCanvas:TCanvas;
+  Value:AnsiString;
+begin
+Value :=(Tlistbox(control)).Items.Strings[index];
+pcanvas:=tlistbox(control).Canvas;
+pcanvas.FillRect(rect);
+drawtext(pcanvas.Handle,pchar(Value),sizeof(Value),rect,dt_center);
+
+end;
+
+
 
 end.

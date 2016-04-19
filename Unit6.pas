@@ -81,8 +81,8 @@ procedure TSerLrc.ListView1DblClick(Sender: TObject);
 var
 ID:Integer;
 Art,Tit:string;
-lrcfile:string;
-i:integer;
+
+
 begin
 if ListView1.ItemIndex<>-1 then
  begin
@@ -107,8 +107,8 @@ var k:integer;
 var s1,s2 :string;
   list : TStringlist;
 begin
-serlrc.Left:=(screen.width-serlrc.width ) div 2 ;
-serlrc.Top:=(screen.height-serlrc.height *2) ;
+serlrc.Left:=mainplay.Left+mainplay.Width;
+serlrc.Top:=mainplay.Top+lrcshow.Height;
 
   if mainplay.MediaPlayer1.Mode in [mpplaying]then  //分离歌曲名这个字符串为2部分 2012.4.2 by-- 小布
   begin

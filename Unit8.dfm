@@ -1,6 +1,6 @@
 object minilrc: Tminilrc
-  Left = 385
-  Top = 420
+  Left = 461
+  Top = 286
   BorderStyle = bsNone
   Caption = 'MiniLrc'
   ClientHeight = 202

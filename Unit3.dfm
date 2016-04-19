@@ -1,7 +1,7 @@
 object LrcShow: TLrcShow
-  Left = 448
-  Top = 157
-  Width = 293
+  Left = 557
+  Top = 147
+  Width = 301
   Height = 394
   Caption = #27468#35789#31168
   Color = clBtnFace
@@ -20,7 +20,7 @@ object LrcShow: TLrcShow
   object lst1: TListBox
     Left = 0
     Top = 0
-    Width = 277
+    Width = 285
     Height = 356
     Align = alClient
     BevelInner = bvSpace
@@ -38,10 +38,10 @@ object LrcShow: TLrcShow
     ParentFont = False
     PopupMenu = PopupMenu1
     TabOrder = 0
+    OnDrawItem = lst1DrawItem
   end
   object tmr1: TTimer
     Enabled = False
-    Interval = 1
     OnTimer = tmr1Timer
     Left = 152
     Top = 128

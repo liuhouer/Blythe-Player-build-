@@ -1,9 +1,9 @@
 object MainPlay: TMainPlay
-  Left = 244
-  Top = 303
+  Left = 196
+  Top = 127
   BorderStyle = bsNone
-  Caption = 'mainplayer'
-  ClientHeight = 351
+  Caption = 'bruce play'
+  ClientHeight = 354
   ClientWidth = 777
   Color = clBtnFace
   TransparentColor = True
@@ -16,6 +16,7 @@ object MainPlay: TMainPlay
   OldCreateOrder = False
   PopupMenu = mainpop
   OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShortCut = FormShortCut
@@ -236,15 +237,14 @@ object MainPlay: TMainPlay
       Top = 44
       Width = 81
       Height = 40
-      Hint = #21333#26426#20999#25442#25928#26524#13#21491#20987#33258#23450#20041
+      Hint = #21333#26426#20999#25442#25928#26524#13#21452#20987#20840#23631#26174#31034#13#21491#20987#33258#23450#20041
       ForeColor = 10808989
       DataScale = 32768
       Redial = True
-      AMStyle = smsSpectrum
-      FreqWidth = 4
       PopupMenu = AudioPop
       ShowHint = True
       OnClick = SkyAudioMeter1Click
+      OnDblClick = SkyAudioMeter1DblClick
     end
     object chk1: TCheckBox
       Left = 183
@@ -275,7 +275,7 @@ object MainPlay: TMainPlay
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 332
+    Top = 335
     Width = 777
     Height = 19
     Panels = <
@@ -7003,6 +7003,11 @@ object MainPlay: TMainPlay
         OnClick = N8Click
       end
     end
+    object N80: TMenuItem
+      Caption = #36855#20320#27169#24335'&(F5)'
+      ShortCut = 116
+      OnClick = N80Click
+    end
     object N14: TMenuItem
       Caption = '-'
     end
@@ -7070,6 +7075,7 @@ object MainPlay: TMainPlay
     end
     object ballhint1: TMenuItem
       Caption = #22312#23631#24149#21491#19979#35282#24377#20986#25773#25918#25552#31034
+      Checked = True
       OnClick = ballhint1Click
     end
     object N36: TMenuItem
@@ -7149,6 +7155,7 @@ object MainPlay: TMainPlay
       Caption = #24213#23485
       object N110: TMenuItem
         Caption = '1'
+        Checked = True
         OnClick = N110Click
       end
       object N210: TMenuItem
@@ -7161,7 +7168,6 @@ object MainPlay: TMainPlay
       end
       object N410: TMenuItem
         Caption = '4'
-        Checked = True
         OnClick = N410Click
       end
       object N510: TMenuItem
@@ -7207,6 +7213,10 @@ object MainPlay: TMainPlay
     end
     object N33: TMenuItem
       Caption = '-'
+    end
+    object N34: TMenuItem
+      Caption = #20840#23631#26174#31034
+      OnClick = N34Click
     end
   end
   object Timer3: TTimer
