@@ -1,5 +1,5 @@
 del /S *.~*
-del /S *.~dcu
+del /S *.dcu
 del /S *.dsk
 del /S *.cfg
 del /S *.hpp

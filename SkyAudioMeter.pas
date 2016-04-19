@@ -499,8 +499,8 @@ var
           y := Trunc(sqrt((FFreqTarget[i].Real * FFreqTarget[i].Real
                            + FFreqTarget[i].Imag * FFreqTarget[i].Imag)
                           / DEF_BUFFER_SIZE));
-          y := Min(y, 81999);
-          y := Height - y * Height div 1500;
+          y := Min(y, 8192);
+          y := Height - y * Height div 100;
           Rectangle(x, y, x + FreqWidth, Height -1);
           Inc(x, FreqSpace + FreqWidth);
         end else begin

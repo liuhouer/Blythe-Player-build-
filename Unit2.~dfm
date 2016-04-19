@@ -126,7 +126,6 @@ object PlayList: TPlayList
       Font.Style = []
       FlatScrollBars = True
       HideSelection = False
-      HotTrack = True
       HotTrackStyles = [htUnderlineHot]
       ReadOnly = True
       ParentBiDiMode = False
