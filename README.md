@@ -57,6 +57,7 @@ Kind of desktop lyrics style, with your be fond of
 . All versions are single file executable program, no call DLL, a lot of people foreigners development of thing, after the call, encumbrance!
 No...
 
+
 Download address:
 
 1.8：   http://pan.baidu.com/share/link?shareid=85307&uk=3860164064 
@@ -103,3 +104,23 @@ Download: http://pan.baidu.com/s/1c01Vp5I
      But not so much energy to tinker with the language behind this door.
      Unfortunately, when you have plenty of time, to develop a passion for something, then you lack the ability, qualifications too shallow;
      When you sufficient ability, skill early as when the original has no love for this thing.
+
+
+---------------------------------------------------------------------------------------------------------------
+
+## version --1.9.2.1
+## date --2016-4-20
+## author --by bruce
+
+- 1. Remove the N clock control, removing redundant memory optimization features per second.
+- 2. Remove the wave effect on the page.
+- 3. Modify Tag label modification unsuccessful bug.
+- 4. remove the clock control magnetic form, currently only control obcontrol way.
+- 5.TODO .. lyrics show features the listbox into listview
+- 6. lyrics automatically retrieved. | Lyrics search click-to set the time interval to save, to prevent the program lock.
+- 7. This version is mainly to get rid of all the redundant | cpu consumption function
+- 8. This year's in-depth understanding of java also promoted to half-delphi development capabilities,
+     But not so much energy to tinker with the language behind this door.
+     Unfortunately, when you have plenty of time, to develop a passion for something, then you lack the ability, qualifications too shallow;
+     When you sufficient ability, skill early as when the original has no love for this thing.
+
