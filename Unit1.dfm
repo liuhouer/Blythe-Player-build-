@@ -1,10 +1,10 @@
 object MainPlay: TMainPlay
-  Left = 196
-  Top = 127
+  Left = 187
+  Top = 126
   BorderStyle = bsNone
   Caption = 'bruce play'
-  ClientHeight = 354
-  ClientWidth = 777
+  ClientHeight = 356
+  ClientWidth = 858
   Color = clBtnFace
   TransparentColor = True
   TransparentColorValue = clFuchsia
@@ -30,8 +30,6 @@ object MainPlay: TMainPlay
     GraphicName = 'player1.bmp'
     Composer = VsComposer1
     PopupMenu = mainpop
-    OnMouseDown = mainskinMouseDown
-    OnMouseUp = mainskinMouseUp
     object btn4: TVsHotSpot
       Left = 22
       Top = 98
@@ -242,6 +240,7 @@ object MainPlay: TMainPlay
       DataScale = 20000
       WaveMode = svmDot
       Redial = True
+      AMStyle = smsSpectrum
       FreqWidth = 4
       PopupMenu = AudioPop
       ShowHint = True
@@ -277,8 +276,8 @@ object MainPlay: TMainPlay
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 335
-    Width = 777
+    Top = 337
+    Width = 858
     Height = 19
     Panels = <
       item
@@ -5224,7 +5223,7 @@ object MainPlay: TMainPlay
       'TOVCDBNUMERICFIELD=Edit')
     SkinStore = '(Good)'
     SkinFormtype = sfMainform
-    Version = '4.11.07.25'
+    Version = '5.60.03.29'
     MenuUpdate = True
     MenuMerge = False
     Left = 312
@@ -6866,15 +6865,8 @@ object MainPlay: TMainPlay
   end
   object Timer1: TTimer
     Enabled = False
-    Interval = 100
     OnTimer = Timer1Timer
     Left = 520
-    Top = 104
-  end
-  object yhcpu: TTimer
-    Interval = 5000
-    OnTimer = yhcpuTimer
-    Left = 488
     Top = 104
   end
   object OBFormMagnet1: TOBFormMagnet
@@ -6889,14 +6881,13 @@ object MainPlay: TMainPlay
   end
   object Timer2: TTimer
     Enabled = False
-    Interval = 100
     OnTimer = Timer2Timer
     Left = 552
     Top = 104
   end
   object mainpop: TPopupMenu
-    Left = 528
-    Top = 156
+    Left = 536
+    Top = 148
     object N81: TMenuItem
       Caption = #23186#20307#25991#20214
       OnClick = N81Click
@@ -7094,16 +7085,12 @@ object MainPlay: TMainPlay
     object N12: TMenuItem
       Caption = #30456#20851#38142#25509
       object SinaBlog1: TMenuItem
-        Caption = 'Sina Blog'
+        Caption = #24067#35789
         OnClick = SinaBlog1Click
       end
       object Qzone1: TMenuItem
-        Caption = 'Qzone'
+        Caption = #26524#20923#26102#21051
         OnClick = Qzone1Click
-      end
-      object MSNLite1: TMenuItem
-        Caption = 'MSN_Lite'
-        OnClick = MSNLite1Click
       end
     end
     object N50: TMenuItem
@@ -7123,8 +7110,8 @@ object MainPlay: TMainPlay
     end
   end
   object AudioPop: TPopupMenu
-    Left = 576
-    Top = 156
+    Left = 568
+    Top = 148
     object N37: TMenuItem
       Caption = #39057#35889#20998#26512
       Checked = True
@@ -7226,17 +7213,11 @@ object MainPlay: TMainPlay
     Left = 584
     Top = 103
   end
-  object StartUpTimer: TTimer
-    Interval = 100
-    OnTimer = StartUpTimerTimer
-    Left = 616
-    Top = 104
-  end
   object gd: TTimer
     Enabled = False
     Interval = 320
     OnTimer = gdTimer
-    Left = 488
+    Left = 496
     Top = 152
   end
   object RzTray: TRzTrayIcon
@@ -7249,39 +7230,19 @@ object MainPlay: TMainPlay
   object jzlst: TTimer
     Interval = 100
     OnTimer = jzlstTimer
-    Left = 632
+    Left = 608
     Top = 152
   end
   object qq1: TTimer
-    Interval = 100
+    Interval = 500
     OnTimer = qq1Timer
-    Left = 496
-    Top = 248
+    Left = 536
+    Top = 208
   end
   object qq2: TTimer
-    Interval = 100
+    Interval = 500
     OnTimer = qq2Timer
-    Left = 536
-    Top = 248
-  end
-  object mover: TTimer
-    Enabled = False
-    Interval = 1
-    OnTimer = moverTimer
-    Left = 712
-    Top = 152
-  end
-  object cixing: TTimer
-    Interval = 100
-    OnTimer = cixingTimer
-    Left = 672
-    Top = 152
-  end
-  object moverlrc: TTimer
-    Enabled = False
-    Interval = 1
-    OnTimer = moverlrcTimer
-    Left = 744
-    Top = 152
+    Left = 584
+    Top = 208
   end
 end

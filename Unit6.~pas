@@ -25,6 +25,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure ListView1DblClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -93,6 +94,7 @@ if ListView1.ItemIndex<>-1 then
    Tit:=ListView1.Items.Item[ListView1.ItemIndex].SubItems.Strings[1];
    memo1.Text:=Utf8ToAnsi(idhttp1.Get(LrcDownLoadLink(id,Art,Tit,RadioGroup1.ItemIndex)));
 
+   sleep(500);
    memo1.Lines.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
    //自动把歌词存入歌曲所在目录，哈哈哈  我是不是爆发了？！！-----by 小布 2012.4.1
 
@@ -111,7 +113,7 @@ var s1,s2 :string;
   list : TStringlist;
 begin
 serlrc.Left:=mainplay.Left+mainplay.Width;
-serlrc.Top:=mainplay.Top+lrcshow.Height;
+serlrc.Top:=300;
 
   if mainplay.MediaPlayer1.Mode in [mpplaying]then  //分离歌曲名这个字符串为2部分 2012.4.2 by-- 小布
   begin
@@ -131,11 +133,16 @@ serlrc.Top:=mainplay.Top+lrcshow.Height;
           end;
       edit1.text:=s1;
       edit2.text:=s2;
-   end;
 
+      //自动点击搜索
+      Button1.Click;
+
+
+  end;
 
 
 end;
+
 
 end.
 

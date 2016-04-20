@@ -44,8 +44,6 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure N4Click(Sender: TObject);
     procedure FormShortCut(var Msg: TWMKey; var Handled: Boolean);
-    procedure VsSkin1MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure N5Click(Sender: TObject);
    
 
@@ -65,6 +63,20 @@ implementation
 uses Unit1, Unit3, Unit10;
 
 {$R *.dfm}
+
+//delphi判断文件是否被占用
+function IsFileInUse(fName : string ) : boolean;
+var
+  HFileRes : HFILE;
+begin
+  Result := false;
+  if not FileExists(fName) then
+    exit;
+  HFileRes := CreateFile(pchar(fName), GENERIC_READ or GENERIC_WRITE,0, nil, OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, 0);
+  Result := (HFileRes = INVALID_HANDLE_VALUE);
+  if not Result then
+    CloseHandle(HFileRes);
+end;
 
 
 
@@ -237,16 +249,20 @@ begin
     begin
     plylst.Add(lv1.Items[i].SubItems.Strings[0] + lv1.Items[i].Caption);
     end;
+    if not IsFileInUse(ExtractFilePath(ParamStr(0))+'bruce.log') then
+    begin
     plylst.SaveToFile(ExtractFilePath(ParamStr(0))+'bruce.log');
-    plylst.Free;
+    plylst.Free  ;
+    end ;
+
+
+    timer1.Enabled:=false;
 end;
 
 procedure TPlayList.N4Click(Sender: TObject);
  var FilePath:String  ;
 begin
-{ShellExecute(Application.Handle, 'open', pChar(lv1.Selected.SubItems[0]), nil, nil,
-    SW_SHOWNORMAL); } //打开文件位置  ，bruce于2012/11/11抛弃它
-   // showmessage(lv1.Selected.SubItems[0]);
+
 FilePath:= lv1.Selected.SubItems[0]+lv1.Selected.Caption ;
 ShellExecute(Handle, 'open', 'Explorer.exe', Pchar('/select,'+ FilePath ),nil, 1);
 //打开文件位置,并且选中它。 ------------------------------ edit by bruce 2012/11/11
@@ -262,11 +278,7 @@ n1.Click;
 
 end;
 
-procedure TPlayList.VsSkin1MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-mainplay.mover.Enabled:=false;
-end;
+
 
 procedure TPlayList.N5Click(Sender: TObject);
 begin

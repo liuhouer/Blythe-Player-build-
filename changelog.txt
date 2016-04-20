@@ -1,17 +1,34 @@
-1.8.5-------2012/10/28---------by bruce
+# 1.9.2.1-------2016-4-20---------by bruce
+## version --1.9.2.1
+## date --2016-4-20
+## author --by bruce
 
-1.调整界面布局，修改滚动信息的算法。
-2.重新编译。删除冗余资源。减小cpu消耗.
-3.修改歌词秀界面界面代码，减少bug。
-4.优化隐藏播放列表切换歌曲的bug.
-5.优化文件不存在时处理异常的交互信息.
-6.优化id3v1处理tag标签相关功能。
-7.此版本已极度稳定。
+1.去掉N个时钟控件，去掉每秒优化内存的冗余功能。
+2.去掉关于页面的水波效果。
+3.修改Tag标签修改不成功的bug.
+4.去掉时钟控制的磁性窗体，目前只用obcontrol一种方式控制。
+5.TODO..歌词秀功能由listbox改成listview
+6.歌词自动检索。| 歌词搜索点击后设置时间间隔保存，以防止程序锁死。
+7.此版本主要祛除了所有冗余|耗cpu的功能
+8.这一两年对java的深入理解也提升了对半吊子delphi的开发能力，
+只是没那么多精力去鼓捣这门落伍的语言了，
+可惜了，当你时间充裕，富有激情的去开发一个东西的时候，那时你能力不足，资历过浅；
+当你能力足矣，功力初成的时候，已经没有了当初对这个东西的挚爱。
 
 //----------------------------------------------------------
-1. Adjust interface layout, modify the rolling information algorithm.
-2. Recompile. Delete redundant resources. Reduced consumption of CPU.
-3. Modify the lyrics show interface interface code, reduce the bug.
-4. Optimize hidden playlist switch song bug.
-5. Optimization file does not exist when handling abnormal mutual information.
-6. Optimization id3v1 processing tag label related function.
+
+## version --1.9.2.1
+## date --2016-4-20
+## author --by bruce
+
+- 1. Remove the N clock control, removing redundant memory optimization features per second.
+- 2. Remove the wave effect on the page.
+- 3. Modify Tag label modification unsuccessful bug.
+- 4. remove the clock control magnetic form, currently only control obcontrol way.
+- 5. TODO .. lyrics show features the listbox into listview
+- 6. lyrics automatically retrieved. | Lyrics search click-to set the time interval to save, to prevent the program lock.
+- 7. This version is mainly to get rid of all the redundant | cpu consumption function
+- 8. This year's in-depth understanding of java also promoted to half-delphi development capabilities,
+     But not so much energy to tinker with the language behind this door.
+     Unfortunately, when you have plenty of time, to develop a passion for something, then you lack the ability, qualifications too shallow;
+     When you sufficient ability, skill early as when the original has no love for this thing.

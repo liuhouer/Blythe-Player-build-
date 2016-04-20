@@ -1,6 +1,6 @@
 object bTag: TbTag
-  Left = 295
-  Top = 335
+  Left = 309
+  Top = 298
   Width = 381
   Height = 308
   Caption = 'tag-id3v1'

@@ -1,0 +1,35 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = play.exe play.ENU play.CHT play.ZHH play.ZHI play.CHS
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+play.exe: play.dpr
+  $(DCC)
+
+play.ENU: ENU\play.dpr
+  $(DCC)
+
+play.CHT: CHT\play.dpr
+  $(DCC)
+
+play.ZHH: ZHH\play.dpr
+  $(DCC)
+
+play.ZHI: ZHI\play.dpr
+  $(DCC)
+
+play.CHS: CHS\play.dpr
+  $(DCC)
+
+

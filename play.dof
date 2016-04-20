@@ -88,7 +88,7 @@ RemoteSymbols=0
 MinStackSize=16384
 MaxStackSize=1048576
 ImageBase=4194304
-ExeDescription=
+ExeDescription=小布静听build-2016-4-20-1.9.1.1
 [Directories]
 OutputDir=
 UnitOutputDir=
@@ -105,16 +105,28 @@ HostApplication=
 Launcher=
 UseLauncher=0
 DebugCWD=
+[RDP Source Files]
+Item0=Unit1.dfm
+Item1=Unit2.dfm
+Item2=Unit3.dfm
+Item3=Unit4.dfm
+Item4=Unit5.dfm
+Item5=Unit6.dfm
+Item6=Unit7.dfm
+Item7=Unit8.dfm
+Item8=Unit9.dfm
+Item9=Unit10.dfm
+Item10=play.drc
 [Language]
 ActiveLang=
-ProjectLang=
+ProjectLang=$00000804
 RootDir=
 [Version Info]
 IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=1
 MinorVer=9
-Release=0
+Release=2
 Build=1
 Debug=1
 PreRelease=0
@@ -126,12 +138,14 @@ CodePage=936
 [Version Info Keys]
 CompanyName=Bruce Joy Corporation
 FileDescription=小布静听
-FileVersion=1.9.0.1
+FileVersion=1.9.2.1
 InternalName=bruce mp3 player
 LegalCopyright=Bruce
 LegalTrademarks=Bruce CopyRight
 OriginalFilename=小步静听
 ProductName=小布静听
-ProductVersion=1.8.5
+ProductVersion=1.9.1.1
 Comments=bruce joy works
-SpecialBuild=1.8.5
+SpecialBuild=1.9.1.1
+[Excluded Packages]
+d:\code\delphi7\app\delphi7\Projects\Bpl\SkinPack.bpl=(无标题)

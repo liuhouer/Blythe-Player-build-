@@ -26,7 +26,6 @@ object PlayList: TPlayList
     GraphicName = 'playlist_'#21103#26412'.bmp'
     Composer = VsComposer1
     PopupMenu = MainPlay.mainpop
-    OnMouseDown = VsSkin1MouseDown
     object VsHotSpot1: TVsHotSpot
       Left = 234
       Top = 31
@@ -8935,7 +8934,6 @@ object PlayList: TPlayList
   end
   object Timer1: TTimer
     Enabled = False
-    Interval = 100
     OnTimer = Timer1Timer
     Left = 288
     Top = 80

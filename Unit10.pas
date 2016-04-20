@@ -102,23 +102,26 @@ var
   Value, Code: Integer;
 begin
 
- if (mainplay.MediaPlayer1.Mode in[mpplaying]) and  (mainplay.stat1.Panels[0].Text<>copy(playlist.lv1.Selected.Caption,0,length(playlist.lv1.Selected.Caption)-4))  then begin
-If MessageDlg ('您要把更改后的ID3标签信息保存到文件吗?',mtConfirmation,[mbYes,mbCancel],0)=mrYes then begin
-begin
- ID3v1.Artist:=Trim(Edit1.Text);
- ID3v1.Title:=Trim(Edit2.Text);               //保存ID3
- ID3v1.Album:=Trim(Edit3.Text);
- ID3v1.Year:=Trim(Edit4.Text);
- ID3v1.Comment:=Trim(Edit5.Text);
- Val(Edit6.Text, Value, Code);
- if (Code = 0) and (Value > 0) then ID3v1.Track := Value
- else ID3v1.Track := 0;
- if ComboBox1.ItemIndex = 0 then ID3v1.GenreID := DEFAULT_GENRE
- else ID3v1.GenreID := ComboBox1.ItemIndex - 1;
- ID3v1.SaveToFile(Edit7.Text);
-   end;
-  end;
-  close;                                                                end else showmessage('正在播放该文件，请稍后再试！');
+ if (mainplay.stat1.Panels[0].Text<>copy(playlist.lv1.Selected.Caption,0,length(playlist.lv1.Selected.Caption)-4)) 
+ then 
+ begin
+	If MessageDlg ('您要把更改后的ID3标签信息保存到文件吗?',mtConfirmation,[mbYes,mbCancel],0)=mrYes then 
+	begin
+		
+			 ID3v1.Artist:=Trim(Edit1.Text);
+			 ID3v1.Title:=Trim(Edit2.Text);               //保存ID3
+			 ID3v1.Album:=Trim(Edit3.Text);
+			 ID3v1.Year:=Trim(Edit4.Text);
+			 ID3v1.Comment:=Trim(Edit5.Text);
+			 Val(Edit6.Text, Value, Code);
+			 if (Code = 0) and (Value > 0) then ID3v1.Track := Value
+			 else ID3v1.Track := 0;
+			 if ComboBox1.ItemIndex = 0 then ID3v1.GenreID := DEFAULT_GENRE
+			 else ID3v1.GenreID := ComboBox1.ItemIndex - 1;
+			 ID3v1.SaveToFile(Edit7.Text);
+	end;
+  end
+  else showmessage('正在播放该文件，请稍后再试！');
 end;
 
 procedure TbTag.Button2Click(Sender: TObject);

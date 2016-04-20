@@ -1,11 +1,11 @@
 object SerLrc: TSerLrc
-  Left = 774
-  Top = 210
+  Left = 305
+  Top = 203
   BorderIcons = [biSystemMenu, biHelp]
   BorderStyle = bsSingle
   Caption = #32593#19978#25628#32034#27468#35789
-  ClientHeight = 203
-  ClientWidth = 313
+  ClientHeight = 264
+  ClientWidth = 320
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -85,7 +85,7 @@ object SerLrc: TSerLrc
     Left = 21
     Top = 96
     Width = 283
-    Height = 81
+    Height = 153
     Columns = <
       item
         Caption = #27468#35789'ID'

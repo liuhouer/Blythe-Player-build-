@@ -25,8 +25,6 @@ type
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4Click(Sender: TObject);
-    procedure FormMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure lst1DrawItem(Control: TWinControl; Index: Integer;
       Rect: TRect; State: TOwnerDrawState);
    
@@ -131,16 +129,17 @@ procedure TLrcShow.tmr1Timer(Sender: TObject);
 var
   i: Integer;
   begin
-  
+
   for i := 0 to lrc.Count - 1 do
   begin
        if (mainplay.stat1.Panels[1].Text = Copy(lrc.Strings[i], 2, 5)) then
           begin
-
+           //控制歌词数组滚动
            lst1.ItemIndex := i;
            lst1.TopIndex := i-round(lst1.Height/lst1.Font.size/6);
 
-          minilrc.Label1.Caption:=lrcshow.lst1.items.strings[integer(lrcshow.lst1.itemindex)];//控制显示一行mini歌词
+           //控制显示一行mini歌词
+           minilrc.Label1.Caption:=lrcshow.lst1.items.strings[integer(lrcshow.lst1.itemindex)];
           end;
 
       end;
@@ -191,11 +190,7 @@ begin
 mainplay.n84click(sender);
 end;
 
-procedure TLrcShow.FormMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-mainplay.moverlrc.Enabled:=false; //关闭同时移动
-end;
+
 
 procedure TLrcShow.lst1DrawItem(Control: TWinControl; Index: Integer;
   Rect: TRect; State: TOwnerDrawState);

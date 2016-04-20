@@ -1,6 +1,6 @@
 object about: Tabout
-  Left = 724
-  Top = 310
+  Left = 389
+  Top = 286
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #31616#26126#20171#32461
@@ -14,7 +14,6 @@ object about: Tabout
   Font.Style = []
   OldCreateOrder = False
   OnCreate = FormCreate
-  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -1502,7 +1501,6 @@ object about: Tabout
       BEC7E9CF1EE6A078D444BE5E155780A070062BC347EDB3E0A94069B4BD7DA6C6
       19C5B41F37B9FDF542DFB687820820695AF807FE9DE0FF00E3D56B1747BFE0C5
       F52AFF00CBF8A3E30A28A2BF343F5E3FFFD9}
-    OnMouseMove = Img1MouseMove
   end
   object Image1: TImage
     Left = 152
@@ -4416,7 +4414,7 @@ object about: Tabout
   object Label1: TLabel
     Left = 196
     Top = 8
-    Width = 88
+    Width = 84
     Height = 21
     Caption = #23567#27493#38745#21548
     Color = 13559755
@@ -4431,12 +4429,11 @@ object about: Tabout
   object Label3: TLabel
     Left = 97
     Top = 88
-    Width = 304
-    Height = 144
+    Width = 288
+    Height = 112
     Caption = 
-      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'2012- '#13#13#29256#26412#65306'1.9.0.1   '#32534#35793#26085#26399#65306'2014-07-09'#13#13#37038#31665#65306'65471' +
-      '4226@qq.com'#13'               qhdsoftware@163.com'#13'                 ' +
-      '    1007136434@qq.com'#13#13#21021#22987#29256#26412#65306'2012-01-01'
+      #20316#32773#65306'Bruce     '#29256#26435#25152#26377#65306'since2012'#13#13#29256#26412#65306'1.9.1.1   '#32534#35793#26085#26399#65306'2016-04-20'#13#13#37038#31665#65306'65' +
+      '4714226@qq.com'#13#13#21021#22987#29256#26412#65306'2012-01-01'
     Color = clActiveCaption
     Font.Charset = GB2312_CHARSET
     Font.Color = clWindowText

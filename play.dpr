@@ -38,6 +38,7 @@ exit;
  end;
 
  
+  Application.Title := 'Ð¡²¼¾²Ìý';
   Application.CreateForm(TMainPlay, MainPlay);
   Application.CreateForm(TPlayList, PlayList);
   Application.CreateForm(TLrcShow, LrcShow);

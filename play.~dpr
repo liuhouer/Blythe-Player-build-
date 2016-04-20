@@ -12,7 +12,7 @@ uses
   Unit7 in 'Unit7.pas' {EditLrc},
   Unit8 in 'Unit8.pas' {minilrc},
   Unit9 in 'Unit9.pas' {Vision},
-  Unit10 in 'Unit10.pas' {Form10};
+  Unit10 in 'Unit10.pas' {bTag};
 
 {$R *.res}
 
@@ -47,6 +47,6 @@ exit;
   Application.CreateForm(TEditLrc, EditLrc);
   Application.CreateForm(Tminilrc, minilrc);
   Application.CreateForm(TVision, Vision);
-  Application.CreateForm(TForm10, Form10);
+  Application.CreateForm(TbTag, bTag);
   Application.Run;
 end.

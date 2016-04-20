@@ -1,10 +1,10 @@
 object minilrc: Tminilrc
-  Left = 426
-  Top = 400
+  Left = 242
+  Top = 206
   BorderStyle = bsNone
   Caption = 'MiniLrc'
-  ClientHeight = 202
-  ClientWidth = 733
+  ClientHeight = 242
+  ClientWidth = 764
   Color = clBtnFace
   TransparentColorValue = clWhite
   Font.Charset = DEFAULT_CHARSET

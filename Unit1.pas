@@ -19,7 +19,6 @@ type
     OpenDialog2: TOpenDialog;
     SaveDialog1: TSaveDialog;
     Timer1: TTimer;
-    yhcpu: TTimer;
     OBFormMagnet1: TOBFormMagnet;
     OpenDialog3: TOpenDialog;
     Timer2: TTimer;
@@ -72,7 +71,6 @@ type
     Label1: TLabel;
     Label2: TLabel;
     chk1: TCheckBox;
-    StartUpTimer: TTimer;
     N1: TMenuItem;
     N2: TMenuItem;
     N3: TMenuItem;
@@ -86,7 +84,6 @@ type
     N13: TMenuItem;
     SinaBlog1: TMenuItem;
     Qzone1: TMenuItem;
-    MSNLite1: TMenuItem;
     N14: TMenuItem;
     N16: TMenuItem;
     N17: TMenuItem;
@@ -133,9 +130,6 @@ type
     N36: TMenuItem;
     VsHotSpot3: TVsHotSpot;
     N35: TMenuItem;
-    mover: TTimer;
-    cixing: TTimer;
-    moverlrc: TTimer;
     Label4: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -163,7 +157,6 @@ type
     procedure N22Click(Sender: TObject);
     procedure N72Click(Sender: TObject);
     procedure N73Click(Sender: TObject);
-    procedure StartUpTimerTimer(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
     procedure btn2Click(Sender: TObject);
     procedure btn3Click(Sender: TObject);
@@ -194,7 +187,6 @@ type
     procedure N10Click(Sender: TObject);
     procedure SinaBlog1Click(Sender: TObject);
     procedure Qzone1Click(Sender: TObject);
-    procedure MSNLite1Click(Sender: TObject);
     procedure N17Click(Sender: TObject);
     procedure N18Click(Sender: TObject);
     procedure N20Click(Sender: TObject);
@@ -217,7 +209,6 @@ type
     procedure N48Click(Sender: TObject);
     procedure N49Click(Sender: TObject);
     procedure N51Click(Sender: TObject);
-    procedure yhcpuTimer(Sender: TObject);
     procedure VsCheckBox1Click(Sender: TObject);
     procedure jzlstTimer(Sender: TObject);
     procedure SkyAudioMeter1DblClick(Sender: TObject);
@@ -231,13 +222,8 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure N35Click(Sender: TObject);
     procedure FormShortCut(var Msg: TWMKey; var Handled: Boolean);
-    procedure cixingTimer(Sender: TObject);
-    procedure moverTimer(Sender: TObject);
-    procedure mainskinMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure mainskinMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure moverlrcTimer(Sender: TObject);
+
+   
    // procedure soundClick(Sender: TObject);
 
 
@@ -359,8 +345,8 @@ begin
         4: result:= 'Windows NT';
         5: result:= 'Windows 2000';
         6: result:= 'Windows XP';
-        7: result:= 'Windows 7';
-       // 8: result:= 'Windows 8' ;
+        7: result:= 'Windows 7+';
+       
         else
           result:= 'UnKnown';
     end;
@@ -698,21 +684,6 @@ begin
       rztray.Hint:=mainplay.stat1.Panels[0].Text + chr(13)+'  ~小步静听,享受音乐盛宴~  ';    //rz托盘提示信息
       miniplay.vsskin1.Hint:=mainplay.stat1.Panels[0].Text + chr(13)+'  ~小步静听,享受音乐盛宴~  ';
 
-     
-       {
-      k:= pos('-',stat1.Panels[0].Text);       //先用pos语句判断歌曲名里有没有'-' 否则会出错--edit by bruce 2012.4.3
-      if  k>0   then
-      begin
-      list := TStringlist.Create;
-      list.Delimiter :='-' ;
-      list.DelimitedText :=StringReplace(stat1.Panels[0].Text,' ','',[rfReplaceAll]);//去除空格;
-      s1:=list.strings[0];
-      s2:= list.Strings[1];
-      end else  begin
-      s2:= stat1.Panels[0].Text;
-      s1:='未知';
-      end;
-      }
       //-------右键菜单播放控制切换-----
       n17.Caption:='暂停' ;
       n18.Caption:='停止' ;
@@ -1025,22 +996,7 @@ n22.Checked:=false;
 skyaudiometer1.ForeColor:=$00DBA7F3;
 end;
 
-procedure TMainPlay.StartUpTimerTimer(Sender: TObject);
- 
-begin
- StartupTimer.Enabled := False;
- 
 
- mainplay.height := mainskin.Height;
- mainplay.Width := mainskin.Width;
- mainplay.Left := (screen.width - mainplay.Width) div 2;
- mainplay.Top := (screen.Height -mainplay.Height) div 2;
- playlist.Top := mainplay.Top +mainplay.Height;
- playlist.Left :=mainplay.Left;
- playlist.Show;
-
-
-end;
 
 
 procedure TMainPlay.Timer2Timer(Sender: TObject);
@@ -1423,18 +1379,15 @@ end;
 
 procedure TMainPlay.SinaBlog1Click(Sender: TObject);
 begin
-ShellExecute(handle, 'open','http://blog.sina.com.cn/u/1843375347','SINABLOG',nil, SW_SHOWNORMAL);
+ShellExecute(handle, 'open','http://northpark.cn/cm/list','buci',nil, SW_SHOWNORMAL);
 end;
 
 procedure TMainPlay.Qzone1Click(Sender: TObject);
 begin
-ShellExecute(handle, 'open','http://user.qzone.qq.com/654714226?ptlang=2052','Qzone',nil, SW_SHOWNORMAL);
+ShellExecute(handle, 'open','http://blog.northpark.cn/','blog',nil, SW_SHOWNORMAL);
 end;
 
-procedure TMainPlay.MSNLite1Click(Sender: TObject);
-begin
-ShellExecute(handle, 'open','https://skydrive.live.com/?cid=167e4f5d97555488','MSNSKY',nil, SW_SHOWNORMAL);
-end;
+
 
 procedure TMainPlay.N17Click(Sender: TObject);
 begin
@@ -1651,16 +1604,7 @@ begin
 winexec(pchar('cmd /c shutdown -s -t 0'),sw_shownormal);
 end;
 
-procedure TMainPlay.yhcpuTimer(Sender: TObject);
-begin
 
-if Win32Platform = VER_PLATFORM_WIN32_NT then
-  begin
-    SetProcessWorkingSetSize(GetCurrentProcess, $FFFFFFFF, $FFFFFFFF);
-    Application.ProcessMessages;
-end;
-
-end;
 
 procedure TMainPlay.VsCheckBox1Click(Sender: TObject);
 begin
@@ -1672,7 +1616,22 @@ procedure TMainPlay.jzlstTimer(Sender: TObject);
   buf: Tstringlist;
   i: Integer;
   begin
-jzlst.Enabled:=false;
+
+  //停用初始化时钟
+  jzlst.Enabled:=false;
+
+
+ //定位窗体的位置
+
+ mainplay.height := mainskin.Height;
+ mainplay.Width := mainskin.Width;
+ mainplay.Left := (screen.width - mainplay.Width) div 2;
+ mainplay.Top := (screen.Height -mainplay.Height) div 2;
+ playlist.Top := mainplay.Top +mainplay.Height;
+ playlist.Left :=mainplay.Left;
+ playlist.Show;
+
+
 //---------------------------自动加载列表---created by bruce 2012.4.4
  if FileExists(ExtractFilePath(ParamStr(0))+'bruce.log')=true then
  begin
@@ -1943,67 +1902,8 @@ if(msg.CharCode=40) then
 n31.Click;
 end;
 
-procedure TMainPlay.cixingTimer(Sender: TObject);
-begin
-if not(label4.Caption = 'Windows 7') then
-begin
-if  (abs(mainplay.left-playlist.Left)< 20) and (abs(playlist.Top-mainplay.Top-mainplay.Height)<20) then
-                      //根据时钟来控制磁性距离感应，写于 2012.4.27  -----------by bruce
-begin
-playlist.Left:=mainplay.Left;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end;
-{if (abs(playlist.Top-mainplay.Top-mainplay.Height)<20)   then
-begin
-playlist.Left:=mainplay.Left;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end; }
-if abs(lrcshow.left-mainplay.left-mainplay.Width)<20   then
-begin
-lrcshow.Left:=mainplay.Left+mainplay.Width;
-lrcshow.Top:=mainplay.Top;
-end;
-end;
-end;
 
-procedure TMainPlay.moverTimer(Sender: TObject);
-begin
 
-if not(label4.Caption = 'Windows 7') then
-playlist.Left:=mainplay.Left ;
-playlist.Top:=mainplay.Top+mainplay.Height;
-end;
 
-procedure TMainPlay.mainskinMouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-if (playlist.Left=mainplay.Left)  then
-begin
-mover.Enabled:=true;
-end ;
-
-if lrcshow.Showing then
-begin
-  if (lrcshow.Left=mainplay.Left+mainplay.Width ) then
-    begin
-     moverlrc.Enabled:=true;
-   end ;    //根据时钟来控制磁性，写于 2012.4.27  -----------by bruce
-end;
-end;
-
-procedure TMainPlay.mainskinMouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-mover.Enabled:=false;
-end;
-
-procedure TMainPlay.moverlrcTimer(Sender: TObject);
-begin
-if not(label4.Caption = 'Windows 7') then
-begin
-lrcshow.Left:=mainplay.Left+mainplay.Width;
-lrcshow.top:=mainplay.top;
-end;
-end;
 
 end.
