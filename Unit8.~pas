@@ -97,7 +97,8 @@ begin
 
 strScroll:=label1.Caption;
 label2.Caption:=inttostr(length(strScroll));
-if length(strScroll)>=36 then
+
+if (IsHz(strScroll) and  length(strScroll)>=18 ) or  ( not IsHz(strScroll) and length(strScroll)>=36 ) then
 begin
 label1.Alignment:=vaLeftjustify;
 strTrim:= copy(strScroll,1,1); //获取第1-36个字符

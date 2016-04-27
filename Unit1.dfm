@@ -237,11 +237,11 @@ object MainPlay: TMainPlay
       Height = 40
       Hint = #21333#26426#20999#25442#25928#26524#13#21452#20987#20840#23631#26174#31034#13#21491#20987#33258#23450#20041
       ForeColor = 10808989
-      DataScale = 20000
+      DataScale = 32768
       WaveMode = svmDot
       Redial = True
       AMStyle = smsSpectrum
-      FreqWidth = 4
+      FreqWidth = 2
       PopupMenu = AudioPop
       ShowHint = True
       OnClick = SkyAudioMeter1Click
@@ -7148,6 +7148,7 @@ object MainPlay: TMainPlay
       end
       object N210: TMenuItem
         Caption = '2'
+        Checked = True
         OnClick = N210Click
       end
       object N310: TMenuItem
@@ -7156,7 +7157,6 @@ object MainPlay: TMainPlay
       end
       object N410: TMenuItem
         Caption = '4'
-        Checked = True
         OnClick = N410Click
       end
       object N510: TMenuItem

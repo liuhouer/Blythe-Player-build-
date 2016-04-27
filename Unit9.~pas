@@ -77,7 +77,7 @@ end;
 procedure TVision.FormCreate(Sender: TObject);
 begin
 SetWindowPos(vision.Handle,HWND_TOPMOST,0,0,0,0,SWP_NOMOVE or SWP_NOSIZE);
-vision.WindowState:=wsMaxinized;
+vision.WindowState:=wsMaximized;
 end;
 
 end.

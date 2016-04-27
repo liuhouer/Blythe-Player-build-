@@ -28,7 +28,7 @@ object Vision: TVision
     Height = 447
     Hint = #21333#26426#20999#25442#25928#26524
     ForeColor = 10808989
-    DataScale = 400
+    DataScale = 32768
     WaveMode = svmNubby
     Redial = True
     FreqWidth = 15

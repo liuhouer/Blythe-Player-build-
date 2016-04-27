@@ -163,26 +163,45 @@ end;
 procedure TSerLrc.Timer1Timer(Sender: TObject);
 
 begin
-
-Count:=Count-1;
-autotext.Caption:=inttostr(Count) + '秒后自动选择关闭'     ;
-if(Count=0) then
+if SerLrc.Showing then
 begin
- Count:=10;
- timer1.Enabled:=false;//禁用
- autotext.Caption :='';
- //选中第一个
+ if(not autotext.Checked)    then
+ begin
+	Count:=Count-1;
+	autotext.Caption:=inttostr(Count) + '秒后自动选择关闭'     ;
+	if(Count=0) then
+	begin
+	 Count:=10;
+	 timer1.Enabled:=false;//禁用
+	 autotext.Caption :='自动关闭';
+	 //选中第一个
 
- if (ListView1.Items.Count>0) then
-    begin
-     //选择最后一个
-      ListView1.SetFocus;
-      ListView1.Items[Listview1.Items.Count -1].Selected := True;
-      ListView1.OnDblClick(sender);
-    end;
+	 if (ListView1.Items.Count>0) then
+	    begin
+	     //选择最后一个
+	      ListView1.SetFocus;
+	      ListView1.Items[Listview1.Items.Count -1].Selected := True;
+	      ListView1.OnDblClick(sender);
+	    end;
 
+	 end;
+  end
+  else
+  begin
+   Count:=10;
+	 timer1.Enabled:=false;//禁用
+	 autotext.Caption :='自动关闭';
+   end;
+  end
+
+
+ else    //窗口隐藏活关闭状态
+ begin
+   Count:=10;
+	 timer1.Enabled:=false;//禁用
+	 autotext.Caption :='自动关闭';
  end;
-end;
-
+ 
+ end;
 end.
 

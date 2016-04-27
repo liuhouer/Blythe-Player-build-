@@ -30,7 +30,7 @@ object minilrc: Tminilrc
     object Label1: TVsLabel
       Left = 18
       Top = 9
-      Width = 279
+      Width = 351
       Height = 21
       Alignment = vaCenter
       AutoSize = False
@@ -38,16 +38,9 @@ object minilrc: Tminilrc
       Font.Charset = ANSI_CHARSET
       Font.Color = clYellow
       Font.Height = -16
-      Font.Name = #20223#23435
+      Font.Name = #24494#36719#38597#40657
       Font.Style = [fsBold]
       ParentFont = False
-    end
-    object Label2: TLabel
-      Left = 304
-      Top = 8
-      Width = 73
-      Height = 17
-      Caption = 'Label2'
     end
   end
   object VsComposer1: TVsComposer

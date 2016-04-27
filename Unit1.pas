@@ -1066,10 +1066,15 @@ procedure TMainPlay.btn4Click(Sender: TObject);
 var
   i: Integer;
 begin
+
   if playlist.Lv1.ItemIndex = -1 then exit; //如果列表为空，则不执行语句
+
+   if (not playlist.Showing)  then  VsHotSpot7click(sender) ;//判断列表窗口是否正在显示
+   
   with mediaplayer1 do //使用判断播放器状态语句，不至于直接执行Mediaplayer.stop，那样会出错！
     if mode in [mpopen, mpplaying] then
     begin
+     //此循环语句用于获取现在的播放序号
       for i := 0 to playlist.Lv1.Items.Count do
       begin
         if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.Lv1.Items[i].Caption then //和第一列第I行比较
@@ -1078,15 +1083,22 @@ begin
           skyaudiometer1.active:=false;
           Break;
         end;
-      end; //此循环语句用于判断当前正在播放的是哪一个列表项
-      if playlist.lv1.ItemIndex > 0 then // 保证列表框中有内容，才执行下面语句，否则也会出错！
+      end;
+      // 保证列表框中选中的不是第一首
+      if playlist.lv1.ItemIndex > 0 then
       begin
         playlist.lv1.SetFocus;
         playlist.lv1.ItemIndex := playlist.lv1.ItemIndex - 1;
         btn1Click(Sender);
+      end
+      else//当前播放的是第一首
+      begin
+         playlist.lv1.SetFocus;
+         playlist.lv1.ItemIndex :=playlist.Lv1.Items.Count -1; //跳到最后一首
+         btn1Click(Sender);
       end;
     end
-    else
+    else   //当前未播放
     begin
       if playlist.lv1.ItemIndex > 0 then // 保证列表框中有内容，才执行下面语句，否则也会出错！
       begin
@@ -1206,10 +1218,17 @@ procedure TMainPlay.btn5Click(Sender: TObject);
 var
   i: Integer;
 begin
-  if playlist.lv1.ItemIndex = -1 then exit;
+
+
+
+  if playlist.lv1.ItemIndex = -1 then exit;     //未选中任何序号
+
+  if (not playlist.Showing)  then  VsHotSpot7click(sender) ; ;//判断列表窗口是否正在显示
+  
   with mediaplayer1 do
     if mode in [mpopen, mpplaying] then
     begin
+      //取得当前播放文件的序号
       for i := 0 to playlist.lv1.Items.Count - 1 do
       begin
         if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.lv1.Items[i].Caption then //此循环语句用于判断当前正在播放的是哪一个列表项
@@ -1219,19 +1238,27 @@ begin
           Break;
         end;
       end;
+      //当前播放的不是最后一首index++
       if playlist.lv1.ItemIndex <> playlist.lv1.Items.count - 1 then //如果当前播放的不是最后一首
       begin
         playlist.lv1.SetFocus;
         playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
         btn1Click(Sender);
+      end
+      else//当前播放的是最后一首
+      begin
+         playlist.lv1.SetFocus;
+         playlist.lv1.ItemIndex :=0;
+         btn1Click(Sender);
       end;
     end
-    else
+    else   //当前未播放
     begin
       if playlist.lv1.ItemIndex = playlist.lv1.Items.count - 1 then Exit;
       playlist.lv1.SetFocus;
       playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
     end;
+
 end;
 
 procedure TMainPlay.N52Click(Sender: TObject);
