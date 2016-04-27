@@ -144,8 +144,11 @@ LegalCopyright=Bruce
 LegalTrademarks=Bruce CopyRight
 OriginalFilename=小步静听
 ProductName=小布静听
-ProductVersion=1.9.1.1
+ProductVersion=1.9.2.1
 Comments=bruce joy works
-SpecialBuild=1.9.1.1
+SpecialBuild=1.9.2.1
 [Excluded Packages]
 d:\code\delphi7\app\delphi7\Projects\Bpl\SkinPack.bpl=(无标题)
+[HistoryLists\hlUnitAliases]
+Count=1
+Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;

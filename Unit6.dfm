@@ -4,8 +4,8 @@ object SerLrc: TSerLrc
   BorderIcons = [biSystemMenu, biHelp]
   BorderStyle = bsSingle
   Caption = #32593#19978#25628#32034#27468#35789
-  ClientHeight = 264
-  ClientWidth = 320
+  ClientHeight = 358
+  ClientWidth = 698
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -85,7 +85,7 @@ object SerLrc: TSerLrc
     Left = 21
     Top = 96
     Width = 283
-    Height = 153
+    Height = 225
     Columns = <
       item
         Caption = #27468#35789'ID'
@@ -122,6 +122,13 @@ object SerLrc: TSerLrc
     Height = 337
     ImeName = #25628#29399#25340#38899#36755#20837#27861
     TabOrder = 5
+  end
+  object autotext: TCheckBox
+    Left = 24
+    Top = 328
+    Width = 281
+    Height = 17
+    TabOrder = 6
   end
   object XPManifest1: TXPManifest
     Left = 485
@@ -286,5 +293,11 @@ object SerLrc: TSerLrc
       8003000000000000800300000000000080030000000000008003000000000000
       C007000000000000FFFF00000000000000000000000000000000000000000000
       000000000000}
+  end
+  object Timer1: TTimer
+    Enabled = False
+    OnTimer = Timer1Timer
+    Left = 440
+    Top = 104
   end
 end

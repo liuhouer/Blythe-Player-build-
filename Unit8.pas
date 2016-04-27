@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, VsControls, VsComposer,MPlayer, VsHotSpot, VsSkin, VsLabel,
-  ExtCtrls;
+  ExtCtrls, StdCtrls;
 
 type
   Tminilrc = class(TForm)
@@ -20,6 +20,7 @@ type
     gd: TTimer;
     N1: TMenuItem;
     N5: TMenuItem;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N3Click(Sender: TObject);
@@ -81,6 +82,12 @@ minilrc.close;
 
 end;
 
+
+function IsHz(Source: string): Boolean;
+begin
+  result := ((Word(Source[1]) shl 8 + Word(Source[2])) >= $B0A1) and ((Word(Source[1]) shl 8 + Word(Source[2])) <= $D7F9)
+end;
+
 procedure Tminilrc.gdTimer(Sender: TObject);
  var
    strTrim:Widestring; //只需把字符串定义成 WideString 即可解决半个中文的问题了。--edit by bruce 2012/10/1 0:23
@@ -89,7 +96,9 @@ procedure Tminilrc.gdTimer(Sender: TObject);
 begin
 
 strScroll:=label1.Caption;
-if length(strScroll)>=36 then
+label2.Caption:=inttostr(length(strScroll));
+
+if (IsHz(strScroll) and  length(strScroll)>=18 ) or  ( not IsHz(strScroll) and length(strScroll)>=36 ) then
 begin
 label1.Alignment:=vaLeftjustify;
 strTrim:= copy(strScroll,1,1); //获取第1-36个字符

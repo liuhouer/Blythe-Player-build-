@@ -22,9 +22,12 @@ type
     IdHTTP1: TIdHTTP;
     ImageList1: TImageList;
     Memo1: TMemo;
+    Timer1: TTimer;
+    autotext: TCheckBox;
     procedure Button1Click(Sender: TObject);
     procedure ListView1DblClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
 
   private
     { Private declarations }
@@ -35,6 +38,7 @@ type
 var
   SerLrc: TSerLrc;
 
+var Count:integer = 10;
 
 implementation
 
@@ -75,8 +79,13 @@ WXml.Free;
 if ListView1.Items.Count=0 then
   begin
     Application.MessageBox('对不起,没有找到相关歌词！', 'Bruce 提示', MB_OK +
-      MB_ICONINFORMATION);
-  end;
+      MB_ICONINFORMATION) ;
+  end
+
+else
+  //有歌词   | 倒计时读秒
+  Timer1.Enabled:=true;
+
   except showmessage('网络错误');  end;
 end;
 
@@ -87,6 +96,7 @@ Art,Tit:string;
 
 
 begin
+serlrc.hide;
 if ListView1.ItemIndex<>-1 then
  begin
    id:=StrToInt(ListView1.Items.Item[ListView1.ItemIndex].Caption);
@@ -100,7 +110,7 @@ if ListView1.ItemIndex<>-1 then
 
    if(mainplay.chk1.Checked) then begin lrcshow.lst1.Clear;lrcshow.loadlrc(mainplay.MediaPlayer1.FileName);end else begin lrcshow.lst1.Clear;mainplay.chk1.Checked:=true;end;//以前是打开的，现在清空+重载 。
    sleep(50);
-   serlrc.Close;
+  // serlrc.Close;
 
   
 
@@ -112,6 +122,12 @@ var k:integer;
 var s1,s2 :string;
   list : TStringlist;
 begin
+//在最上方上显示
+SetWindowPos(SerLrc.handle,   HWND_TOPMOST,   0,   0,
+
+0,   0,SWP_NOMOVE+SWP_NOSIZE);
+
+
 serlrc.Left:=mainplay.Left+mainplay.Width;
 serlrc.Top:=300;
 
@@ -143,6 +159,30 @@ serlrc.Top:=300;
 
 end;
 
+
+procedure TSerLrc.Timer1Timer(Sender: TObject);
+
+begin
+
+Count:=Count-1;
+autotext.Caption:=inttostr(Count) + '秒后自动选择关闭'     ;
+if(Count=0) then
+begin
+ Count:=10;
+ timer1.Enabled:=false;//禁用
+ autotext.Caption :='';
+ //选中第一个
+
+ if (ListView1.Items.Count>0) then
+    begin
+     //选择最后一个
+      ListView1.SetFocus;
+      ListView1.Items[Listview1.Items.Count -1].Selected := True;
+      ListView1.OnDblClick(sender);
+    end;
+
+ end;
+end;
 
 end.
 
