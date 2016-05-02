@@ -1,34 +1,27 @@
-# 1.9.2.1-------2016-4-20---------by bruce
-## version --1.9.2.1
-## date --2016-4-20
+# 1.9.4.1-------2016-5-2---------by bruce
+## version --1.9.4.1
+## date --2016-5-2
 ## author --by bruce
 
-1.去掉N个时钟控件，去掉每秒优化内存的冗余功能。
-2.去掉关于页面的水波效果。
-3.修改Tag标签修改不成功的bug.
-4.去掉时钟控制的磁性窗体，目前只用obcontrol一种方式控制。
-5.TODO..歌词秀功能由listbox改成listview
-6.歌词自动检索。| 歌词搜索点击后设置时间间隔保存，以防止程序锁死。
-7.此版本主要祛除了所有冗余|耗cpu的功能
-8.这一两年对java的深入理解也提升了对半吊子delphi的开发能力，
-只是没那么多精力去鼓捣这门落伍的语言了，
-可惜了，当你时间充裕，富有激情的去开发一个东西的时候，那时你能力不足，资历过浅；
-当你能力足矣，功力初成的时候，已经没有了当初对这个东西的挚爱。
+1.用美图秀秀，抠了半天的图，换了个牛奶皮肤。【程序猿抠图吐血三升】尝试下呗~
+2.用listview替换listbox重写了歌词秀
+3.歌词秀居中显示并自动滚屏，界面更美观
+4.处理异常不支持码率时报错|自动从播放列表清除不支持的码率文件
+5.列表文件自动定位
+6.修改切换上下曲目的算法问题
+7.其他一些bug fix和体验改进
 
 //----------------------------------------------------------
 
-## version --1.9.2.1
-## date --2016-4-20
+# 1.9.4.1-------2016-5-2---------by bruce
+## version --1.9.4.1
+## date --2016-5-2
 ## author --by bruce
 
-- 1. Remove the N clock control, removing redundant memory optimization features per second.
-- 2. Remove the wave effect on the page.
-- 3. Modify Tag label modification unsuccessful bug.
-- 4. remove the clock control magnetic form, currently only control obcontrol way.
-- 5. TODO .. lyrics show features the listbox into listview
-- 6. lyrics automatically retrieved. | Lyrics search click-to set the time interval to save, to prevent the program lock.
-- 7. This version is mainly to get rid of all the redundant | cpu consumption function
-- 8. This year's in-depth understanding of java also promoted to half-delphi development capabilities,
-     But not so much energy to tinker with the language behind this door.
-     Unfortunately, when you have plenty of time, to develop a passion for something, then you lack the ability, qualifications too shallow;
-     When you sufficient ability, skill early as when the original has no love for this thing.
+1. Mito Xiu Xiu, pull a half-day chart, changed the milk skin. [Program] ape matting vomiting three liters try the next chant ~
+2. Replace listview listbox rewritten lyrics show
+3. The lyrics show centered and auto-scroll, more beautiful interface
+4. The process does not support an exception error rate | automatically erased from the playlist does not support the bit rate files
+5. The list of files automatically positioned
+6. Modify the switch up and down the track algorithm problems
+7. Other bug fix and improved experience
