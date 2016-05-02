@@ -103,3 +103,18 @@ Download: http://pan.baidu.com/s/1c01Vp5I
      But not so much energy to tinker with the language behind this door.
      Unfortunately, when you have plenty of time, to develop a passion for something, then you lack the ability, qualifications too shallow;
      When you sufficient ability, skill early as when the original has no love for this thing.
+
+//----------------------------------------------------------
+
+# 1.9.4.1-------2016-5-2---------by bruce
+## version --1.9.4.1
+## date --2016-5-2
+## author --by bruce
+
+1. Mito Xiu Xiu, pull a half-day chart, changed the milk skin. [Program] ape matting vomiting three liters try the next chant ~
+2. Replace listview listbox rewritten lyrics show
+3. The lyrics show centered and auto-scroll, more beautiful interface
+4. The process does not support an exception error rate | automatically erased from the playlist does not support the bit rate files
+5. The list of files automatically positioned
+6. Modify the switch up and down the track algorithm problems
+7. Other bug fix and improved experience
