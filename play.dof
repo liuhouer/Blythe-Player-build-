@@ -126,8 +126,8 @@ IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=1
 MinorVer=9
-Release=2
-Build=3
+Release=4
+Build=1
 Debug=1
 PreRelease=0
 Special=1
@@ -138,15 +138,15 @@ CodePage=936
 [Version Info Keys]
 CompanyName=Bruce Joy Corporation
 FileDescription=小布静听
-FileVersion=1.9.2.3
-InternalName=bruce mp3 player
+FileVersion=1.9.4.1
+InternalName=milkskin
 LegalCopyright=Bruce
 LegalTrademarks=Bruce CopyRight
 OriginalFilename=小步静听
 ProductName=小布静听
-ProductVersion=1.9.2.3
+ProductVersion=1.9.4.1-milk
 Comments=bruce joy works
-SpecialBuild=1.9.2.3
+SpecialBuild=1.9.4.1--milk
 [Excluded Packages]
 d:\code\delphi7\app\delphi7\Projects\Bpl\SkinPack.bpl=(无标题)
 [HistoryLists\hlUnitAliases]

@@ -20,7 +20,6 @@ type
     gd: TTimer;
     N1: TMenuItem;
     N5: TMenuItem;
-    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure N3Click(Sender: TObject);
@@ -83,9 +82,15 @@ minilrc.close;
 end;
 
 
-function IsHz(Source: string): Boolean;
+
+function IsHz(str:string):boolean;//返回为True则字符串中有中文
+var
+  enStr:string;
+  cnStr:widestring;
 begin
-  result := ((Word(Source[1]) shl 8 + Word(Source[2])) >= $B0A1) and ((Word(Source[1]) shl 8 + Word(Source[2])) <= $D7F9)
+  enStr := str;
+  cnStr := wideString(str);
+  result := length(enStr)<> length(cnStr);
 end;
 
 procedure Tminilrc.gdTimer(Sender: TObject);
@@ -96,15 +101,15 @@ procedure Tminilrc.gdTimer(Sender: TObject);
 begin
 
 strScroll:=label1.Caption;
-label2.Caption:=inttostr(length(strScroll));
 
-if (IsHz(strScroll) and  length(strScroll)>=18 ) or  ( not IsHz(strScroll) and length(strScroll)>=36 ) then
+
+if (IsHz(strScroll) and  (length(strScroll)>=18) ) or  ( not IsHz(strScroll) and (length(strScroll)>=36) ) then
 begin
 label1.Alignment:=vaLeftjustify;
 strTrim:= copy(strScroll,1,1); //获取第1-36个字符
 Delete(strScroll,1,1);         //将第1个字符删除
 
-strScroll:=strScroll+'...music...'+strTrim;                 //长度超出后才滚动（截取）
+strScroll:=strScroll+'...music...';                 //长度超出后才滚动（截取）
 
 end else
 begin

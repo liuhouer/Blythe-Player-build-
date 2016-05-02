@@ -5,7 +5,7 @@ object SerLrc: TSerLrc
   BorderStyle = bsSingle
   Caption = #32593#19978#25628#32034#27468#35789
   ClientHeight = 358
-  ClientWidth = 698
+  ClientWidth = 319
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -129,6 +129,12 @@ object SerLrc: TSerLrc
     Width = 281
     Height = 17
     Caption = #33258#21160#20851#38381
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = #24494#36719#38597#40657
+    Font.Style = []
+    ParentFont = False
     TabOrder = 6
   end
   object XPManifest1: TXPManifest

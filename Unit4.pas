@@ -12,7 +12,6 @@ type
     Image1: TImage;
     Label1: TLabel;
     Label3: TLabel;
-    Button1: TButton;
     tmr1: TTimer;
     OBFormMagnet1: TOBFormMagnet;
     procedure tmr1Timer(Sender: TObject);
@@ -21,6 +20,7 @@ type
 
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Img1Click(Sender: TObject);
   private
 
 
@@ -71,6 +71,11 @@ begin
  about.Left:=mainplay.Left+mainplay.Width;
   about.Top:=mainplay.Top;
 AnimateWindow(about.Handle,800,AW_BLEND);
+end;
+
+procedure Tabout.Img1Click(Sender: TObject);
+begin
+close;
 end;
 
 end.

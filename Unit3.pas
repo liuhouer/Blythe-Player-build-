@@ -4,11 +4,11 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, OBMagnet, ExtCtrls, StdCtrls, ComCtrls;
+  Dialogs, Menus, OBMagnet, ExtCtrls, StdCtrls, ComCtrls, VsControls,
+  VsSkin, VsComposer, RzBorder, RzLstBox, RzListVw;
 
 type
   TLrcShow = class(TForm)
-    lst1: TListBox;
     tmr1: TTimer;
     OBFormMagnet1: TOBFormMagnet;
     PopupMenu1: TPopupMenu;
@@ -16,6 +16,9 @@ type
     N2: TMenuItem;
     N3: TMenuItem;
     N4: TMenuItem;
+    VsComposer1: TVsComposer;
+    VsSkin1: TVsSkin;
+    lv1: TRzListView;
      procedure loadlrc(s: string);
     procedure tmr1Timer(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -25,9 +28,7 @@ type
     procedure N2Click(Sender: TObject);
     procedure N3Click(Sender: TObject);
     procedure N4Click(Sender: TObject);
-    procedure lst1DrawItem(Control: TWinControl; Index: Integer;
-      Rect: TRect; State: TOwnerDrawState);
-   
+
   private
     { Private declarations }
   public
@@ -53,7 +54,7 @@ var
  str: WideString;
 FTextList  :TStrings;
 
-k:integer;
+
 
 timestr:String;
 content:WideString;
@@ -64,6 +65,7 @@ n:integer;
 nextStr: WideString;
 nextContent:WideString;
 nextlastIndex:integer;
+ xlist: TListItem;
 begin
   lrc := TStringList.Create;
   FTextList:=TStringList.create;
@@ -115,10 +117,19 @@ begin
     for i := 0 to lrc.Count - 1 do
     begin
 
-     lrcshow.lst1.Items.Add(Copy(lrc.Strings[i],11, length(lrc.Strings[i])-10));
+     //lrcshow.lst1.Items.Add(Copy(lrc.Strings[i],11, length(lrc.Strings[i])-10));
+
+     xlist := lrcshow.lv1.Items.Add;
+     xlist.SubItems.add(Copy(lrc.Strings[i],11, length(lrc.Strings[i])-10));
+
+     //居中显示
+     lrcshow.lv1.Columns[1].Alignment:=taCenter ;
+
     end;
+
+
   end;
-     
+
   end;
 
 
@@ -129,17 +140,40 @@ procedure TLrcShow.tmr1Timer(Sender: TObject);
 var
   i: Integer;
   begin
-
   for i := 0 to lrc.Count - 1 do
   begin
        if (mainplay.stat1.Panels[1].Text = Copy(lrc.Strings[i], 2, 5)) then
           begin
-           //控制歌词数组滚动
-           lst1.ItemIndex := i;
-           lst1.TopIndex := i-round(lst1.Height/lst1.Font.size/6);
+
+            //控制歌词数组滚动
+           //lst1.ItemIndex := i;
+           //lst1.TopIndex := i-round(lst1.Height/lst1.Font.size/6);
+
+
+           //控制listview的滚动
+            if lrcshow.Showing then      lrcshow.lv1.SetFocus;
+
+            lrcshow.lv1.ItemIndex  :=i;
+            //选中项居中
+            lrcshow.lv1.Selected.MakeVisible(true);
+
+            
+
+
+           if i>0 then
+            begin
+              lrcshow.lv1.Scroll(lv1.Items[i-1].Position.X,lv1.Items[i-1].Position.y-100)
+            end
+           else
+            begin
+              lrcshow.lv1.Scroll(0,-100000);
+            end;
 
            //控制显示一行mini歌词
-           minilrc.Label1.Caption:=lrcshow.lst1.items.strings[integer(lrcshow.lst1.itemindex)];
+              if(minilrc.Showing) then
+                begin
+                 minilrc.Label1.Caption:=lrcshow.lv1.items[i].SubItems.GetText;
+                end;
           end;
 
       end;
@@ -166,7 +200,8 @@ begin
 
   tmr1.Enabled := False;
   
-  lst1.Clear;
+  lv1.Clear;
+  //lst1.Clear;
   lrc.Free;
 end;
 
@@ -192,17 +227,12 @@ end;
 
 
 
-procedure TLrcShow.lst1DrawItem(Control: TWinControl; Index: Integer;
-  Rect: TRect; State: TOwnerDrawState);
-  var pCanvas:TCanvas;
-  Value:AnsiString;
-begin
-Value :=(Tlistbox(control)).Items.Strings[index];
-pcanvas:=tlistbox(control).Canvas;
-pcanvas.FillRect(rect);
-drawtext(pcanvas.Handle,pchar(Value),sizeof(Value),rect,dt_center);
 
-end;
+
+
+
+
+
 
 
 

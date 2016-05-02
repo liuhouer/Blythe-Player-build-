@@ -1501,6 +1501,7 @@ object about: Tabout
       BEC7E9CF1EE6A078D444BE5E155780A070062BC347EDB3E0A94069B4BD7DA6C6
       19C5B41F37B9FDF542DFB687820820695AF807FE9DE0FF00E3D56B1747BFE0C5
       F52AFF00CBF8A3E30A28A2BF343F5E3FFFD9}
+    OnClick = Img1Click
   end
   object Image1: TImage
     Left = 152
@@ -4442,15 +4443,7 @@ object about: Tabout
     Font.Style = []
     ParentColor = False
     ParentFont = False
-  end
-  object Button1: TButton
-    Left = 184
-    Top = 264
-    Width = 73
-    Height = 25
-    Caption = #30830#23450
-    TabOrder = 0
-    OnClick = Button1Click
+    Transparent = True
   end
   object tmr1: TTimer
     Interval = 50

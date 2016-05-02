@@ -6,7 +6,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, VsControls, VsSkin, VsImageClip, ComCtrls, SkyAudioMeter,Mmsystem,FileCtrl,
   VsComposer, WinSkinData, Menus,ShellAPI,AppEvnts, OBMagnet, ExtCtrls, MPlayer, StdCtrls,
-  VsHotSpot, VsImage, RzTray,  RzCommon, id3v1, VsSlider,StrUtils;
+  VsHotSpot, VsImage, RzTray,  RzCommon, id3v1, VsSlider,StrUtils,
+  RzButton, RzRadChk;
  const WM_NID = WM_User + 1000;
 type
   TMainPlay = class(TForm)
@@ -29,7 +30,6 @@ type
     listname: TMenuItem;
     N80: TMenuItem;
     N85: TMenuItem;
-    N78: TMenuItem;
     N79: TMenuItem;
     N83: TMenuItem;
     N82: TMenuItem;
@@ -70,7 +70,6 @@ type
     VsHotSpot7: TVsHotSpot;
     Label1: TLabel;
     Label2: TLabel;
-    chk1: TCheckBox;
     N1: TMenuItem;
     N2: TMenuItem;
     N3: TMenuItem;
@@ -78,9 +77,7 @@ type
     N7: TMenuItem;
     N8: TMenuItem;
     N9: TMenuItem;
-    N10: TMenuItem;
     N11: TMenuItem;
-    N12: TMenuItem;
     N13: TMenuItem;
     SinaBlog1: TMenuItem;
     Qzone1: TMenuItem;
@@ -131,6 +128,8 @@ type
     VsHotSpot3: TVsHotSpot;
     N35: TMenuItem;
     Label4: TLabel;
+    appname: TLabel;
+    chk1: TRzCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -153,7 +152,7 @@ type
     procedure N211Click(Sender: TObject);
     procedure N311Click(Sender: TObject);
     procedure Timer3Timer(Sender: TObject);
-   
+
     procedure N22Click(Sender: TObject);
     procedure N72Click(Sender: TObject);
     procedure N73Click(Sender: TObject);
@@ -222,7 +221,8 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure N35Click(Sender: TObject);
     procedure FormShortCut(var Msg: TWMKey; var Handled: Boolean);
-
+    procedure VsHotlrcClick(Sender: TObject);
+    
    
    // procedure soundClick(Sender: TObject);
 
@@ -286,6 +286,18 @@ implementation
 uses Unit2, Unit5, Unit8, Unit3, Unit6, Unit7, Unit4, Unit9;
 
 {$R *.dfm}
+
+//释放内存资源
+function clearRAM:String;
+begin
+
+if Win32Platform = VER_PLATFORM_WIN32_NT then
+  begin
+    SetProcessWorkingSetSize(GetCurrentProcess, $FFFFFFFF, $FFFFFFFF);
+    Application.ProcessMessages;
+end;
+
+end;
 //----------------------------------------------获取操作系统id编号----------
 function GetOsVersion:integer;
 var
@@ -790,6 +802,7 @@ end;
 
 
 procedure TMainPlay.btn1Click(Sender: TObject);
+var nowindex:integer;
 begin
 
 if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
@@ -838,20 +851,38 @@ if playlist.Lv1.ItemIndex <> -1 then //首先判断列表框中是否有内容
         end;
         if chk1.Checked=True then
         begin
-        lrcshow.lst1.Clear;
+        //lrcshow.lst1.Clear;
+        lrcshow.lv1.Clear;
         lrcshow.loadlrc(MediaPlayer1.FileName);
         end;
+        //定位显示正在播放项
+        if playlist.Showing then   playlist.lv1.Selected.MakeVisible(true);
+
       except
-        
-           rztray.ShowBalloonHint('','文件不存在',bhiinfo,10);
-          
+           begin
+             try
+                nowindex := playlist.Lv1.ItemIndex;
+                rztray.ShowBalloonHint('','not support,removing from playlist',bhiinfo,10);
+                playlist.Lv1.DeleteSelected; //删除选中的列表项
+                playlist.Lv1.ItemIndex:=nowindex;   //选中一项
+                playlist.lv1DblClick(sender);
+             except                            //保证不弹出捕获的异常代码
+             end;
+
+           end;
+
       end;
+      //释放资源
+      clearRAM;
+
 
 
     end;
   end;
 
 end;
+
+
 
 procedure TMainPlay.N5Click(Sender: TObject);
 begin
@@ -1063,8 +1094,7 @@ end;
 
 
 procedure TMainPlay.btn4Click(Sender: TObject);
-var
-  i: Integer;
+
 begin
 
   if playlist.Lv1.ItemIndex = -1 then exit; //如果列表为空，则不执行语句
@@ -1074,21 +1104,18 @@ begin
   with mediaplayer1 do //使用判断播放器状态语句，不至于直接执行Mediaplayer.stop，那样会出错！
     if mode in [mpopen, mpplaying] then
     begin
-     //此循环语句用于获取现在的播放序号
-      for i := 0 to playlist.Lv1.Items.Count do
-      begin
-        if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.Lv1.Items[i].Caption then //和第一列第I行比较
-        begin
-          playlist.lv1.ItemIndex := i;
-          skyaudiometer1.active:=false;
-          Break;
-        end;
-      end;
+     //取得当前播放文件的序号
+      playlist.lv1.ItemIndex :=   playlist.lv1.Selected.Index    ;
+
       // 保证列表框中选中的不是第一首
       if playlist.lv1.ItemIndex > 0 then
       begin
         playlist.lv1.SetFocus;
-        playlist.lv1.ItemIndex := playlist.lv1.ItemIndex - 1;
+         //<>随机播放
+              if not n7.Checked   then    playlist.lv1.ItemIndex := playlist.lv1.ItemIndex - 1;
+              //随机播放
+              if n7.Checked  then    playlist.lv1.ItemIndex :=random(playlist.lv1.Items.Count-1);
+
         btn1Click(Sender);
       end
       else//当前播放的是第一首
@@ -1176,7 +1203,6 @@ end;
 procedure TMainPlay.N9Click(Sender: TObject);
 var //添加文件夹中的MP3,wma文件
   dir: string;
-  S: TSearchRec;
   i:integer;
 index:integer;
 mypath:string;
@@ -1215,11 +1241,7 @@ end;
 
 
 procedure TMainPlay.btn5Click(Sender: TObject);
-var
-  i: Integer;
 begin
-
-
 
   if playlist.lv1.ItemIndex = -1 then exit;     //未选中任何序号
 
@@ -1229,21 +1251,19 @@ begin
     if mode in [mpopen, mpplaying] then
     begin
       //取得当前播放文件的序号
-      for i := 0 to playlist.lv1.Items.Count - 1 do
-      begin
-        if MediaPlayer1.FileName = playlist.lv1.Items[i].SubItems.strings[0] + playlist.lv1.Items[i].Caption then //此循环语句用于判断当前正在播放的是哪一个列表项
-        begin
-          playlist.lv1.ItemIndex := i;
-          skyaudiometer1.active:=false;
-          Break;
-        end;
-      end;
+      playlist.lv1.ItemIndex :=   playlist.lv1.Selected.Index    ;
+
       //当前播放的不是最后一首index++
-      if playlist.lv1.ItemIndex <> playlist.lv1.Items.count - 1 then //如果当前播放的不是最后一首
+      if playlist.lv1.ItemIndex <> playlist.lv1.Items.count - 1  then //如果当前播放的不是最后一首
       begin
-        playlist.lv1.SetFocus;
-        playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
-        btn1Click(Sender);
+
+              playlist.lv1.SetFocus;
+              //<>随机播放
+              if not n7.Checked   then    playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
+              //随机播放
+              if n7.Checked  then    playlist.lv1.ItemIndex :=random(playlist.lv1.Items.Count-1);
+              btn1Click(Sender);
+
       end
       else//当前播放的是最后一首
       begin
@@ -1254,11 +1274,12 @@ begin
     end
     else   //当前未播放
     begin
-      if playlist.lv1.ItemIndex = playlist.lv1.Items.count - 1 then Exit;
+      if playlist.lv1.ItemIndex = playlist.lv1.Items.count - 1 then  exit ;
       playlist.lv1.SetFocus;
       playlist.lv1.ItemIndex := playlist.lv1.ItemIndex + 1;
     end;
 
+    
 end;
 
 procedure TMainPlay.N52Click(Sender: TObject);
@@ -1302,30 +1323,55 @@ begin
 n79.Checked:=true;
 n44.Checked:=false;
 if chk1.Checked then   begin
-lrcshow.hide;
 minilrc.Show;
+lrcshow.hide;
+
 end
 else
 begin
 chk1.Checked:=true;
 lrcshow.Show;
-lrcshow.hide;
 minilrc.show;
+lrcshow.hide;
+
 end;
 end;
 
 procedure TMainPlay.N83Click(Sender: TObject);
+ var
+  List: TStringList;
+  NewItem: TListItem;
+  I: Integer;
 begin
  if MediaPlayer1.Mode in[mpplaying] then
  begin
 opendialog3.Filter:='LRC歌词文件|*.LRC'  ;
 if opendialog3.Execute then
   begin
- lrcshow.lst1.Items.LoadFromFile(opendialog3.FileName);
-lrcshow.lst1.Items.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
+
+        NewItem := nil;
+        lrcshow.lv1.Items.Clear;
+        List := TStringList.Create;
+        try
+          List.LoadFromFile (opendialog3.FileName);
+          for I := 0 to List.Count - 1 do
+            
+            begin
+              NewItem := lrcshow.lv1.Items.Add;
+              NewItem.SubItems.add (List [I]) ;
+            end;
+
+          List.SaveToFile (ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');  //保存到文件  
+        finally
+          List.Free;
+        end;
 
 
- if(mainplay.chk1.Checked) then begin lrcshow.lst1.Clear;lrcshow.loadlrc(mainplay.MediaPlayer1.FileName);end else begin lrcshow.lst1.Clear;mainplay.chk1.Checked:=true;end;//以前是打开的，现在清空+重载 。以前没打开，现在打开
+ //lrcshow.lst1.Items.LoadFromFile(opendialog3.FileName);
+ //lrcshow.lst1.Items.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
+
+
+          if(mainplay.chk1.Checked) then begin lrcshow.lv1.Clear;lrcshow.loadlrc(mainplay.MediaPlayer1.FileName);end else begin lrcshow.lv1.Clear;mainplay.chk1.Checked:=true;end;//以前是打开的，现在清空+重载 。以前没打开，现在打开
 
   end;
  end else  showmessage('未播放');
@@ -1363,7 +1409,7 @@ begin
   begin
    minilrc.Hide;
    lrcshow.show;
-  
+
     if MediaPlayer1.Mode in[mpplaying] then lrcshow.loadlrc(MediaPlayer1.FileName);
       end;
   if chk1.Checked = False then lrcshow.hide;
@@ -1931,6 +1977,19 @@ end;
 
 
 
+
+
+procedure TMainPlay.VsHotlrcClick(Sender: TObject);
+begin
+
+
+if chk1.Checked = True then
+  begin
+   chk1.Checked:=false;
+   lrcshow.Hide;
+  end;
+  if chk1.Checked = False then chk1.Checked:=true;;
+end;
 
 
 end.

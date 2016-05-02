@@ -163,8 +163,10 @@ end;
 procedure TSerLrc.Timer1Timer(Sender: TObject);
 
 begin
- if(not autotext.Checked)    then
+if SerLrc.Showing then
 begin
+ if(not autotext.Checked)    then
+ begin
 	Count:=Count-1;
 	autotext.Caption:=inttostr(Count) + '秒后自动选择关闭'     ;
 	if(Count=0) then
@@ -185,8 +187,21 @@ begin
 	 end;
   end
   else
+  begin
+   Count:=10;
+	 timer1.Enabled:=false;//禁用
+	 autotext.Caption :='自动关闭';
+   end;
+  end
 
-end;
 
+ else    //窗口隐藏活关闭状态
+ begin
+   Count:=10;
+	 timer1.Enabled:=false;//禁用
+	 autotext.Caption :='自动关闭';
+ end;
+ 
+ end;
 end.
 

@@ -249,14 +249,13 @@ begin
     begin
     plylst.Add(lv1.Items[i].SubItems.Strings[0] + lv1.Items[i].Caption);
     end;
-    if IsFileInUse(ExtractFilePath(ParamStr(0))+'bruce.log') then
+    if not IsFileInUse(ExtractFilePath(ParamStr(0))+'bruce.log') then
     begin
-    messagebox('true');
     plylst.SaveToFile(ExtractFilePath(ParamStr(0))+'bruce.log');
-    plylst.Free;
-    else
-               messagebox('false');
-    end   ;
+    plylst.Free  ;
+    end ;
+
+
     timer1.Enabled:=false;
 end;
 
