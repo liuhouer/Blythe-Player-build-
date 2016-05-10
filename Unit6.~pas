@@ -7,7 +7,7 @@ uses
   IdComponent, IdHTTP, XPMan, ExtCtrls,
   Messages, SysUtils, Variants, Classes, Graphics,  Forms,
   Dialogs,OleCtrls, QianQianLrc, ImgList,Mplayer, IdBaseComponent, IdTCPConnection,
-  IdTCPClient;
+  IdTCPClient, RzTray,  RzCommon,RzButton,RzRadChk;
 
 type
   TSerLrc = class(TForm)
@@ -78,15 +78,15 @@ end;
 WXml.Free;
 if ListView1.Items.Count=0 then
   begin
-    Application.MessageBox('对不起,没有找到相关歌词！', 'Bruce 提示', MB_OK +
-      MB_ICONINFORMATION) ;
+
+      rztray.ShowBalloonHint('','找不到啦~',bhiinfo,10);
   end
 
 else
   //有歌词   | 倒计时读秒
   Timer1.Enabled:=true;
 
-  except showmessage('网络错误');  end;
+  except rztray.ShowBalloonHint('','网络异常啦~',bhiinfo,10);  end;
 end;
 
 procedure TSerLrc.ListView1DblClick(Sender: TObject);
@@ -108,7 +108,7 @@ if ListView1.ItemIndex<>-1 then
    memo1.Lines.SaveToFile(ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');
    //自动把歌词存入歌曲所在目录，哈哈哈  我是不是爆发了？！！-----by 小布 2012.4.1
 
-   if(mainplay.chk1.Checked) then begin lrcshow.lst1.Clear;lrcshow.loadlrc(mainplay.MediaPlayer1.FileName);end else begin lrcshow.lst1.Clear;mainplay.chk1.Checked:=true;end;//以前是打开的，现在清空+重载 。
+   if(mainplay.chk1.Checked) then begin lrcshow.lv1.Clear;lrcshow.loadlrc(mainplay.MediaPlayer1.FileName);end else begin lrcshow.lv1.Clear;mainplay.chk1.Checked:=true;end;//以前是打开的，现在清空+重载 。
    sleep(50);
   // serlrc.Close;
 

@@ -1368,7 +1368,7 @@ if opendialog3.Execute then
           if(mainplay.chk1.Checked) then begin lrcshow.lv1.Clear;lrcshow.loadlrc(mainplay.MediaPlayer1.FileName);end else begin lrcshow.lv1.Clear;mainplay.chk1.Checked:=true;end;//以前是打开的，现在清空+重载 。以前没打开，现在打开
 
   end;
- end else  showmessage('未播放');
+ end else  rztray.ShowBalloonHint('','未播放啦~',bhiinfo,10);;
 end;
 
 procedure TMainPlay.N82Click(Sender: TObject);

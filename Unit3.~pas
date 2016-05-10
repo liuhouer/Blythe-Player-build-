@@ -172,7 +172,7 @@ var
            //控制显示一行mini歌词
               if(minilrc.Showing) then
                 begin
-                 minilrc.Label1.Caption:=lrcshow.lv1.items[i].SubItems.GetText;
+                 minilrc.Label1.Caption:='  '+lrcshow.lv1.items[i].SubItems.GetText;
                 end;
           end;
 

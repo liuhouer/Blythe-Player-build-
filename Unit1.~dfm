@@ -1,10 +1,10 @@
 object MainPlay: TMainPlay
-  Left = 194
-  Top = 131
+  Left = 221
+  Top = 170
   BorderStyle = bsNone
   Caption = 'bruce play'
   ClientHeight = 496
-  ClientWidth = 904
+  ClientWidth = 873
   Color = cl3DLight
   TransparentColor = True
   TransparentColorValue = clFuchsia
@@ -96,6 +96,8 @@ object MainPlay: TMainPlay
       Width = 26
       Height = 15
       Hint = #21015#34920'|'#38544#34255
+      ParentShowHint = False
+      ShowHint = True
       OnClick = VsHotSpot7Click
     end
     object Label1: TLabel
@@ -177,6 +179,8 @@ object MainPlay: TMainPlay
       Direction = sdHorz
       MaskColor = clNone
       OnChange = TrackBar1Change
+      ParentShowHint = False
+      ShowHint = True
       OnMouseMove = trackbar1MouseMove
     end
     object VsHotSpot1: TVsHotSpot
@@ -184,25 +188,31 @@ object MainPlay: TMainPlay
       Top = 4
       Width = 12
       Height = 12
+      Cursor = crHandPoint
       Hint = #26368#23567#21270
       GraphicName = 'std-buttons.bmp'
       ClipRect.Left = 1
       ClipRect.Top = 5
       ClipRect.Width = 17
       ClipRect.Height = 10
+      ParentShowHint = False
+      ShowHint = True
       OnClick = VsHotSpot1Click
     end
     object VsHotSpot2: TVsHotSpot
       Left = 306
-      Top = 4
-      Width = 11
+      Top = 3
+      Width = 10
       Height = 12
+      Cursor = crHandPoint
       Hint = #20851#38381
       GraphicName = 'std-buttons.bmp'
       ClipRect.Left = 1
       ClipRect.Top = 5
       ClipRect.Width = 17
       ClipRect.Height = 10
+      ParentShowHint = False
+      ShowHint = True
       OnClick = VsHotSpot2Click
     end
     object VsHotSpot3: TVsHotSpot
@@ -250,6 +260,42 @@ object MainPlay: TMainPlay
       ParentShowHint = False
       ShowHint = True
     end
+    object shuffle: TVsHotSpot
+      Left = 189
+      Top = 104
+      Width = 52
+      Height = 20
+      Hint = #20999#25442#38543#26426
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = N7Click
+    end
+    object VsHotSpot4: TVsHotSpot
+      Left = 243
+      Top = 104
+      Width = 33
+      Height = 20
+      Hint = #21015#34920#37325#22797
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = N8Click
+    end
+    object VsHotSpot5: TVsHotSpot
+      Left = 293
+      Top = 3
+      Width = 11
+      Height = 12
+      Cursor = crHandPoint
+      Hint = #36855#20320#27169#24335
+      GraphicName = 'std-buttons.bmp'
+      ClipRect.Left = 1
+      ClipRect.Top = 5
+      ClipRect.Width = 17
+      ClipRect.Height = 10
+      ParentShowHint = False
+      ShowHint = True
+      OnClick = N80Click
+    end
     object SkyAudioMeter1: TSkyAudioMeter
       Left = 12
       Top = 30
@@ -274,10 +320,13 @@ object MainPlay: TMainPlay
       Top = 65
       Width = 39
       Height = 16
+      Hint = #27468#35789#31168
       AllowGrayed = True
       Color = cl3DLight
       FrameColor = clWindow
       ParentColor = False
+      ParentShowHint = False
+      ShowHint = True
       State = cbUnchecked
       TabOrder = 1
       Transparent = True
@@ -297,7 +346,7 @@ object MainPlay: TMainPlay
   object stat1: TStatusBar
     Left = 0
     Top = 477
-    Width = 904
+    Width = 873
     Height = 19
     Panels = <
       item

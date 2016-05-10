@@ -130,6 +130,9 @@ type
     Label4: TLabel;
     appname: TLabel;
     chk1: TRzCheckBox;
+    shuffle: TVsHotSpot;
+    VsHotSpot4: TVsHotSpot;
+    VsHotSpot5: TVsHotSpot;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -1340,8 +1343,6 @@ end;
 procedure TMainPlay.N83Click(Sender: TObject);
  var
   List: TStringList;
-  NewItem: TListItem;
-  I: Integer;
 begin
  if MediaPlayer1.Mode in[mpplaying] then
  begin
@@ -1349,18 +1350,11 @@ opendialog3.Filter:='LRC歌词文件|*.LRC'  ;
 if opendialog3.Execute then
   begin
 
-        NewItem := nil;
+
         lrcshow.lv1.Items.Clear;
         List := TStringList.Create;
         try
           List.LoadFromFile (opendialog3.FileName);
-          for I := 0 to List.Count - 1 do
-            
-            begin
-              NewItem := lrcshow.lv1.Items.Add;
-              NewItem.SubItems.add (List [I]) ;
-            end;
-
           List.SaveToFile (ExtractFilePath(mainplay.MediaPlayer1.FileName)+copy(extractfilename(mainplay.MediaPlayer1.FileName),0,length(extractfilename(mainplay.MediaPlayer1.FileName))-4)+'.lrc');  //保存到文件  
         finally
           List.Free;

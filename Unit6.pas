@@ -7,7 +7,7 @@ uses
   IdComponent, IdHTTP, XPMan, ExtCtrls,
   Messages, SysUtils, Variants, Classes, Graphics,  Forms,
   Dialogs,OleCtrls, QianQianLrc, ImgList,Mplayer, IdBaseComponent, IdTCPConnection,
-  IdTCPClient;
+  IdTCPClient, RzTray,  RzCommon,RzButton,RzRadChk;
 
 type
   TSerLrc = class(TForm)
@@ -24,6 +24,7 @@ type
     Memo1: TMemo;
     Timer1: TTimer;
     autotext: TCheckBox;
+    RzTray: TRzTrayIcon;
     procedure Button1Click(Sender: TObject);
     procedure ListView1DblClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -78,15 +79,16 @@ end;
 WXml.Free;
 if ListView1.Items.Count=0 then
   begin
-    Application.MessageBox('对不起,没有找到相关歌词！', 'Bruce 提示', MB_OK +
-      MB_ICONINFORMATION) ;
+
+      rztray.ShowBalloonHint('','找不到啦~',bhiinfo,10);
+      //rztray.ShowBalloonHint('','not support,removing from playlist',bhiinfo,10);
   end
 
 else
   //有歌词   | 倒计时读秒
   Timer1.Enabled:=true;
 
-  except showmessage('网络错误');  end;
+  except rztray.ShowBalloonHint('','网络异常啦~',bhiinfo,10);  end;
 end;
 
 procedure TSerLrc.ListView1DblClick(Sender: TObject);

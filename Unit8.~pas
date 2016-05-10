@@ -105,7 +105,8 @@ strScroll:=label1.Caption;
 
 if (IsHz(strScroll) and  (length(strScroll)>=18) ) or  ( not IsHz(strScroll) and (length(strScroll)>=36) ) then
 begin
-label1.Alignment:=vaLeftjustify;
+label1.Alignment:=vaLeftJustify;
+label1.Left:=50;
 strTrim:= copy(strScroll,1,1); //获取第1-36个字符
 Delete(strScroll,1,1);         //将第1个字符删除
 
@@ -114,6 +115,7 @@ strScroll:=strScroll+'...music...';                 //长度超出后才滚动（截取）
 end else
 begin
  label1.Alignment:=vaCenter;
+ label1.Left:=18;
 end;
  label1.Caption:= strScroll;
              //显示出来。

@@ -37,7 +37,7 @@ object LrcShow: TLrcShow
           Width = 0
         end
         item
-          Caption = 'lrc'
+          Caption = #27468#35789#31168
           Width = 274
         end>
       Font.Charset = GB2312_CHARSET
