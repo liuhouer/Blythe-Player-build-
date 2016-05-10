@@ -118,3 +118,10 @@ Download: http://pan.baidu.com/s/1c01Vp5I
 5. The list of files automatically positioned
 6. Modify the switch up and down the track algorithm problems
 7. Other bug fix and improved experience
+
+
+----
+2016-5-10
+
+tipbox change to ball tips. fix to elegance |
+
